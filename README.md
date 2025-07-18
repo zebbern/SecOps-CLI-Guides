@@ -2,7 +2,7 @@
 
 ## SecOps CLI Guides
 
-![SecOps CLI Cheat-Sheets]()
+![SecOps CLI Cheat-Sheets](https://img.lovepik.com/png/20231025/Cartoon-study-reading-stereo-EMOJI-expression-learn-education_353757_wh860.png)
 
 ![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  
 ![GitHub issues](https://img.shields.io/github/issues/zebbern/SecOps-CLI-Guides)  
