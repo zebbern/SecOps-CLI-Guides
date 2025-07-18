@@ -2,7 +2,7 @@
 
 ## SecOps CLI Guides
 
-![SecOps CLI Cheat-Sheets](https://toppng.com/uploads/preview/internet-icon-font-awesome-icons-globe-11553506797urclvjrgxm.png)
+![SecOps CLI Cheat-Sheets](https://share.google/moiAY8A9P85UId1ZE)
 
 ![GitHub stars](https://img.shields.io/github/stars/zebbern/SecOps-CLI-Guides)  
 ![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  
