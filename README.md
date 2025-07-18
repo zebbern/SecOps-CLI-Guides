@@ -4,7 +4,6 @@
 
 ![SecOps CLI Cheat-Sheets]()
 
-![GitHub stars](https://img.shields.io/github/stars/zebbern/SecOps-CLI-Guides)  
 ![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  
 ![GitHub issues](https://img.shields.io/github/issues/zebbern/SecOps-CLI-Guides)  
 ![Last commit](https://img.shields.io/github/last-commit/zebbern/SecOps-CLI-Guides)
