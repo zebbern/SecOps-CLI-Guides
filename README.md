@@ -2,11 +2,9 @@
 
 ## SecOps CLI Guides
 
-![SecOps CLI Cheat-Sheets](https://img.lovepik.com/png/20231025/Cartoon-study-reading-stereo-EMOJI-expression-learn-education_353757_wh860.png)
+<img width="200" height="400" alt="ayvtmutg9-Photoroom" src="https://github.com/user-attachments/assets/dd674bec-4858-409f-b28c-cf54e8a44ed9">
 
-![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  
-![GitHub issues](https://img.shields.io/github/issues/zebbern/SecOps-CLI-Guides)  
-![Last commit](https://img.shields.io/github/last-commit/zebbern/SecOps-CLI-Guides)
+![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  ![GitHub issues](https://img.shields.io/github/issues/zebbern/SecOps-CLI-Guides)  ![Last commit](https://img.shields.io/github/last-commit/zebbern/SecOps-CLI-Guides)
 
 #### A curated collection of PDF command-line cheat-sheets and how-to guides for security professionals seeking concise, offline reference.
 
