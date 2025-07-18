@@ -2,7 +2,7 @@
 
 ## SecOps CLI Guides
 
-![SecOps CLI Cheat-Sheets](https://share.google/moiAY8A9P85UId1ZE)
+![SecOps CLI Cheat-Sheets]()
 
 ![GitHub stars](https://img.shields.io/github/stars/zebbern/SecOps-CLI-Guides)  
 ![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides)  
