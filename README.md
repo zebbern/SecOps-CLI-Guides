@@ -1,14 +1,27 @@
-## **` SecOps-CLI-Guides `**  
+# SecOps CLI Guides
 
-<h4>SecOps-CLI-Guides is a collection of command-line references/Guides for security professionals, ethical hackers, and system administrators. This repository consolidates various commands for penetration testing, Linux system management, and security auditing, making it a valuable resource for both beginners and advanced users.</h4>
+![GitHub stars](https://img.shields.io/github/stars/zebbern/SecOps-CLI-Guides?style=flat-square)  
+![GitHub forks](https://img.shields.io/github/forks/zebbern/SecOps-CLI-Guides?style=flat-square)  
+![GitHub issues](https://img.shields.io/github/issues/zebbern/SecOps-CLI-Guides?style=flat-square)  
+![Last commit](https://img.shields.io/github/last-commit/zebbern/SecOps-CLI-Guides?style=flat-square)
 
-## **` Contents `**  
-- Penetration Testing Commands
-- Linux Administration & Security Commands
-- Networking & Firewall Management
-- System Monitoring & Optimization
-- Backup & Recovery Techniques</h4>
-etc...
+A curated collection of PDF command-line cheat-sheets and how-to guides for security professionals seeking concise, offline reference.
 
-## **` Contributing `**  
-Contributions are welcome! Feel free to submit new commands, guides, or improvements via pull requests.
+### Guides/Key topics:
+```
+- Metasploit  
+- Nmap  
+- SQLMap  
+- Hydra  
+- PowerShell scripting  
+- Linux privilege escalation  
+- Wireshark packet analysis  
+- Cloud penetration testing  
+- Active Directory attacks
+```
+
+### Contributing
+
+1. Fork this repository  
+2. Add or update PDF guides  
+3. Submit a pull request with a brief description of your changes  
