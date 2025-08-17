@@ -1,0 +1,35 @@
+1. haveibeenpwned.com — check in leaked databases
+
+2. emailrep.io — find websites where account has been registered by email
+
+3. dehashed.com — checking mail in leaked databases
+
+4. @Smart_SearchBot — find full name, DoB, address and phone number
+
+5. pwndb2am4tzkvold.onion — search in pwndb, also search by password
+
+6. intelx.io — multifunctional search engine, the search is also carried out on the darknet
+
+7. @mailsearchbot — search in database, gives password partially
+
+8. @shi_ver_bot — breached passwords
+
+9. @info_baza_bot — show from what base mail leaked, 2 free scans
+
+10. leakedsource.ru —  show from what base mail leaked
+
+11. mostwantedhf.info — find skype account
+
+12. email2phonenumber (https://github.com/martinvigo/email2phonenumber) (t) — automatically collects data from account recovery pages, and finds the phone number
+
+13. spiderfoot.net (r) — automatic search using a huge number of methods, tool available in the cloud with registration
+
+14. reversegenie.com — find location, first letter of the name and phone numbers
+
+15. @last4mailbot — bot will find the last 4 digits of the Sberbank client’s phone number
+
+16. searchmy.bio — find instagram account with email in description
+
+17. leakprobe.net — it will find nickname and source of leaked database
+
+18. Leakpoint.com - It will give you every thing whatever you wants that's why its in last because it never dehope people
