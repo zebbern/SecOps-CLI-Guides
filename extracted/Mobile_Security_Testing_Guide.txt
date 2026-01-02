@@ -1,0 +1,1314 @@
+=== Mobile Security Testing Guide.pdf ===
+Total Pages: 110
+============================================================
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+MSTG 
+MOBILE SECURITY 
+TESTING GUIDE v1.0 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 1 
+ 
+Contents 
+ 
+Overview ................................................................................................................................................................................. 4 
+Introduction to Mobile Penetration Testing ........................................................................................................................ 5 
+Mobile Application Penetration Testing Process ............................................................................................................ 5 
+Reconnaissance................................................................................................................................................................... 5 
+Static Analysis .................................................................................................................................................................... 6 
+Dynamic analysis................................................................................................................................................................ 6 
+Lab Setup ................................................................................................................................................................................ 7 
+Android Debug Bridge ...................................................................................................................................................... 7 
+Install java ........................................................................................................................................................................ 10 
+Jadx-GUI .......................................................................................................................................................................... 10 
+Apktool .............................................................................................................................................................................. 11 
+Frida .................................................................................................................................................................................. 11 
+Install Frida-Server ......................................................................................................................................................... 12 
+Objection........................................................................................................................................................................... 13 
+Docker ............................................................................................................................................................................... 14 
+Prebuilt Docker image from Docker Hub ..................................................................................................................... 15 
+Drozer ............................................................................................................................................................................... 16 
+Android Introduction .......................................................................................................................................................... 19 
+Android Architecture ...................................................................................................................................................... 21 
+Application framework ................................................................................................................................................... 21 
+Android runtime .............................................................................................................................................................. 22 
+Platform libraries ............................................................................................................................................................. 22 
+Linux Kernel .................................................................................................................................................................... 23 
+Android Boot Process ...................................................................................................................................................... 23 
+Android security .............................................................................................................................................................. 25 
+Practical ............................................................................................................................................................................ 26 
+Static Analysis .................................................................................................................................................................. 28 
+What is APK ................................................................................................................................................................. 28 
+Apk structure ............................................................................................................................................................... 29 
+Smali .............................................................................................................................................................................. 37 
+Reversing App with Apktool ............................................................................................................................................... 38 
+Phases of reverse engineering ......................................................................................................................................... 38 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 2 
+ 
+Decompling ....................................................................................................................................................................... 40 
+Recompile ......................................................................................................................................................................... 41 
+Application signing .......................................................................................................................................................... 41 
+Sign the APK .................................................................................................................................................................... 42 
+FIND HARDCODED STRINGS .................................................................................................................................... 42 
+Reversing App with MobSf ................................................................................................................................................. 45 
+Scanning vulnerability with Drozer ................................................................................................................................... 53 
+1.Improper platform usage ................................................................................................................................................. 60 
+Impact ............................................................................................................................................................................... 61 
+Exploitation ...................................................................................................................................................................... 61 
+Insecure Components ...................................................................................................................................................... 62 
+Debuggable application ................................................................................................................................................... 66 
+2.Insecure Data storage ....................................................................................................................................................... 66 
+Data Storage on Android ................................................................................................................................................ 67 
+Shared Preferences ...................................................................................................................................................... 68 
+Firebase Real-time Databases ..................................................................................................................................... 68 
+Internal Storage ........................................................................................................................................................... 68 
+Logs ............................................................................................................................................................................... 69 
+Exploitation ...................................................................................................................................................................... 69 
+Shared preference ........................................................................................................................................................ 69 
+Sqlite database.............................................................................................................................................................. 71 
+Internal file storage ...................................................................................................................................................... 72 
+Firebase ......................................................................................................................................................................... 73 
+3.Insecure Communication ................................................................................................................................................. 74 
+4. Insecure Authentication .................................................................................................................................................. 75 
+5. Insufficient cryptography................................................................................................................................................ 76 
+6. Insufficient authorisation ................................................................................................................................................ 77 
+7. Code Tempering ............................................................................................................................................................... 78 
+Tempering with Automatic Tool .................................................................................................................................... 79 
+Manual Tempering .......................................................................................................................................................... 81 
+Dynamic Analysis ................................................................................................................................................................. 89 
+SSL Pinning ...................................................................................................................................................................... 89 
+Intercept Traffic using Burp suite .................................................................................................................................. 89 
+Root Detection Bypass ..................................................................................................................................................... 91 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 3 
+ 
+Bypass using objection................................................................................................................................................. 94 
+Bypass using Frida ....................................................................................................................................................... 95 
+SSL Pinning Bypass using Objection tool...................................................................................................................... 96 
+Frida codeshare ................................................................................................................................................................ 97 
+Use Android Location Spoofing script ....................................................................................................................... 98 
+Injured Android ................................................................................................................................................................... 99 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 4 
+ 
+Overview 
+Mobile security testing is the process of evaluating the security of a mobile application or device to identify 
+potential vulnerabilities or weaknesses that could be exploited by attackers. It involves a series of tests and 
+assessments that are designed to simulate different types of attacks and to determine how well the application or 
+device can withstand them. 
+Mobile security testing typically involves a combination of manual and automated techniques, such as: 
+• Static analysis: examining the source code or application binary to identify potential security issues. 
+• Dynamic analysis: testing the application or device in real-time to detect vulnerabilities and weaknesses. 
+• Penetration testing: simulating an attack on the application or device to identify potential security holes. 
+• Reverse engineering: analysing the application or device to understand how it works and to identify 
+potential vulnerabilities. 
+Mobile security testing is an essential part of the mobile app development process to ensure that the application 
+is secure and does not expose users' sensitive information to unauthorized access or malicious attacks. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 5 
+ 
+Introduction to Mobile Penetration Testing 
+Mobile penetration testing is a process of assessing the security of mobile devices, applications, and systems to 
+identify vulnerabilities and weaknesses that can be exploited by attackers. Penetration testing is performed by 
+ethical hackers, also known as penetration testers, who use the same techniques as real attackers to identify and 
+exploit security flaws. 
+The goal of mobile penetration testing is to identify potential security risks and vulnerabilities, and to provide 
+recommendations for mitigating these risks. Mobile penetration testing can help organizations improve the 
+security of their mobile devices, applications, and systems, and can help prevent security breaches and other 
+security incidents that can result in reputational damage and financial losses. 
+Mobile Application Penetration Testing Process 
+The process of mobile application penetration testing involves mainly three steps to identify vulnerabilities and 
+assess the security of mobile applications. Here is an overview of the typical mobile application penetration 
+testing process: 
+• Reconnaissance 
+• Static Analysis 
+• Dynamic 
+Reconnaissance 
+Reconnaissance is the process of gathering information about a target to better understand its environment and 
+potential vulnerabilities. It is a crucial step in any security assessment or penetration testing, as it provides 
+valuable insights into the target's applications. 
+• Earning Reports and Press release often contain info about mobile Apps. 
+• Find the target App on play store. 
+• Who created  
+• Different app versions and patch notes 
+•  Enumerate the company's other app 
+•  Read Reviews - So that we could know what user experience is there any bug. 
+• What’s new - know about update. 
+• Permission  
+• Developers 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 6 
+ 
+Static Analysis 
+Static analysis is a method of analysing software code without executing the code. It is a crucial step in software 
+development and security testing, as it allows developers and security professionals to identify potential 
+vulnerabilities and weaknesses in the code before the software is deployed. The goal of static analysis is to 
+identify potential vulnerabilities and weaknesses in the software code before it is deployed. By identifying these 
+issues early in the development process, developers can make the necessary changes to improve the security and 
+reliability of the software. Additionally, security professionals can use static analysis to identify potential 
+vulnerabilities and weaknesses in third-party software libraries that are used in the development of the software. 
+Overall, static analysis is a crucial component of software development and security testing, and should be 
+performed on a regular basis to ensure the ongoing security and reliability of the software. 
+Dynamic analysis 
+Dynamic analysis is a method of analysing software code by executing the code and observing its behaviour in 
+real-time. It is a crucial step in software development and security testing, as it allows developers and security 
+professionals to identify potential vulnerabilities and weaknesses in the code that may not be visible through 
+static analysis alone. The goal of dynamic analysis is to identify potential vulnerabilities and weaknesses in the 
+software code during execution. By identifying these issues, developers can make the necessary changes to 
+improve the security and reliability of the software. Additionally, security professionals can use dynamic 
+analysis to identify potential vulnerabilities and weaknesses in third-party software libraries that are used in the 
+development of the software. Overall, dynamic analysis is a crucial component of software development and 
+security testing, and should be performed on a regular basis to ensure the ongoing security and reliability of the 
+software. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 7 
+ 
+Lab Setup 
+• Adb  
+• JADX-GUI 
+• Apktool 
+• Frida-server 
+• Genymotion 
+• Mobsf 
+• Drozer 
+Android Debug Bridge 
+ADB (Android Debug Bridge) is a command-line tool that allows developers to communicate with an Android 
+device or emulator. It is a part of the Android SDK (Software Development Kit) and is used for various tasks, 
+such as installing and debugging Android applications, accessing the device's file system, and running shell 
+commands on the device. 
+  
+To get an adb shell on Kali Linux, you can follow these steps: 
+• Install the Android Debug Bridge (adb) tool on Kali Linux. You can do this by running the following 
+command in the terminal: 
+• Connect your Android device to the Kali Linux machine using a USB cable. 
+• On your Android device, enable USB debugging in the Developer options. To do this, go to Settings > 
+About phone, and tap on the Build number 7 times to enable Developer options. Then, go to Settings > 
+Developer options and enable USB debugging. 
+• In the terminal on Kali Linux, run the following command to check if your device is connected: 
+#adb devices  
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 8 
+ 
+• This should display a list of connected devices.  
+•  To start an adb shell, run the following command: 
+#adb shell  
+This should open an adb shell prompt on your device, which you can use to execute shell commands and 
+interact with the device. 
+Note: Make sure that the Android device and Kali Linux machine are both connected to the same network, and 
+that any firewall settings on the Kali Linux machine are configured to allow adb connections. Also, be careful 
+when using the adb shell, as it provides access to sensitive system functions and data on the device. 
+If there is multiple adb device – 
+If you have multiple Android devices connected to your computer via USB, you can use the following steps to 
+get an adb shell on a specific device: 
+• Run the following command to list all the connected devices: 
+#adb devices  
+• This should display a list of all the connected devices, along with their unique device IDs. 
+• Identify the device ID of the device you want to access the adb shell on. The device ID is listed next to 
+the device name in the output of the previous command. 
+• To start an adb shell on the desired device, run the following command, replacing "DEVICE_ID" with 
+the actual device ID of the device you want to access: 
+#adb -s DEVICE_ID shell  
+This should open an adb shell prompt on the selected device, which you can use to execute shell commands and 
+interact with the device. 
+Note: If you only have one device connected, you can skip step 2 and directly run the adb shell command to get 
+an adb shell on the device. However, if you have multiple devices connected, you need to specify the device ID 
+using the -s option. 
+Connect over network - You can use adb over the network to get an adb shell on an Android device without 
+using a USB cable. This can be useful if your device is not physically accessible or if you want to avoid the 
+hassle of connecting and disconnecting USB cables. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 9 
+ 
+To use adb over the network, you need to follow these steps: 
+• Connect your Android device to the same network as your computer. 
+• Enable USB debugging on your Android device. To do this, go to Settings > Developer options and 
+enable USB debugging. 
+• Connect your Android device to your computer using a USB cable, and run the following command in a 
+terminal window on your computer: 
+#adb tcpip 5555  
+• This command tells adb to listen for connections on TCP port 5555. 
+• Disconnect the USB cable from your Android device. 
+• Find the IP address of your Android device. To do this, go to Settings > About phone > Status, and look 
+for the IP address under "IP address" or "Wi-Fi IP address". 
+• In the terminal window on your computer, run the following command to connect to your Android 
+device over the network: 
+#adb connect DEVICE_IP_ADDRESS:5555  
+• Replace "DEVICE_IP_ADDRESS" with the actual IP address of your Android device. 
+• Once the connection is established, run the following command to get an adb shell on your Android 
+device: 
+#adb shell  
+This should open an adb shell prompt on your Android device, which you can use to execute shell commands 
+and interact with the device over the network. 
+Note: When using adb over the network, make sure that your device and computer are on the same network, and 
+that any firewalls or security settings on your network do not block adb connections. Also, be careful when 
+using the adb shell over the network, as it provides access to sensitive system functions and data on the device. 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 10 
+ 
+Install java  
+Java is a versatile and powerful programming language that can be used for developing a wide range of 
+applications. It is platform-independent, which means it can be run on any platform, including Android and iOS. 
+Jadx-GUI 
+Jadx-GUI is a graphical user interface for the Java decompiler tool called Jadx. Jadx is a free and open-source 
+tool used for decompiling Java applications, which means it can extract the original source code from compiled 
+Java code, making it easier to analyse and understand the functionality of the application. Jadx-GUI provides an 
+easy-to-use interface for decompiling Java applications and analysing the decompiled source code. It allows 
+users to load a compiled Java application and decompile it to view the original source code. The decompiled 
+code can then be analyzed to identify potential security vulnerabilities or other issues. 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 11 
+ 
+ 
+Apktool 
+Apktool is a free and open-source tool used for reverse engineering Android applications. It allows developers 
+and security professionals to decompile, disassemble, and decode Android application packages (APK) files, 
+which are used to distribute and install Android applications. 
+With Apktool, you can: 
+Decompile the APK file: Apktool allows you to extract the AndroidManifest.xml file, resources, and code 
+from an APK file. 
+Modify the decompiled code: Once the code is extracted, you can modify the code or resources as needed. 
+This can be useful for modifying existing applications or analyzing the code for potential vulnerabilities. 
+Recompile the modified code: Once the modifications are complete, Apktool allows you to recompile the code 
+and create a new APK file. 
+ 
+Frida 
+Frida is a dynamic instrumentation framework used for analysing, reverse engineering, and manipulating the 
+behaviour of mobile and desktop applications. It allows developers and security researchers to inject custom 
+scripts into running applications to monitor or modify their behaviour. Frida works by injecting a custom 
+JavaScript code into the application, which can be used to interact with the application's code, data, and 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 12 
+ 
+functions. This allows developers and security professionals to modify the behaviour of the application, bypass 
+security measures, and perform various other tasks. Frida consists of two main components: the Frida server, 
+which runs on the target device or emulator, and the Frida client, which runs on the host machine and 
+communicates with the server. The client provides a high-level API for developers to interact with the target 
+process, while the server handles low-level operations such as code injection and hooking. 
+ 
+Install Frida-Server  
+Install from GitHub on basis of android architecture, here I am using X86 Architecture. 
+wget https://github.com/frida/frida/releases/download/16.0.8/frida-server-16.0.8-android-x86.xz  
+unxz frida-server-16.0.8-android-x86.xz 
+mv frida-server-16.0.8-android-x86 frida-server 
+push Frida-server at /data/local/tmp(exact location). 
+ 
+Before start the Frida Server assigns executable permission (chmod +x), then run  ./Frida-server 
+ 
+Frida-ps is a command-line tool provided by the Frida toolkit that allows you to list the processes running on a 
+device or emulator. It communicates with the Frida server running on the target device and retrieves a list of all 
+running processes along with their process ID (PID), name, and other metadata. 
+To use frida-ps, you need to have Frida installed on both the target device and your host machine. Once you 
+have installed Frida, you can open a terminal or command prompt on your host machine and run the following 
+command to list the processes on the target device. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 13 
+ 
+# CONNECT FRIDA TO AN IPAD OVER USB AND LIST RUNNING PROCESSES
+# LIST RUNNING APPLICATIONS
+# LIST INSTALLED APPLICATIONS
+ 
+0216027d1d6d
+#Frida-ps Uai 
+ 
+Objection 
+Objection is a mobile exploration toolkit specifically designed for Android application security testing. It is an 
+open-source tool that allows penetration testers, security researchers, and developers to interact with Android 
+apps at runtime and perform various types of security testing, such as bypassing certificate pinning, tampering 
+with method calls, modifying requests and responses, and more. 
+Objection uses a combination of runtime instrumentation and dynamic analysis techniques to hook into the 
+running application and manipulate its behaviour. This enables testers to identify and exploit vulnerabilities in 
+the app and test its resilience against various types of attacks. 
+Objection provides a command-line interface (CLI) that allows users to interact with the app and perform 
+various types of security testing. It supports a wide range of functionalities, including: 
+• SSL pinning bypassing and SSL validation manipulation 
+• Dynamic method hooking and manipulation 
+• Exploration of SQLite databases 
+• Manipulation of Shared Preferences and other data stores 
+• Injection of custom code and payloads 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 14 
+ 
+Objection is a powerful tool that requires some level of technical expertise to use effectively. It is important to 
+note that using objection to test applications that you do not own or have permission to test may be illegal and 
+could result in serious consequences. Therefore, it is essential to use this tool only for ethical and legitimate 
+purposes. 
+#pip3 install objection 
+ 
+Docker 
+ 
+Docker is an open-source platform that enables developers to build, deploy, and run applications in containers. 
+Containers are lightweight, portable, and self-contained environments that can run on any machine with Docker 
+installed, making it easy to develop, test, and deploy applications across different environments. 
+Docker uses a containerization technology that allows developers to package an application along with its 
+dependencies, libraries, and configuration files into a single container image. This image can then be used to 
+create containers that run the application in a consistent and isolated environment, without the need for separate 
+virtual machines. 
+• Docker provides a range of tools and services that make it easy to build and manage containerized 
+applications. These include: 
+• Docker Engine: The core component of Docker that enables developers to create and manage containers. 
+• Docker Hub: A cloud-based registry that enables developers to store and share container images. 
+• Docker Compose: A tool that simplifies the management of multi-container applications. 
+• Docker Swarm: A native clustering and orchestration tool that allows developers to deploy and manage 
+a cluster of Docker nodes. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 15 
+ 
+• Docker Desktop: A tool for developers that provides an easy-to-use interface for building, testing, and 
+deploying containerized applications on a local machine. 
+Docker is widely used in the software development industry, particularly for building and deploying cloud-
+native applications. It enables developers to easily package and distributes applications across different 
+environments, reducing the time and complexity of managing complex software stacks. 
+ 
+Prebuilt Docker image from Docker Hub 
+#docker pull opensecurity/mobile-security-framework-mobsf  
+MObsf is a powerful tool for protecting mobile apps from reverse engineering and tampering. However, it is 
+important to note that no obfuscation technique is fool proof, and determined attackers may still be able to 
+bypass the app's protections. Therefore, it is important to use MObsf as part of a larger security strategy that 
+includes other security measures, such as encryption, secure coding practices, and penetration testing. 
+ 
+Run the Mobsf 
+#docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 16 
+ 
+ 
+It’s running on local server on port 8000 so try with 127.0.0.0:8000 
+ 
+Drozer  
+Drozer (formerly known as Mercury) is an open-source security testing framework for Android devices. It is 
+designed to help security researchers and pen testers identify and exploit vulnerabilities in Android applications 
+and the underlying operating system. 
+Drozer provides a range of features for dynamic analysis of Android applications, including the ability to: 
+• Interact with the Android operating system using a powerful command-line interface 
+• Modify the behaviour of an application at runtime using custom scripts 
+• Perform code injection and hooking to monitor and manipulate application behaviour 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 17 
+ 
+• Identify potential vulnerabilities through automated testing and fuzzing techniques 
+• Reproduce and exploit discovered vulnerabilities in a controlled environment 
+Drozer is developed and maintained by MWR Info Security, and is available for download from their website. It 
+is a powerful tool for Android security testing and is widely used in the security industry. However, it should 
+only be used by trained professionals and with the appropriate permissions and authorization. 
+Drozer setup using Docker  
+Pull the drozer #docker pull fsecurelabs/drozer 
+ 
+To run Drozer:  
+#docker run -it fsecurelabs/drozer 
+ 
+Drozer is running, now we need drozer server(so that dorzer could be connect with drozer server) that is drozer 
+agent it should be install on emulator/mobile device. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 18 
+ 
+  Currently it’s on but when we 
+installed it on emulator first time it will be off so we have to on it, after this we have forward the port on 31415 
+where drozer server is running. 
+#adb forward tcp:31415 tcp:31415 
+ 
+#drozer console connect --server <phone IP address> 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 19 
+ 
+ 
+ 
+Android Introduction 
+Android is an open-source mobile operating system developed by Google. It was first released in 2008 and has 
+since become one of the most popular mobile operating systems in the world, powering millions of devices 
+across different manufacturers. 
+Android is based on the Linux kernel and is designed primarily for touchscreen mobile devices such as 
+smartphones and tablets. It provides a customizable user interface, a rich set of features and tools, and an 
+extensive ecosystem of third-party apps and services. 
+Android is built on a modular architecture that enables developers to easily create and deploy applications for a 
+variety of use cases. The Android SDK provides a comprehensive set of tools, libraries, and APIs for developers 
+to build high-quality mobile applications. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 20 
+ 
+Android also provides support for a range of hardware features such as cameras, GPS, and sensors, making it a 
+versatile platform for creating innovative mobile applications. Additionally, Android offers a range of 
+accessibility features to make the platform more accessible to users with disabilities. 
+As an open-source platform, Android is constantly evolving, with new updates and features being added 
+regularly. Android provides a flexible and robust mobile operating system that enables developers to create a 
+diverse range of mobile applications for users across the globe. 
+Android has a tradition of naming its major operating system releases after desserts or sweet treats, in 
+alphabetical order. Here are the Android nicknames and generations released to date: 
+• Android 1.0 (no nickname) - September 2008 
+• Android 1.5 Cupcake - April 2009 
+• Android 1.6 Donut - September 2009 
+• Android 2.0/2.1 Éclair - October 2009 
+• Android 2.2 Froyo - May 2010 
+• Android 2.3 Gingerbread - December 2010 
+• Android 3.0/3.1/3.2 Honeycomb - February 2011 
+• Android 4.0 Ice Cream Sandwich - October 2011 
+• Android 4.1/4.2/4.3 Jelly Bean - July 2012 
+• Android 4.4 KitKat - October 2013 
+• Android 5.0/5.1 Lollipop - November 2014 
+• Android 6.0 Marshmallow - October 2015 
+• Android 7.0/7.1 Nougat - August 2016 
+• Android 8.0/8.1 Oreo - August 2017 
+• Android 9 Pie - August 2018 
+• Android 10 - September 2019 
+• Android 11 - September 2020 
+• Android 12 - October 2021 
+Each Android generation typically includes new features and improvements to the operating system. These 
+updates are usually rolled out gradually to devices over time, with newer devices receiving the updates first. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 21 
+ 
+Android Architecture 
+Android architecture refers to the overall software stack that makes up the Android operating system. The 
+Android platform is built on a Linux kernel and is comprised of several layers that work together to provide a 
+comprehensive mobile operating system. 
+The major components of the Android architecture are: 
+• Applications 
+• Application Framework 
+• Android Runtime 
+• Platform Libraries 
+• Linux Kernel 
+ 
+ 
+Application framework  
+Application Framework provides several important classes which are used to create an Android application. It 
+provides a generic abstraction for hardware access and also helps in managing the user interface with 
+application resources. Generally, it provides the services with the help of which we can create a particular class 
+and make that class helpful for the Applications creation. It includes different types of services activity 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 22 
+ 
+manager, notification manager, view system, package manager etc. which are helpful for the development of 
+our application according to the prerequisite. 
+Android runtime  
+Android Runtime environment is one of the most important parts of Android. It contains components like core 
+libraries and the Dalvik virtual machine (DVM). Mainly, it provides the base for the application framework and 
+powers our application with the help of the core libraries. 
+Like Java Virtual Machine (JVM), Dalvik Virtual Machine (DVM) is a register-based virtual machine and 
+specially designed and optimized for android to ensure that a device can run multiple instances efficiently. It 
+depends on the layer Linux kernel for threading and low-level memory management. The core libraries enable 
+us to implement android applications using the standard JAVA or Kotlin programming languages. 
+Android runtime (ART) is the managed runtime used by applications and some system services on Android. 
+ART and its predecessor Dalvik were originally created specifically for the Android project. ART as the 
+runtime executes the Dalvik Executable format and Dex bytecode specification. 
+ART and Dalvik are compatible runtimes running Dex bytecode, so apps developed for Dalvik should work 
+when running with ART. However, some techniques that work on Dalvik do not work on ART. For information 
+about the most important issues, see Verifying app behavior on the Android runtime (ART). 
+Platform libraries  
+The Platform Libraries includes various C/C++ core libraries and Java based libraries such as Media, Graphics, 
+Surface Manager, OpenGL etc. to provide a support for android development. 
+• 
+Media library provides support to play and record audio and video formats. 
+• 
+Surface manager responsible for managing access to the display subsystem. 
+• 
+SGL and OpenGL both cross-language, cross-platform application program interface (API) are used for 
+2D and 3D computer graphics. 
+• 
+SQLite provides database support and Free Type provides font support. 
+• 
+Web-Kit This open source web browser engine provides all the functionality to display web content and 
+to simplify page loading. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 23 
+ 
+• 
+SSL (Secure Sockets Layer) is security technology to establish an encrypted link between a web server 
+and a web browser. 
+Linux Kernel  
+Linux Kernel is heart of the android architecture. It manages all the available drivers such as display drivers, 
+camera drivers, Bluetooth drivers, audio drivers, memory drivers, etc. which are required during the runtime. 
+The Linux Kernel will provide an abstraction layer between the device hardware and the other components of 
+android architecture. It is responsible for management of memory, power, devices etc. 
+The features of Linux kernel are: 
+• 
+Security: The Linux kernel handles the security between the application and the system. 
+• 
+Memory Management: It efficiently handles the memory management thereby providing the freedom to develop 
+our apps. 
+• 
+Process Management: It manages the process well, allocates resources to processes whenever they need them. 
+• 
+Network Stack: It effectively handles the network communication. 
+• 
+Driver Model: It ensures that the application works properly on the device and hardware manufacturers 
+responsible for building their drivers into the Linux build. 
+ 
+Android Boot Process 
+In computing, booting is starting up a computer or computer appliance until it can be used. It can be initiated by 
+hardware such as a button press, or by software command. After the power is switched on the computer is 
+relatively dumb, and can read only part of its storage called Read-only memory. There a small program is stored 
+called firmware. It does power-on self-tests, and most importantly, allows accessing other types of memory, like 
+hard disk and main memory. The firmware loads bigger programs into the computer’s main memory and runs it. 
+In general purpose computers, but as well in smart phones, tablets, optionally a boot manager is run. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 24 
+ 
+ 
+Android Boot Process includes the following six steps: 
+• Boot ROM 
+• BootLoader 
+• Kernel 
+• Init 
+• Zygote and Dalvik VM 
+Boot ROM: This Step is known as power ON and system startup. This means that whenever we press the 
+power button, the Boot ROM code starts executing from a pre-defined location which is hardwired in ROM. 
+Boot ROM loads the BootLoader into RAM and starts executing. 
+BootLoader: Bootloaders is a low-level code contains the instructions that tell a device how to start up and find 
+the system kernel. A Bootloader is a place where manufacturers put their locks and restrictions. 
+The bootloader is a code that is executed before any Operating System starts to run. The BootLoader executes 
+in 
+2 
+Stages:  
+a) In the first stage, it detects external RAM and loads a program which helps in the second stage. 
+b) In the second stage, the bootloader setups the network, memory etc which requires to run Kernel. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 25 
+ 
+Kernel: Once kernel boots, it starts setup cache, protected memory, scheduling, loads drivers, starts kernel 
+daemons, mounts root file system, initializing Input/Output, starts interrupts, initializes process table. A Kernel 
+is the lowest level of easily replaceable software that interfaces with the hardware in our device. When kernel 
+finish system setup first thing it looks for “init” in system files and launch root process or first process of a 
+system. 
+Init: Init is the very first process or we can say that it is the grandfather of all the processes. 
+The Init process has 2 responsibilities: 
+ 
+• 
+Mounts directories like /sys, /dev or/proc 
+• 
+Runs /init.rc script. The init.rc is responsible for the initial set up of the system. 
+ Zygote and Dalvik VM: The Zygote is a VM process that starts as the system boots. When app_process 
+launces Zygote, it first creates the Dalvik VM and then calls Zygote’s main() method. Zygote receives a request 
+to launch an App through/dev/socket/zygote. Once it happens, it triggers a fork () call. 
+• 
+When a process is a fork, it creates a clone to itself. It replicates itself in another memory space. This is 
+done pretty efficiently. When this happens to Zygote, it creates an exact and clean new Dalvik VM as a 
+thread, preloaded with all necessary classes and resources that any App will need. This makes the 
+process of creating a VM and load resources pretty efficiently. 
+• 
+It enables code sharing across the Dalvik VM which helps in the achievement of minimal start up time. 
+Android security  
+Android security is a critical aspect of the Android operating system. It is designed to protect the privacy, data, 
+and integrity of the device and its users. Android provides several layers of security that work together to create 
+a secure environment for users. Here are some of the key aspects of Android security: 
+Application Sandbox: Android uses a sandboxed environment for each application, which means that each 
+application runs in its own isolated environment. This ensures that applications cannot access each other's data 
+or interfere with each other. 
+Permissions: Android applications must request permission to access sensitive device resources such as the 
+camera, microphone, or location data. Users can grant or deny these permissions on a per-app basis. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 26 
+ 
+Google Play Protect: Google Play Protect is a built-in security feature that scans all applications on the device 
+to detect and remove any malware or potentially harmful software. 
+Encryption: Android uses encryption to protect sensitive data stored on the device. This includes encryption of 
+data in transit (such as HTTPS) and data at rest (such as full-device encryption). 
+Verified Boot: Android uses verified boot to ensure that the device is running the correct and unmodified 
+version of the operating system. This helps to prevent malicious software from taking over the device. 
+Security Updates: Google provides regular security updates for Android to address any known security 
+vulnerabilities. These updates are distributed through the Google Play Store or directly to the device. 
+Overall, Android security is a multi-layered approach that provides a secure environment for users and their 
+data. However, it is important for users to stay vigilant and take necessary precautions such as using strong 
+passwords, keeping their device up-to-date with the latest security updates, and only downloading apps from 
+trusted sources. 
+Practical 
+ASUS_Z01QD:/ # ls –al 
+ 
+ASUS_Z01QD:/ # ls -al | grep "init" 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 27 
+ 
+ 
+ASUS_Z01QD:/data/data # ls -al 
+ 
+ 
+130|ASUS_Z01QD:/data/data # su u0_a56 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 28 
+ 
+We can access data of particular user we can’t access the data that contain another user id, because each 
+app have separate user id (uid).    
+ 
+Static Analysis 
+What is APK  
+What is APK (Android Package Kit) is the file format used by the Android operating system for distribution and 
+installation of mobile applications. APK files contain all the necessary components required to run a single 
+Android application on an Android device. 
+An APK file is essentially a compressed archive file, similar to a ZIP file that contains the compiled code, 
+resources, and other files required by the application to run. These files are packaged together into a single file 
+with the extension ".apk". 
+APK files can be downloaded and installed on Android devices either from the Google Play Store or from other 
+third-party sources. To install an APK file, users need to enable “Unknown Sources” in their device’s settings, 
+which allow them to install apps from sources other than the Google Play Store. Once the APK file is 
+downloaded, it can be installed by simply tapping on it and following the installation prompts. 
+APK files are a convenient way to distribute and install Android applications outside of the Google Play Store. 
+They are often used by developers to distribute beta versions of their apps or by users who want to install apps 
+that are not available on the Google Play Store. However, users should be cautious when downloading and 
+installing APK files from third-party sources, as they may contain malware or other harmful software. 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 29 
+ 
+A Dex file contains code which is ultimately executed by the Android Runtime. Every APK has a single 
+classes.dex file, which references any classes or methods used within an app. Essentially, any Activity, Object, 
+or Fragment used within your codebase, will be transformed into bytes within a Dex file that can be run as an 
+Android app. 
+Apk structure  
+APK (Android Package Kit) is the package file format used by the Android operating system for distribution 
+and installation of mobile applications. APK files contain all the necessary elements required to run a single 
+Android application on an Android device. Here is a brief overview of the APK file structure: 
+Manifest file: This is an XML file that contains metadata about the application, such as its package name, 
+version, permissions, activities, and services. 
+MinSDK Version - MinSDK specifies the minimum API level on which the application is able to run, or 
+Minimum version of the android is required to on your application. 
+Permissions – Defines what data & hardware component the app needs to access 
+• Camera 
+• Contact 
+• Internet 
+• Read/write external storage 
+• Package management 
+• Bluetooth etc. 
+• Account details 
+• Money Transfer screens  
+• Hidden screens. 
+• Account detail contain user id password we log-gin account on log-in screen for protection use Intent 
+filter. 
+Activity - In Android, an Activity is a component that represents a single screen with a user interface. It is one 
+of the fundamental building blocks of an Android app and is responsible for handling user interactions, 
+displaying views, and managing the lifecycle of the application. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 30 
+ 
+An Activity typically corresponds to a single screen or window in the app, and it can be used to display UI 
+elements such as buttons, text boxes, and images. Each Activity is implemented as a Java class that extends the 
+android.app.Activity class and overrides its methods to define its behavior. 
+When an Activity is launched, it goes through a series of lifecycle callbacks, including onCreate(), onStart(), 
+onResume(), onPause(), onStop(), and onDestroy(). These callbacks are used to initialize the Activity, respond 
+to user interactions, and manage its state during different stages of the app's lifecycle. 
+Activities can communicate with each other using Intents, which are messages that can be sent between 
+different components of an app. Intent can be used to start a new Activity or to pass data between different 
+Activities. 
+The Android operating system manages the lifecycle of Activities, and it can destroy and recreate them as 
+needed, depending on factors such as memory availability and user interactions. Developers need to be aware of 
+the Activity lifecycle and ensure that their code handles it correctly to avoid issues such as crashes or data loss. 
+Activity Lifecycle - In Android, the Activity lifecycle refers to the sequence of events that occur when an 
+Activity is created, started, resumed, paused, stopped, and destroyed. Understanding the Activity lifecycle is 
+crucial for developing Android apps that behave correctly and avoid issues such as crashes or data loss. 
+Here is a brief overview of the Activity lifecycle: 
+onCreate(): This method is called when the Activity is first created. It is where the developer should initialize 
+the Activity's UI components and other resources. 
+onStart(): This method is called when the Activity becomes visible to the user. It is where the developer should 
+start any processes that are needed for the Activity to function correctly. 
+onResume(): This method is called when the Activity is in the foreground and the user can interact with it. It is 
+where the developer should start any processes that are needed to update the UI or respond to user input. 
+onPause(): This method is called when the Activity loses focus, such as when another Activity is launched or 
+the device goes to sleep. It is where the developer should save any unsaved data and release any resources that 
+are no longer needed. 
+onStop(): This method is called when the Activity is no longer visible to the user. It is where the developer 
+should release any resources that are no longer needed. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 31 
+ 
+onRestart(): This method is called when the Activity is stopped and then started again. It is where the 
+developer should re-initialize any resources that were released in onStop(). 
+onDestroy(): This method is called when the Activity is about to be destroyed. It is where the developer should 
+release any resources that are no longer needed and perform any final cleanup. 
+The Android operating system manages the Activity lifecycle and can destroy and recreate Activities as needed, 
+depending on factors such as memory availability and user interactions. Developers need to be aware of the 
+Activity lifecycle and ensure that their code handles it correctly to avoid issues such as crashes or data loss. 
+Content Provider - In Android, a Content Provider is a component that enables apps to share data with other 
+apps. It provides a standardized way to store and retrieve data in a structured manner, and it can be used to 
+manage data in a local database, in a file, or on a remote server. 
+A Content Provider exposes a set of methods for querying, inserting, updating, and deleting data, and it uses a 
+URI-based system to identify data. The URI is used to specify the data type and the location of the data, and it is 
+used to access the data from other apps. 
+Content Providers are typically implemented as a subclass of the android.content.ContentProvider class, and 
+they override a set of methods to define their behavior. These methods include onCreate(), query(), insert(), 
+update(), delete(), and getType(). 
+When an app needs to access data from a Content Provider, it uses a ContentResolver object to send a request 
+to the Content Provider. The ContentResolver is responsible for identifying the Content Provider and sending 
+the request to it. 
+Content Providers are a powerful feature of the Android platform, and they are used extensively by apps to 
+share data with other apps and to provide access to system data such as contacts, media files, and settings. They 
+are also used by system apps to store and manage data, and they can be used by third-party apps to store and 
+retrieve user data. 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 32 
+ 
+ 
+Resources: In Android, resources are external files that are bundled with an app and provide static content such 
+as images, audio files, layout files, strings, and other types of data that an app needs to function. The use of 
+resources allows developers to keep app content separate from code, which makes it easier to manage and 
+modify. 
+Android resources are stored in various directories within the app's project structure. For example, images are 
+stored in the res/drawable directory, layouts are stored in the res/layout directory, and string values are stored 
+in the res/values directory. 
+Resources can be referenced in an app's code using resource IDs. Resource IDs are unique integers that are 
+generated by the Android build system at compile time and are used to identify each resource within an app. 
+Android also supports multiple configurations of resources, such as different versions for different screen 
+densities, languages, and orientations. This allows developers to provide optimized resources for each device 
+configuration, which results in a better user experience. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 33 
+ 
+Resource loading is managed by the Android system, which automatically loads the appropriate resources for 
+the device configuration. When an app needs to access a resource, it uses the resource ID to retrieve the 
+appropriate resource from the system. 
+In summary, resources are an important part of the Android development process and are used extensively by 
+developers to provide static content for their apps. By keeping resources separate from code, developers can 
+more easily manage and modify app content, and support for multiple resource configurations allows apps to 
+provide a better user experience on a wide range of devices. 
+ 
+Classes.dex: Classes.dex is a file in an Android app's APK that contains compiled Java code in the form of 
+Dalvik Executable (DEX) bytecode. It is the primary executable component of an Android app and is loaded 
+into memory when the app is launched. 
+When an Android app is compiled, its Java source code is first compiled into Java bytecode. The bytecode is 
+then converted into DEX bytecode using the Android SDK's dex compiler tool. The resulting DEX bytecode is 
+stored in the classes.dex file. 
+The classes.dex file contains all the code for the app, including all the classes, methods, and fields defined in the 
+app's source code. It also includes any third-party libraries or dependencies that are used by the app. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 34 
+ 
+The use of DEX bytecode in Android apps is necessary because Android uses a different virtual machine than 
+standard Java. Android apps run on the Dalvik virtual machine, which was specifically designed for mobile 
+devices with limited memory and processing power. 
+The Dalvik virtual machine uses DEX bytecode, which is optimized for efficient execution on mobile devices. 
+The DEX bytecode format allows for more efficient memory usage and faster startup times compared to 
+standard Java bytecode. 
+In summary, the classes.dex file is a critical component of an Android app and contains all the compiled Java 
+code in the form of DEX bytecode. The use of DEX bytecode is necessary for efficient execution on the Dalvik 
+virtual machine and helps to optimize memory usage and startup times for Android apps. 
+Lib: In Android, a "lib" folder is a directory that contains native libraries (.so files) that are used by the app. 
+These libraries contain compiled code that is written in a low-level language, such as C or C++, and are used to 
+perform performance-intensive tasks that cannot be handled by the Java programming language. 
+The "lib" folder is typically located in the root directory of an Android app's APK file. It can contain multiple 
+subfolders that correspond to different CPU architectures, such as "armeabi", "armeabi-v7a", "x86", "x86_64", 
+"arm64-v8a", etc. Each subfolder contains the native library files that are specific to the corresponding CPU 
+architecture. 
+The use of native libraries in Android apps is necessary because some tasks, such as video processing or signal 
+processing, are more efficient when implemented in native code. In addition, native libraries can also be used to 
+integrate with third-party libraries or services that are not written in Java. 
+To use native libraries in an Android app, developers typically use the Android NDK (Native Development 
+Kit), which is a set of tools that allows developers to build native libraries and link them with their Java code. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 35 
+ 
+ 
+Assets: In Android, an "assets" folder is a directory that contains files that are included with an app and can be 
+accessed at runtime. The files in the assets folder are read-only and are typically used to provide additional 
+content to the app, such as HTML pages, images, sounds, or video files. 
+The "assets" folder is located in the app's project structure, typically in the "main" directory. Unlike resources, 
+the files in the assets folder are not compiled and do not have resource IDs associated with them. Instead, they 
+are accessed using the AssetManager class, which provides methods for opening and reading files from the 
+assets folder. 
+To use assets in an Android app, developers can create an instance of the AssetManager class and use its 
+methods to access the files in the assets folder. The AssetManager provides several methods for accessing the 
+assets, including open(), which opens a file and returns an InputStream object that can be used to read the file's 
+contents. 
+Assets are useful for storing large files that would consume too much memory if stored as resources, or for files 
+that need to be accessed in a custom way, such as loading a custom font or loading HTML content into a 
+WebView. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 36 
+ 
+In summary, the "assets" folder in an Android app contains read-only files that are included with the app and 
+can be accessed at runtime using the AssetManager class. Assets are typically used for providing additional 
+content to the app, such as large files or custom fonts, and are accessed using the AssetManager's methods. 
+ 
+META-INF: The "META-INF" directory in an Android app is a standard Java directory that contains metadata 
+files that are used during the app's installation and execution. The files in the "META-INF" directory are 
+typically used to provide information about the app's digital signature, dependencies, and licensing. 
+In Android, the "META-INF" directory is located in the root directory of the app's APK file. It contains two 
+files: MANIFEST.MF and CERT.SF. 
+The MANIFEST.MF file contains metadata about the contents of the APK file, including information about the 
+app's classes, resources, and dependencies. It also contains a list of all the files in the APK file, along with their 
+checksums, which are used to verify the integrity of the APK file during installation. 
+The CERT.SF file contains information about the app's digital signature, including the certificate that was used 
+to sign the APK file. This information is used to verify the authenticity of the APK file during installation and 
+to ensure that the app has not been tampered with. 
+In addition to these standard files, developers can also include custom metadata files in the "META-INF" 
+directory to provide additional information about the app. For example, a developer could include a licensing 
+file in the "META-INF" directory to specify the terms and conditions for using the app. 
+In summary, the "META-INF" directory in an Android app contains metadata files that are used during the 
+app's installation and execution. The files in the directory provide information about the app's digital signature, 
+dependencies, and licensing, and can include custom metadata files as well. 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 37 
+ 
+ 
+Smali  
+Smali is a low-level programming language used to write code for Android applications. It is a human-readable 
+assembly language that is designed to be a low-level representation of the Dalvik bytecode that Android apps 
+run on. Smali code is stored in files with the .smali extension. 
+Smali code is used by Android developers to inspect and modify compiled code for apps. This can be useful in 
+cases where developers need to make small tweaks to the behaviour of an app without having access to the 
+original source code. For example, developers may need to modify the behavior of an app to fix a bug, or to add 
+custom functionality to an app that is not exposed through its API. 
+While Smali is a powerful tool for modifying Android apps, it is also a complex language that requires a deep 
+understanding of the Android runtime and the bytecode that apps run on. Smali code can be difficult to read and 
+write, and it is generally not recommended for developers who are not experienced with low-level 
+programming. 
+In summary, Smali is a low-level programming language used to write code for Android applications. It is used 
+by developers to inspect and modify compiled code for apps and can be useful in cases where developers need 
+to make small tweaks to the behavior of an app. However, it is a complex language that requires a deep 
+understanding of the Android runtime and bytecode and is not recommended for developers who are not 
+experienced with low-level programming. 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 38 
+ 
+ 
+Reversing App with Apktool 
+Phases of reverse engineering 
+Penetration testing is the process of evaluating the security of a system or application by simulating an attack 
+and identifying vulnerabilities that could be exploited by attackers. Reverse engineering is a technique used in 
+penetration testing to understand how an Android application works and identify security vulnerabilities. 
+The phases of reverse engineering in Android penetration testing can be broadly classified into the following: 
+Reconnaissance: In this phase, the penetration tester gathers information about the target application, such as its 
+functionality, features, and security controls. This information can be obtained from publicly available sources, 
+such as the app store listing, website, or social media pages. 
+Decompilation: In this phase, the penetration tester decompiles the APK (Android Package) file of the target 
+application to obtain the source code. Decompilation can be done using tools such as Apktool, dex2jar, or 
+JADX. 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 39 
+ 
+Code Analysis: In this phase, the penetration tester analyzes the decompiled code to identify security 
+vulnerabilities. This can include analyzing the code for logic flaws, input validation errors, authentication 
+bypass, or insecure data storage. 
+Network Analysis: In this phase, the penetration tester uses tools such as Wireshark or Burp Suite to capture 
+and analyze the network traffic generated by the application. This can help identify vulnerabilities such as 
+insecure network communication, session hijacking, or information leakage. 
+Exploitation: In this phase, the penetration tester attempts to exploit the identified vulnerabilities to gain 
+unauthorized access or control of the target application. This can include using tools such as Metasploit or 
+custom scripts to automate the exploitation process. 
+Reporting: In this phase, the penetration tester documents the findings and prepares a report that outlines the 
+vulnerabilities, their impact, and recommendations for remediation. The report should be clear and concise, and 
+include technical details and proof of concept exploits where applicable. 
+It is important to note that the phases of reverse engineering in Android penetration testing may overlap or be 
+repeated as needed. The goal is to identify and remediate all security vulnerabilities in the target application to 
+ensure its security and protect user data. 
+ 
+ 
+HELLO WORLD IN JAVA 
+public static void printHelloWorld() { 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 40 
+ 
+}System.out.println("Hello World") 
+HELLO WORLD IN SMALI 
+.method public static printHelloWorld()V 
+.registers 2 
+sget-object v0, Ljava/lang/System;->out: Ljava/io/PrintStream; 
+const-string v1, "Hello World" 
+invoke-virtual {vo,v1}, Ljava/io/PrintStream;->println(Ljava/lang/String;)V 
+return-void 
+.end method 
+Explain- 
+Register- Register is high speed memory storing unit, its element of computer processor. 
+There is public method calling HelloWorld and return type is Void. In above example there is using only two 
+registers. 
+Calling instruction sget-object and storing in v0 register, that is first register. 
+We are copying from Ljava/lang/System;->out: there is member called out object type of Ljava/io/PrintStream; 
+and putting in v0. 
+Calling instruction Const-string v1, HelloWorld and storing in v1, that is second register. 
+Decompling 
+To decompile means to convert executable or ready-to-run program code sometimes called object code into 
+some form of higher-level programming language that humans can easily understand. Decompilation is a type 
+of reverse-engineering that performs the opposite operations of a compiler 
+#apktool d diva-beta.apk 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 41 
+ 
+Recompile  
+This re-compiles the folder into an APK file. 
+#apktool b diva-beta -o diva-modified.apk 
+ 
+Application signing 
+Application signing allows developers to identify the author of the application and to update their application 
+without creating complicated interfaces and permissions. Every application that is run on the Android platform 
+must be signed by the developer. Applications that attempt to install without being signed will be rejected by 
+either Google Play or the package installer on the Android device.  
+After the application has been built for release, the APK must be signed prior to distribution so that it can be run 
+on an Android device. This process is typically handled with the IDE, however there are some situations where 
+it is necessary to sign the APK manually, at the command line. The following steps are involved with signing an 
+APK. 
+Create a Private Key – This step needs to be performed only once. A private key is necessary to digitally sign 
+the APK. After the private key has been prepared, this step can be skipped for future release builds. 
+#keytool -genkey -v -keystore my-release-key.keystore -alias salman -keyalg RSA -keysize 2048 -validity 
+10000 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 42 
+ 
+ 
+Sign the APK – This step involves using the apksigner utility from the Android SDK and signing the APK 
+with the private key that was created in the previous step. 
+#apksigner sign --ks my-release-key.keystore diva-modified.apk 
+ 
+FIND HARDCODED STRINGS 
+The term hardcoded string refers to a string that doesn't depend on the input to the program but it also has 
+connotations of being hard to change, meaning that you might have to edit the code in one or more places to 
+change it. 
+Often Hardcoded strings can be found in resources/strings.xml 
+Hardcoded strings can also be found in activity source code 
+Threat vector: 
+• 
+Login bypass (username/password, or client credentials) 
+• 
+URLs Exposed (http/https) 
+• 
+API Keys Exposed 
+• 
+Firebase URLs (firebase.io) 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 43 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 44 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 45 
+ 
+Reversing App with MobSf 
+To reverse engineer an APK with Mobsf, follow these steps: 
+Install Mobsf on your machine and launch it. 
+click on the "Upload APK" button and select the APK you want to analyze. 
+Wait for the APK to be uploaded and analyzed by Mobsf. 
+Note that reverse engineering an APK may be subject to legal and ethical considerations, so be sure to have the 
+appropriate permissions and follow best practices when performing this type of analysis. 
+ 
+ 
+            
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 46 
+ 
+When you upload an APK to Mobsf, it automatically extracts and analyzes various files and metadata within the 
+APK. Here are some examples of the file information that Mobsf can provide: 
+APK Information: Mobsf can display basic information about the APK, such as the package name, version 
+code, version name, and minimum SDK version. 
+ 
+Manifest Information: Mobsf can extract and analyze the AndroidManifest.xml file, which contains important 
+information about the app's activities, services, receivers, and permissions. 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 47 
+ 
+ 
+Service - In Android, a service is a type of component that can perform long-running operations in the 
+background without requiring user interaction. Services are typically used to perform tasks that need to continue 
+even when the app is not in the foreground, such as playing music, downloading data, or performing periodic 
+syncs with a server. 
+In an APK, a service is typically defined in the app's AndroidManifest.xml file, which describes the components 
+and permissions required by the app. The <service> tag is used to define a service and its properties, such as its 
+name, exported status, and intent filters. 
+Here is an example of how a service can be defined in an APK's AndroidManifest.xml file: 
+phpCopy code 
+<service 
+android:name=".MyService" 
+android:exported="false"> 
+<intent-filter> 
+<action 
+android:name="com.example.myapp.MY_ACTION" /> </intent-filter> </service>  
+In this example, a service named "MyService" is defined with an intent filter that matches the 
+"com.example.myapp.MY_ACTION" action. The exported attribute is set to "false", which means that the 
+service can only be accessed by components within the app and is not available to other apps. 
+To interact with a service in an APK, you can use the Context.startService() or Context.bindService() methods 
+to send commands and receive responses. The service can then perform the requested operation in the 
+background and send data back to the app as needed. 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 48 
+ 
+Intent-Filter - In Android, an intent filter is a way for an app to declare what types of intents it can receive or 
+respond to. An intent filter is defined in an app's AndroidManifest.xml file and specifies the types of actions, 
+data, and categories that an app can handle. 
+An intent filter has one or more <action>, <data>, and <category> elements, each of which specifies a particular 
+aspect of the intent that the app can handle. Here's an example of an intent filter for an app that can handle web 
+links: 
+code 
+<activity android:name=".MainActivity"> <intent-filter> <action android:name="android.intent.action.VIEW" 
+/> 
+<category 
+android:name="android.intent.category.DEFAULT" 
+/> 
+<category 
+android:name="android.intent.category.BROWSABLE" 
+/> 
+<data 
+android:scheme="http" 
+/> 
+<data 
+android:scheme="https" /> </intent-filter> </activity>  
+In this example, the intent filter is defined for the MainActivity activity and specifies that the app can handle the 
+"android.intent.action.VIEW" action, which is used to view data. The <data> element specifies that the app can 
+handle web links with the "http" and "https" schemes. 
+When an app receives an intent, the Android system compares the intent against the intent filters defined in all 
+the installed apps to determine which app can handle the intent. If the app has an intent filter that matches the 
+intent, it is launched and given the intent to handle. 
+Intent filters are a powerful mechanism for enabling communication between apps and components in Android. 
+By declaring the types of intents that an app can handle, you can allow other apps to launch your app and 
+perform specific actions within it. 
+ 
+ 
+ 
+ 
+
+MOBILE APPLICATION PENETRATION TESTING 
+ 
+ 
+Page 49 
+ 
+Resource Information: Mobsf can display the resources used by the app, such as images, layouts, and strings. 
+Code Information: Mobsf can extract and analyze the compiled Java code and display information such as the 
+Java classes and methods used by the app. 
+Vulnerability Information: Mobsf can also identify security vulnerabilities in the APK, such as the use of 
+insecure encryption, hardcoded passwords, and vulnerable libraries. 
+By analyzing the file information provided by Mobsf, you can gain insights into the inner workings of an APK 
+and identify potential security issues that need to be addressed. 
+File Information- Here's how to view file information in an APK using MOBSF: 
+Open MOBSF and click on the "Analyze" button to start analyzing an APK. 
+Once the analysis is complete, click on the "File Info" tab to view information about the files included in the 
+APK. 
+The "File Info" tab displays a list of all the files included in the APK, along with their names, sizes, types, and 
+other information. 
+You can click on each file to view more detailed information about it, including its permissions, MD5 and 
+SHA-1 hash values, and file type. 
+You can also download individual files or the entire APK by clicking on the download icon next to each file. 
+By viewing file information in MOBSF, you can identify potentially suspicious or malicious files in an APK, 
+such as files that have unusual names or file types, or files with excessive permissions. This can help you to 
+detect security vulnerabilities and protect against potential attacks on your mobile app. 

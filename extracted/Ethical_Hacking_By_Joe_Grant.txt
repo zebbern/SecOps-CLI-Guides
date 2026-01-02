@@ -1,0 +1,1443 @@
+=== Ethical Hacking By Joe Grant.pdf ===
+Total Pages: 112
+============================================================
+
+© Copyright 2020 - All rights reserved.
+The contents of this book may not be reproduced, duplicated, or transmitted without direct written
+permission from the author.
+Under no circumstances will any legal responsibility or blame be held against the publisher for any
+reparation, damages, or monetary loss due to the information herein, either directly or indirectly.
+Legal Notice:
+This book is copyright protected. This is only for personal use. You cannot amend, distribute, sell, use,
+quote, or paraphrase any part of the content within this book without the consent of the author.
+Disclaimer Notice:
+Please note the information contained within this document is for educational and entertainment
+purposes only. Every attempt has been made to provide accurate, up to date, and reliable, complete
+information. No warranties of any kind are expressed or implied. Readers acknowledge that the author
+is not engaging in the rendering of legal, financial, medical, or professional advice. The content of this
+book has been derived from various sources. Please consult a licensed professional before attempting
+any techniques outlined in this book.
+By reading this document, the reader agrees that under no circumstances is the author responsible for
+any losses, direct or indirect, which are incurred as a result of the use of the information contained
+within this document, including, but not limited to, —errors, omissions, or inaccuracies.
+
+Table of Contents
+Introduction
+Chapter One: Overview of Hacking
+What is Hacking?
+Who is a Hacker?
+Difference Between a Hacker and a Cracker
+Types of Hackers
+What is Ethical Hacking?
+Ethical Hacking Commandments
+Why do Hackers Hack?
+Hacking Terminologies
+Chapter Two: Kali Linux
+Hard Disk Installation
+USB Drive Installation
+Windows Non-Persistent Installation
+Linux Persistent Installation
+Chapter Three: The Penetration Testing Life Cycle
+The Five Stages of the Penetration Testing Lifecycle
+Chapter Four: Reconnaissance
+Trusted Agent
+Start with Target’s Website
+Website Mirroring
+Google Search
+All These Words
+This Exact Word or Phrase
+Any of These Words
+
+None of These Words
+Numbers Ranging From
+Language
+Region
+Last Updated
+Site or Domain
+Safe Search
+Terms Appearing
+Reading Level
+File Type
+Usage Rights
+Compiling a High-Level Google Search
+Google Hacking
+Google Hacking Database
+Social Media
+Nameserver Queries
+Chapter Five: Scanning
+Network Traffic
+Firewalls and Ports
+Scanning Tools
+Chapter Six: Exploitation
+Vulnerabilities Scan
+Attack Vectors and Attack Types
+Local Exploits
+Remote Exploits
+Actions Inside a Session
+Exploiting Web Servers and Web Applications
+OWASP
+Testing Web Applications
+
+Chapter Seven: Maintaining Access
+Backdoors
+Persistent Backdoors
+Detectability
+Keyloggers
+Chapter Eight: Reporting
+The Penetration Test Report
+Presentation
+Storage of Report and Evidence
+Chapter Nine: Email Hacking
+Email Service Protocols
+Email Security
+Email Spoofing
+Email Phishing
+Securing your Email Account
+Conclusion
+References
+
+Introduction
+Ethical Hacking - Learn Penetration Testing, Cybersecurity with Advanced
+Ethical Hacking Techniques and Methods will introduce you to the concept
+of hacking, and further, give you a deeper understanding of ethical hacking.
+The book aims to teach you the process of the penetration testing lifecycle
+using the most powerful tool available to an ethical hacker: Kali Linux. The
+chapter will take you through the different types of hackers in the world, their
+motive for hacking, and how a regular user can avoid being a target of
+hackers.
+You will then learn how to download and install Kali Linux to make it a
+permanent tool in your ethical hacking toolkit. The book will take you
+through the five stages of the penetration testing lifecycle viz.
+Reconnaissance, Scanning, Exploitation, Maintaining Access, and Reporting,
+in detail.
+There are hundreds of tools available in Kali Linux to be used through every
+stage of the penetration testing lifecycle. Each chapter of the book will
+elaborate on the penetration testing lifecycle and cover the tools most
+commonly employed in its respective stage. The reporting stage will teach
+you how to create detailed reports to present the findings of the penetration
+testing activity to the senior management so that they are aware of the actions
+taken to fix the vulnerabilities in their organization’s digital infrastructure.
+This book is aimed at tech professionals and software engineers. Technical
+professionals from different tech domains can benefit from gaining
+knowledge about how penetration testers and ethical hackers work. Software
+engineers can understand vulnerabilities better by understanding how their
+software is prone to attacks. This will ensure that they take extreme care
+when the software is in the development phase itself. Of course, there will
+still be errors in the development phase, but the knowledge about penetration
+testing can help them reduce this error considerably.
+Also, technical professionals who want to change their current profile and
+make a switch in penetration testing have a lot to learn from this book.
+
+Technical professionals already possess knowledge about their field, which
+can serve as a prerequisite while switching to the profile of an ethical hacker.
+For example, a server administrator who has knowledge and experience with
+server technologies can turn out to be the best person to secure it as an ethical
+hacker. This holds for other technical professions too.
+Security engineers or ethical hackers who want to improve their knowledge
+about hacking can benefit from this book to better secure the systems they are
+already working on. Security engineers and ethical hackers can develop and
+automate their own tools to support and secure the systems of the
+organizations they are working with by applying the steps of ethical hacking
+mentioned in this book.
+This book will work as a treasure trove for students in the Information
+Security domain. The insights on penetration testing will help information
+security students understand and learn about the most frustrating yet
+rewarding profession in the world: an ethical hacker. By reading up about
+ethical hacking at an early stage in their career, students may want to take up
+penetration testing as a career.
+If you are trying to acquire skills and knowledge to break into the National
+Security Agency (NSA), then this is not the book for you, and we suggest
+that you do not attempt anything like that. This book is also not for someone
+who has been working with Kali Linux for years in their career as a
+penetration tester,  as they already have all the knowledge we cover. This
+book is for beginners looking to start in the field of ethical hacking and
+penetration testing.
+So if you want to learn more and get started, now is a good time as any.
+Enjoy your journey!
+
+Chapter One
+Overview of Hacking
+In this chapter, you will get an overview of hacking, ethical hacking, the
+different types of hackers, and the terminologies involved with hacking and
+ethical hacking.
+What is Hacking?
+Hacking can be defined as the art of exploring and exploiting various security
+breaches in a system or its associated network. The Internet was invented to
+make life convenient for people, but it also gave an online platform for
+criminals to expand their criminal activities. Criminals started using online
+channels such as email, online messengers, etc. to target unsuspecting
+common people to trick them into providing information about their bank
+accounts and credit cards. As technology advanced, these criminals started
+developing notorious computer applications to do their manual work, and this
+laid the foundation for the term hacking.
+Who is a Hacker?
+In a simple world, you may describe a hacker as an antisocial and introverted
+teenager who is just curious about things. However, there are various ways to
+describe a hacker in the digital world. Various things motivate an individual
+hacker to hack into a system, and every hacker employs his own set of
+methods and skills to do so. The common nature binding all hackers is that
+they are sharp-minded and curious to learn more about technology.
+There are two meanings for the term hacker.
+1. Traditionally speaking, a hacker is someone curious to learn new
+things and, therefore, likes to delve into the technology to know
+its workings. They usually like to play with computer systems
+and like to understand how things function electronically.
+
+2. In recent times, the term hacker has taken to a new meaning -
+someone who likes to execute malicious attacks on systems for
+personal benefits. Technically speaking, they are called crackers,
+which is short for criminal hackers.
+Criminal hackers break into systems for personal benefits, popularity, or even
+revenge. They break into a system to modify, delete, or steal information,
+making the lives of people miserable while doing so.
+Difference Between a Hacker and a Cracker
+The word hacker has been used several times incorrectly when the actual
+term to be used should have been a cracker. Owing to this, it is a common
+misconception that a hacker is someone who breaks into systems to steal
+information. This is not true and damages the reputation of talented hackers
+all around the globe.
+A hacker is curious to learn about the functioning of a computer’s operating
+system and is usually trained in programming languages. The knowledge of
+programming helps the hacker to discover loopholes in a system and the
+reasons for these loopholes. Hackers constantly try to gain knowledge about
+breaches in new systems or software and share what they have discovered
+with developers. They never have the intention of damaging a system or
+stealing information.
+In contrast, a cracker or a criminal hacker is a person who breaks into
+systems to damage the system and steal information for personal benefits.
+Crackers gain unauthorized access to a system or its associated network, steal
+information, stop services of the system affecting genuine clients, and wreak
+havoc for the owner of the system. It is very easy to identify crackers because
+of their malicious actions.
+Types of Hackers
+Hackers are classified into various categories based on their knowledge. Here
+are some of the common ones:
+Coders
+Coders are highly trained software engineers and know how to compile code
+
+to hack a system. They may or may not use their knowledge to hack a system.
+However, they are constantly improving their skills and knowledge and are at
+par with the changing technology. They mostly create applications to identify
+the exploits in a system. They further study the exploits to come up with
+ways to patch the vulnerabilities permanently. Coders have core knowledge
+of the TCP/IP stacks and OSI Layer Model.
+Script Kiddies
+These set of hackers are the most dangerous, not because they are very
+knowledgeable, but rather because they are the complete opposite. They use
+scripts designed and developed by other hackers and rarely know what these
+scripts are capable of doing. They will pick up scripts and tools available on
+the Internet for free and execute them on random systems over a network.
+They do not test the tools and are very carefree. They will leave their digital
+fingerprints all over the Internet while using these tools.
+Most script kiddies are teenagers who are randomly causing havoc over the
+Internet to get bragging rights among their friends. It is worth noting that it
+doesn’t take a lot of skills to be a script kiddie. In simple words, script
+kiddies are guinea pigs who use tools developed by real criminals to attack
+systems and networks. Script kiddies do not get any respect as hackers but
+can be annoying for everyone, as they execute without any accountability.
+Admin
+Admins are trained individuals that are responsible for managing an
+operating system by using tools designed by developers. Admins do not
+develop their own tools but know every nook and corner of an operating
+system. One can become a system admin by undergoing certifications and
+training for a particular operating system. Most hackers in the world today
+have been through such training and can be called as admins too. Admins
+have a lot of knowledge about operating systems and existing drawbacks.
+People working as security consultants or the organization’s security team are
+called system admins too.
+Next, let’s understand hackers based on their activities.
+White Hat Hacker
+A White Hat hacker is someone who deals with ethical hacking. Ethical
+
+hackers are security professionals with knowledge and skillsets about hacking
+and the tools used for hacking. They are usually employed by an organization
+to discover security flaws in their systems and implement measures to patch
+these flaws before the onset of a real attack.
+White hat hackers are also known as penetration testers. Their main focus is
+to discover vulnerabilities and patch them to provide security to the systems
+within an organization.
+Given that this book is all about ethical hacking, we will learn about the
+functions of a white hat hacker in detail during the course of this book.
+Black Hat Hacker
+A Black Hat hacker is someone unethical in nature and breaks into systems
+for personal gains. These are criminals and crackers who employ their skills
+and knowledge to gain access to a system for malicious or illegal purposes.
+Sometimes, they are just notorious and want to violate a system’s integrity to
+annoy the owner of the system.
+Black hat hackers are also known as security crackers or unethical hackers.
+Their main intention is to steal information for monetary benefits.
+Grey Hat Hacker
+A Grey Hat hacker is something between a white and a black hat hacker.
+They generally do not have intentions to hurt anyone and do not exploit
+systems for any personal benefits, but may knowingly or unknowingly
+commit malicious acts during their exploits. Grey hat hackers are also known
+as hybrid hackers working between white hat and black hat hackers.
+Grey hat hackers are also known as hybrid hackers working between white
+hat and black hat hackers.
+What is Ethical Hacking?
+The authorized process of breaching the security of an information system to
+identify the weaknesses and vulnerabilities of the system or its associated
+network is known as ethical hacking. The ethical hacker or a white hat hacker
+gets authorization to run tests on the systems by the organization that owns
+the system. The ethical hacker then examines the security settings of the said
+
+system. The difference between malicious hacking and ethical hacking is that
+the latter is a planned attack and is, therefore, completely legal
+The job of an ethical hacker is to identify the loopholes in a security system
+that can be used by a malicious attacker to gain access to the system. Ethical
+hackers will conduct multiple tests on an information system to gather
+information about it and make it more secure. Therefore, their ultimate aim is
+to ensure that the information system is strong enough to give a tough
+challenge to all incoming attacks.
+Ethical hackers use the following methodology to scan a system for
+loopholes. However, the scanning process is not limited to just the following
+methods.
+Breach of authentication mechanisms of systems.
+Exposure of critical company data.
+Modifications to security settings of the system.
+Injection attacks.
+Access points of the networks and systems of the organization.
+Ethical Hacking Commandments
+There are rules and principles defined for an ethical hacker that must be
+followed at all times. If these are not followed, there can be bad
+consequences. It is common for these rules and principles to be forgotten or
+ignored when hacking tests are performed. And the outcome of this can be
+very dangerous for the organization. Here are some of the major
+commandments of ethical hacking:
+Working Ethically
+The term ethical means working with professional integrity and principles.
+When you perform ethical hacking tests on an organization’s systems, you
+need to ensure that all the tests have been approved and support the goal of
+the organization. An ethical hacker is not allowed to have any hidden
+agendas. Trust is the biggest factor in the field of ethical hacking. The
+information retrieved while performing tests is not to be kept by the ethical
+
+hacker for personal gains, as that is what separates white hat hackers from
+black hatters.
+Respecting Privacy
+An ethical hacker will gain access to a lot of personal information while
+conducting penetration tests. He is expected to treat the information with
+respect and not use it for personal gains. All information collected during
+penetration tests from web surfing activity to passwords must be kept private.
+Ensuring that the Systems are not Damaged
+The systems and the information owned by an organization are very valuable
+and must not be damaged at any cost. Ethical hackers should read all
+available documentation about the digital infrastructure of an organization so
+that they do not hamper the system, even unknowingly. A system may crash
+if you end up running too many tests on it simultaneously. If a system crashes
+during production hours, it can result in huge revenue losses for the
+organization.
+Executing the Plan
+Time and patience are very important in the field of ethical hacking. You
+need to be very careful while performing tests and ensure that no
+unauthorized employee knows what you are doing. There will be numerous
+eyes on you while performing tests, and it is not practically possible to know
+if an employee of the organization wishes harm to it. All you can do is ensure
+that you do your tests quietly and as privately as possible and not divulge any
+information to anyone apart from your bosses you have hired you for the job.
+Ethical hackers may sometimes take system patching too far by hardening
+systems to secure them against attacks that may not even happen. For
+example, securing a system’s network does not help if there is no internal
+web server for the organization. However, at the same time, make sure that
+you do secure the system against malicious employees who may physically
+access the system.
+Hacktivism
+According to the Merriam-Webster dictionary, Hacktivism is defined as
+“computer hacking (as by infiltration and disruption of a network or website)
+done to further the goals of political or social activism.”
+
+The invention of the term Hacktivism is credited to the Cult of the Dead Cow
+hacker group that was active in the early 90s. Hacktivism initially began
+through online gaming communities and evolved further to be used
+anonymously over the Internet for common causes. Hacktivists are mostly
+young people who use the Internet spaces and are in constant touch with like-
+minded individuals.
+The open Internet granted an opportunity to hacktivists to stay anonymous
+and use an alias to mostly engage in joint ventures to share pirated content,
+pirated software, etc. over the Internet. Most hacktivists aimed to demolish
+“The Establishment,” which mostly is a particular government or capitalist
+companies they were not too happy with. The groups that have gained a lot of
+public attention include Anonymous, the Syrian Electronic Army, and
+Lulzsec. With the Internet connecting even the remotest corners of the world,
+hacktivists realized that there was a very small personal risk for their actions
+on the Internet.
+Cyber Terrorism
+Cyber terrorism comes into the picture when technology is used to empower
+terrorism. There is a common misconception among the masses that crime
+and terrorism are the same things. The difference is that terrorism has
+political motives, whereas crime can have personal motives. The level of
+harm caused by criminal activity and terrorist activity is different too. A U.S.
+decree, for example, defines “terrorism” as:
+(i)     Committing acts constituting “crimes” under the law of any country
+(ii)  To intimidate or coerce a civilian population, to influence
+government policy by intimidation or coercion or to affect the
+conduct of the government by mass destruction, assassination, or
+kidnapping.
+With the advancement in technology, terrorist groups have started using
+computer technology to target the civilian population and hamper the ability
+of a society to sustain internal order. They have successfully managed to
+leverage technology as a weapon of mass destruction.
+Why do Hackers Hack?
+
+Criminal hackers hack systems mostly because they simply can. For some,
+hacking may be just a hobby where they hack their own systems to see what
+they can hack and what they cannot. Many hackers are usually ex-employees
+who were fired from an organization and want to take revenge by stealing
+sensitive information. Malicious hackers hack to gain control over systems,
+which builds their ego and leads to addiction. Some hackers just want to be
+famous, while others want to make the other party’s life miserable. Most
+malicious hackers share common motives such as curiosity, revenge, theft,
+challenge, boredom, and corporate work pressure.
+Hacking Terminologies
+We will conclude this chapter by discussing the most common terms used in
+hacking, which you will see in the remaining chapters of this book.
+Phishing
+Phishing is the most popular terminology in the hacking domain. Phishing is
+a method employed by hackers to trick users into revealing critical
+information such as their usernames, passwords, banking details, etc. A
+phisher will pretend to be someone genuine and target a person and make him
+or her reveal information. The information collected could be further used by
+the hacker for malicious intentions.
+For instance, a phisher will send an email to a target, and the email would
+seem like it’s from the target’s bank. The email will request the user for their
+bank information, or it would contain a link that will redirect the user to a
+website that looks like their bank’s website. The user will be completely
+unaware of the website’s genuineness and end up entering their bank account
+details on the web form available on the website. Phishing falls under the
+umbrella of social engineering.
+A hacker once used phishing to send a fake email, which seemed like it was
+from Amazon. He told the user that they have won £10 and need to click on
+the link and complete a survey to claim the gift voucher.
+Malware
+Another term that you often get to hear everywhere is malware. You may
+have heard it before that some websites may be infected with malware, so let
+us get to understand this term better.
+
+Malware is a software developed by hackers to breach the defenses of a
+computer system and steal critical information from the system. Malware is
+further classified into subcategories such as viruses, worms, Trojans,
+spyware, adware, keyloggers, etc. Malware can be planted on a computer
+system via channels such as a network, a hard drive, a USB, etc.
+For example, a recent malware targeted Magento and OpenCart and
+redirected its users to malicious websites. This resulted in the loss of
+customers, loss of reputation, and even affected the search engine rankings of
+these websites.
+Backdoors
+Often confused with a Trojan horse, a backdoor is a program that runs in the
+background on a compromised system. It facilitates future entries into the
+system and eliminates the need to exploit the system again. Most Trojan
+horses contain backdoors, but a backdoor does not necessarily have to be part
+of a Trojan horse. Backdoors are scripts or applications like Trojan horses but
+do not provide any functionality to the user of the application. A backdoor is
+often implemented by an ethical hacker to execute a completely different
+program on a compromised system.
+Trojan Horse
+A Trojan horse, commonly known as a Trojan, is a malicious program that is
+planted in a target system to perform a desired function by the attacker. It can
+have various functions such as backdoor creation, running scripts, stealing
+information, and even tricking people into disclosing financial information
+such as credit card details. People often interpret Trojans to be the same as
+viruses because of the nature of Trojans today. What distinguishes a Trojan
+from a virus is that a Trojan is an independent program and does not depend
+on other programs to execute itself.
+Virus
+A virus is defined as a malicious piece of code or malicious software that
+affects a genuine process on the system. Viruses are capable of infecting files,
+boot sectors, memory space, and even hardware. Viruses have the following
+subclasses.
+Resident Virus: Resident Virus is a virus that moves to the RAM space after
+
+a system boots up and then gets out during a shutdown. These viruses leach
+onto genuine processes and interrupt the internal calls between the process
+and the system kernel. This kind of virus is preferred in the process of
+penetration testing as it supports continued evasion.
+Nonresident Virus: Nonresident Virus is a virus that depends on a host of a
+system hard disk for its execution; it then infects it, and exits from the
+memory after the execution is complete.
+Ransomware
+As of 2020, Ransomware is one of the most searched terms on the Internet.
+Ransomware is a form of malware that locks a user out of their system and
+blocks all access to their files. It then displays a ransom message on the
+screen for the user to make a payment, mostly in Bitcoin, if they want to
+regain access to their system. Ransomware attackers initially used to target
+individual users, but they soon realized that there was more monetary gain in
+attacking bigger institutions such as banks, hospitals, and businesses. The
+Petya ransomware attack is a very recent example of ransomware that
+affected businesses all over the world. In this attack, the virus displayed a
+message demanding money on the screens of all ATMs owned by Ukraine’s
+state-owned bank Oschadbank.
+Spoofing
+Email spoofing and IP spoofing are terminologies more commonly heard of
+and used in the spoofing domain. The headers of an email are modified in
+email spoofing to make the email look like it originated from a genuine
+source. For instance, a black hat hacker will modify the headers of an email
+and make it appear like it is a genuine email sent to you by your bank. IP
+spoofing, on the other hand, refers to an unwanted network packet sent to
+your computer from a hacker’s computer, but the source IP is altered such
+that it looks like it originated from a legitimate system or a trusted host. The
+hacker hopes that your system would accept this packet that will grant the
+hacker access to your system.
+Encryption
+Encryption is a technique that encodes information or data to make it
+secretive or unreadable. Only authorized parties with a decryption key can
+convert the information to its original format and make it readable again. The
+
+fundamental basis of a ransomware attack is encryption, which attacks
+systems and encrypts their files. The hacker provides the decryption key only
+after the user pays the requested ransom.
+Adware
+Adware is software that infects your system with a lot of advertisements.
+However, it also covertly spies on your activities and generates ads based on
+your Internet activity. Sometimes adware is so malicious that it continuously
+pops up ads on your system, and ultimately slows it down. Adware once
+planted on your system can collect personal information, web activity, and
+provide this to an attacker for phishing attacks. Adware terminology is very
+popular in the world of marketing. Websites like Google that index websites
+have started showing a warning when an ad makes you land on a malicious
+website that may be deceptive.
+Zero-Day Threat
+A threat that is new and not documented by any virus scanner and can,
+therefore, bypass a virus scan. Such a threat is known as a zero-day threat.
+This flaw is very common in antivirus software, especially when the
+developers of the antivirus do not have sufficient knowledge about new
+threats in the digital world. Zer0-day threats will exploit a system through
+vectors such as web browsers and email attachments.
+Brute Force Attack
+Brute Force Attack is another popular hacking terminology, which is
+employed to bypass login pages on the Internet. Brute Force Attack, also
+known as the exhaustive key search, is a method that employs trial and error
+to guess information such as passwords and other encrypted information.
+Hackers use this method to crack passwords of admin accounts, which then
+can be used to steal almost all the information on a system.
+HTTPS/SSL/TLS
+Google Chrome, the most popular Internet browser in the world in 2018,
+announced that it would throw a warning for websites that did not operate on
+the HTTPS protocol. HTTPS stands for HyperText Transfer Protocol, and the
+S stands for secure. It is a framework that ensures that a digital certificate
+called an SSL certificate is installed on a website, so that information
+between a user’s browser and a website’s server is always encrypted. No-one
+
+in the middle can steal this information while it is being transferred. SSL and
+TLS are protocols for HTTPS that verify the identity of a website and make a
+website trustworthy. It is advised to avoid browsing a website which does not
+resolve on HTTPS. Even if you access the website, do not enter any sensitive
+information on it.
+Bot
+A bot is a robot that runs automated scripts on the Internet. It is common for
+search engines to employ bots known as spiders that crawl on all the websites
+on the Internet to gather information about them to help the search engines
+with indexing. However, these bots are also used by hackers to execute
+malicious tasks such as introducing malware on a target’s system.
+Botnet
+A Botnet is a network of bots controlled by a black hat hacker. A black hat
+hacker may create a botnet to launch attacks such as DDoS (Distributed
+Denial of Service), send spam, steal information, and also allow the hacker to
+access a system and its associated network. A group of botnets will help the
+hacker to be untraceable and also intensify the attack with the consolidation
+of computing power on multiple systems.
+DDoS (Distributed Denial of Service)
+This hacking terminology is popular among hackers and a nuisance for
+website developers and owners. A black hat hacker executes a DDoS attack
+by employing a group of bots or zombies. The bots have code that instructs
+them to keep sending random network packets to a web server through
+several systems under the control of the black hat hacker. This causes load on
+the target server more than it can support and crashes the server or even shuts
+it down completely and disrupts the services on the server. Users who access
+this server are oblivious to the attacks. One such popular DDoS attack was
+the Rio Olympics attack that lasted for months.
+Firewall
+A firewall is a software developed to secure the network and monitor
+incoming and outgoing network traffic continuously. It filters out incoming
+data from untrusted sources and ensures safe communication inside the
+network. A firewall can be implemented through both software and hardware.
+A well-developed firewall will continuously look for abnormal activity on the
+
+network, but black hat hackers still find a way around it at times. To keep up
+with the hackers, firewalls are continuously updated or replaced with newer
+security parameters with every passing day.
+Payload
+A shipment of data transmitted over a network is known as a payload.
+However, in black hat hacking, a payload is a virus that is transferred over a
+network and planted on a target system to exploit it and grant system access
+to the hacker.
+Rootkit
+Rootkits are one of the most dangerous methods used to breach a system as
+they go undetected most of the time. A rootkit in the hands of a black hat
+hacker can result in the perfect theft. A hacker uses different channels to plant
+and install a rootkit on a target system. A rootkit can be planted using email
+attachments, infected hard disks, etc. Once a rootkit is planted, a black hat
+hacker will have god-level access to a system. Rootkits operate at the lower
+levels of the operating system and can go undetected for a long time, which
+makes the user more vulnerable. A rootkit can be termed as the holy grail of
+hacking, and even experienced security professionals can take a long time to
+find them.
+RAT
+RAT stands for Remote Access Tool or Remote Access Trojan. It is a
+malware application that can be operated by an amateur hacker. Once a RAT
+is installed on a target system, the hacker can have complete access to the
+system. The main intention of RAT tools was for legitimate operations like
+remotely operating a work computer from home, but hackers realized its
+advantage and used it to gain access to target systems illegally.
+SPAM
+Spam is a hacking terminology mostly concerned with email. Any unwanted
+email received by a user is classified as spam. Spam email comprises mostly
+of advertisements. Spammers collect a huge number of email addresses from
+a database and send them bulk emails to promote products. However,
+spamming can also be used by attackers to plant malware into a system via
+phishing or sending links in the emails that redirect the user to illegitimate
+websites. It is advisable to use a spam filter or delete spam as soon as you
+
+receive it.
+Worm
+A worm is malicious code, just like a virus that is capable of replicating itself.
+However, unlike a virus, a worm does not need to host itself on a file and can
+exist independently. It can further spread to various systems over a network
+without needing human interaction. A self-replicating worm hogs on system
+resources such as memory, disk space, bandwidth, and processor time,
+turning your system very slow. A worm can become catastrophic if it is not
+removed from the system in time.
+Cloaking
+As the word suggests, cloaking refers to covering information. Hackers
+employ cloaking to present malicious websites to users while covering it to
+look like something legitimate. Hackers use .htacces rules and dynamic
+scripts on a web server to make them invisible to specific IP addresses and
+service another set of IP addresses. Google will suspend ads on your website
+if it detects cloaking.
+Penetration Testing, Pentesting
+Penetration Testing can be defined as the methods, processes, and procedures
+employed by ethical hackers within guidelines and approvals to attack the
+systems of an organization. It includes the destruction of the existing security
+system. This kind of testing assesses the security of an organization’s digital
+infrastructure on technical, operational, and administrative levels. Usually,
+ethical hackers will only test the security of the information systems as per
+their build. The system or network administration team doesn’t need to know
+when penetration testing is being conducted.
+Vulnerability Analysis, Vulnerability Assessment
+A vulnerability assessment or a vulnerability analysis is used to evaluate the
+security of an organization’s information systems. The security teams will try
+to find the security patches that are missing from the operating system and all
+other installed software on the system. The vulnerability assessment team can
+be hired through a third party or can be an internal team within the
+organization.
+Security Controls Assessment
+
+The security evaluation of the information systems concerning legal and
+regulatory requirements is called security controls assessment. These
+requirements include but are not necessarily limited to compliance with the
+Federal Information Security Management Act (FISMA), the Health
+Insurance Portability and Accountability Act (HIPAA), and the Payment
+Card Industry (PCI). Security Controls Assessments are required as a Body
+of Evidence (BOE) by organizations to authorize their infrastructure in a
+production environment. Certain systems may require mandatory penetration
+tests as a part of the security controls assessment.
+
+Chapter Two
+Kali Linux
+In this chapter, you will learn about the most powerful tool an ethical hacker
+can possess: the Kali Linux operating system. You will learn how to
+download and install Kali Linux so that you can use the penetration testing
+tools that are inbuilt in the operating system. These tools help ethical hackers
+when they conduct penetration tests in the various stages of the penetration
+testing lifecycle.
+Some of you may already be aware of the process of installing an operating
+system, but a refresher is always good. For those of you who have never
+installed an operating system ever, this chapter will guide you with a detailed
+installation of the Kali Linux operating system. You will learn where to
+download the installation media from, and then install Kali Linux.
+Kali Linus is a great tool for ethical hackers because it installs quickly on
+permanent media like a hard disk and can also be installed on a USB stick
+and live booted from it whenever required. So it is a very convenient and
+portable tool in the toolkit of an ethical hacker. If you ever have access to a
+local machine during your spell as an ethical hacker, you can leverage the
+Kali Linux live disk to boot it into a locally available physical machine inside
+the target organization’s infrastructure. By default, there are more than 400
+tools available in a default Kali Linux installation.
+Downloading Kali Linux
+Kali Linux is a distribution of the Linux operating system and is available as
+a free download in an ISO image file. You will need to use another system to
+download the ISO and then burn the ISO on a USB stick to install it on a
+particular computer system. You can download a Kali Linux ISO file from
+the following URL.
+https://www.kali.org/downloads/
+
+If you need self-reading material on configurations, advanced operations, and
+other special cases, you can read it on the Kali Linux official website at:
+http://www.kali.org/official-documentation/
+To register on the Kali Linux website, it is advisable to get access to a
+community forum where active users discuss their issues and discoveries.
+Before you download an image file, ensure that you select the correct
+architecture. Every processor in a computer either has a 32-bit architecture or
+a 64-bit architecture. This is represented on the Kali Linux image download
+files as i3865 for 32-bit and amd645 for 64-bit, respectively. After the
+download is complete, you can use an image burning software to burn the
+Kali Linux installation media to a USB stick or a DVD.
+In this chapter, we will cover the installation of Kali Linux on a Hard Drive
+and a Live USB stick for Live boots.
+Hard Disk Installation
+To begin the installation, place the DVD in your computer’s DVD drive or
+plug in the USB stick on which you have loaded the Kali Linux installation
+media. Depending upon what you use, you need to set up boot priority in
+your computer’s BIOS settings so that the installation is picked from the
+respective media.
+Booting Kali Linux for the First Time
+If you have successfully managed to load the installation media either from a
+DV or a USB stick, you will be presented with a screen.
+The installation we are going to perform will delete any existing operating
+system on your hard disk and replace it with pure Kali Linux. There are
+advanced options through which you can sideload the Kali Linux on your
+hard disk along with your existing operating system, but that is beyond the
+scope of this book.
+We will begin the installation with the Graphical Install option.
+Setting the Defaults
+The screens that follow will let you select the default settings for your Kali
+
+Linux system, such as the language, location, and language for your
+keyboard. Select settings that apply to your region and click on next to
+proceed further with the installation. You will see various progress bars as
+you proceed with these default settings screens.
+Initial Network Setup
+A screen will appear on your system, where you can type a hostname of your
+choice. Try to keep it unique. After clicking next, you will be requested to
+type in a fully qualified domain name. This is used when your Kali Linux
+system is a part of a corporate network. You can skip this, as you will install
+Kali Linux to run as a standalone system. Leave it blank and click on
+Continue.
+Password
+The next screen will prompt you to set up a password for the root account.
+The root account is the superuser for your Kali Linux system, with all
+privileges to the system. It can also be called the owner of the system. The
+default password for the root account is toor, and it is advised that you
+change it to something complex. The password has criteria to contain at least
+each of the following: uppercase, lowercase, number, and symbol. Always
+ensure to set up a complex password to secure your system from getting
+accessed by the wrong hands. After you choose a password, click on
+Continue to proceed.
+System Clock
+You will receive another screen prompt where you must set the system clock.
+Click on your respective time zone then click on Continue.
+Disk Partitioning
+There are multiple ways to implement partitions for a Linux operating
+system, and someone could write an entire book on partitions alone. In this
+book, we will focus on the most basic partitioning scheme called Guided
+Partitioning.
+We are going to proceed with the Guided - use entire disk option for our
+installation. Select it and click on Continue.
+The next screen will show you all the physical hard drives present on your
+
+system. You will ideally see one hard drive here unless you have multiple
+hard drives on your system. You can click on the hard drive that represents
+the name of your hard drive and click on Continue.
+On the next screen, you will be asked how you want to use the available hard
+drive.
+Proceed with the option All Files in one partition to keep the installation
+process simple. Select it and click on Continue.
+On the next prompt, you will be presented with a review screen. There will
+be a primary partition that contains all user files and a second partition called
+swap. The swap partition is used as a virtual memory system that keeps
+switching files between the CPU and the RAM of your system.
+In simpler words, it is called a buffer memory. It is recommended to have
+swap partitions on all Linux based systems. It is generally supposed to be the
+same size or one and a half times the size of the actual RAM installed on the
+system. Select Finish partitioning and write changes to disk and click on
+Continue.
+After this, the installation will still give you one last chance to confirm your
+selections and inputs. You will be presented with the following screen where
+you can select Yes and click on Continue.
+You will be able to change your partitioning scheme when your system is
+live, but that may damage your system and files on it, if not done properly.
+After clicking Continue, you will see a progress bar screen with the progress,
+and the installer will begin copying files to your hard disk. The time taken to
+complete this depends on your hardware.
+Configuring the Packet Manager
+After the installer finishes copying files to your hard disk, the next screen
+will show you a prompt to configure the packet manager for your Kali Linux
+system. The package manager is very crucial for your system. It comes into
+use when Kali Linux needs to update its package repository as per all the new
+updates on its software. It is advisable to use the network mirror that is inbuilt
+in Kali Linux, as it will have access to the official Kali Linux package
+sources for updates.
+
+You can click on Yes to Continue. You will be prompted with another screen
+to specify a third party network package URL. This is again used when your
+Kali Linux system is part of a corporate system that stores a local repository
+for Kali Linux packages on its local server. You can just leave it blank and
+click on Continue to proceed with the installation.
+Installing the GRUB Loader
+On the next screen, you will be asked if you wish to install the GRUB
+bootloader for your Kali Linux system. The GRand Unified Bootloader,
+which is also known as GRUB, is the main screen that appears every time the
+Kali Linux system boots up. It gives you a menu to continue into the system
+and can be used for some advanced settings before the boot as well. It is not
+required for advanced users, but for new users, it is recommended.
+Select Yes and click on Continue.
+Completing the Installation
+Finally, you will reach the completion screen. You can click on Continue,
+and your system should reboot. Eject your installation DVD or USB stick and
+continue with the reboot. You should now be presented with the Kali Linux
+welcome screen after the reboot. Log in as the root user with the password
+you had set up and voila; you are done! Welcome to Kali Linux.
+USB Drive Installation
+A USB drive, also known as a USB thumb drive or a USB stick, is a storage
+device that can be plugged into the USB port of a computer system. We
+recommend that you use a USB drive with at least 8 GB storage or more for
+installing Kali Linux. All new computer systems today can boot from a USB
+device. You can select set boot priority for your USB device from the BIOS
+settings for your computer.
+We will go through the installation process for Kali Linux on a USB drive
+using a Windows machine and a Linux machine. You can check the official
+documentation provided for this on the Kali Linux website to understand it in
+detail.
+While using USB drives to boot an operating system, two important terms
+come into the picture: persistence and non-persistence.
+
+Persistence refers to the ability of the system to retain changes or
+modifications made to its files,  even after a reboot. Non-persistence means
+that the system will lose all changes made earlier after it goes through a
+reboot. In this book, the USB drive installation of Kali Linux through a Linux
+machine will be persistent, and that through a Windows machine will be
+nonpersistent. This will ensure that you learn about both methods.
+Windows Non-Persistent Installation
+Before you can proceed with installing Kali Linux on a USB drive through
+Windows, you will need to download the Win32 Disk Imager. You can
+download it from the following URL
+https://sourceforge.net/projects/win32diskimager/
+After you have downloaded the Kali Linux ISO just like you did in the case
+of Hard Drive installation, plug in your USB drive in your computer system,
+and Windows should automatically detect it and assign a drive letter to it.
+Next, launch the Win32 Disk Imager application. Click on the folder icon to
+browse through your files and select the Kali Linux ISO you have
+downloaded earlier and click on the OK button. From the drop-down, select
+the drive letter assigned by Windows to your USB drive. Click on the Write
+button to start writing the Kali Linux operating system to your USB drive.
+The process will take some time depending on your system hardware. After
+the Win32 Disk Imager has completed writing the ISO to the USB drive,
+reboot your computer system and select the highest boot priority for your
+USB drive from the BIOS settings. Every computer system has a different
+user interface for BIOS settings depending upon the manufacturer. So
+carefully select the boot priority settings. After you have done that, reboot the
+system again, and it should give you a Kali Linux boot menu. You can select
+the Live option, which is mostly the first option to boot into the Kali Linux
+desktop from the Live USB directly.
+Linux Persistent Installation
+I would like to emphasize that size matters a lot while building a persistent
+USB drive for a Kali Linux installation. Depending upon your Linux
+operating system that you will use to create the Kali Linux USB drive, ensure
+
+that you have the GParted application installed on your system. If you
+encounter difficulties installing GParted, go through the documentation. You
+may use one of the following commands to install GParted via the terminal.
+apt-get install gparted
+aptitude install gparted
+yum install gparted
+After you have downloaded the Kali Linux ISO, plug in the USB drive into
+your computer system. Use the following command on the Linux terminal to
+figure out the location of the USB drive.
+mount | grep -i udisks | awk ‘{print $1}’
+You should get the file location of the USB drive like something as
+/dev/sdb1. Be careful as it could differ for your system. In the next command,
+remove any numbers at the end, which is sdb1 to sdb.
+Use the dd command to write the Kali Linux ISO to the USB drive as
+follows.
+dd if=kali_linux_image.iso of=/dev/sdb bs=12k
+Launch Gparted application using the following command.
+gparted /dev/sdb
+The drive should show one partition already with the Kali Linux image
+installed on it. You need to add another partition to the USB drive by
+
+selecting New from the menu that appears after you select the Partition Menu
+on the Menu Bar. Steps may vary slightly depending upon the manufacturer,
+but the steps mostly stay as below.
+•         Click on the unallocated grey space.
+•         Click on New from the partition drop-down menu.
+•         Use the graphical sliders or specify a size manually.
+•         Set the File System to ext4.
+•         Click on Add.
+•         Click on the Edit drop-down menu and select Apply All Operations.
+•         Click OK when you see a prompt. This will take a few minutes to
+complete.
+You can add a persistence function to the USB drive using the following
+commands.
+mkdir /mnt/usb
+mount /dev/sdb2 /mnt/usb
+echo "/ union" .. /mnt/usb/persistence.conf
+umount /mnt/usb
+That is it. You have now created a persistent Live Kali Linux USB. Reboot
+your system, and you should be able to boot the Kali Linux operating system
+from the USB drive.
+
+Chapter Three
+The Penetration Testing Life Cycle
+An Ethical Hacker is also known as a Penetration Tester in the industry.
+Ethical hackers are proficient with the penetration testing lifecycle. An
+organization hires ethical hackers so that they can conduct several penetration
+tests on the organization’s digital infrastructure with the management’s
+approval and discover vulnerabilities in the system so that they can be
+patched before a real attacker targets the system.
+There is a common misconception among masses that an ethical hacker or a
+penetration tester just needs to sit on a computer, run a piece of code, and
+they can gain access to any system in the world. People have this notion
+mostly because of things they see in movies, but it is far away from the truth.
+Professionals in this field are very careful and precise with their approach to
+discover and understand exploits in a computer system.
+Over the years, a definite framework has been established, which has been
+adopted by ethical hackers. The first four stages of this framework guide an
+ethical hacker to discover vulnerabilities in a system and understand to what
+level these vulnerabilities can be exploited. In comparison, the final stage
+ends up documenting the actions of the first four stages in a neat report to be
+presented to the senior management of the organization. This framework has
+not only created a proper planning and execution structure for an ethical
+hacker. Still, it has also proved to be very efficient for conducting penetration
+tests at multiple levels of an organization’s digital infrastructure.
+Every stage gathers inputs from the previous stage and further provides
+inputs to the next stage. The process runs in a sequence, but it is not
+uncommon for ethical hackers to return to a previous stage to analyze
+previously discovered information.
+Patrick Engebretson has clearly defined the first four stages of the penetration
+testing lifecycle in his book The Basics of Hacking and Penetration Testing.
+
+The steps are called Reconnaissance, Scanning, Exploitation, and
+Maintaining Access. This book explains the first four stages as per Patrick’s
+book but expands to an additional stage called Reporting.
+If you have read the five-phase process defined by the EC-Council in its
+popular course names Certified Ethical Hacking or C|EH, you may argue that
+this book does not contain the final stage from it called Covering Tracks. We
+have intentionally left that phase out from this book to add more focus on the
+first four stages and also introduce Reporting, which is not covered in most of
+the other books available on Ethical Hacking on the market today.
+The other difference you may see in this book is that the penetration testing
+lifecycle has been represented using a linear version instead of a cyclic one.
+We have done so because we believe that an ethical hacker linearly
+encounters things during their engagement. The process begins with
+reconnaissance or gathering information about the target system and ends
+with the ethical hacking team presenting a report to the senior management
+about their discoveries through the process.
+In this chapter, we will draw out a basic view of all the five stages of the
+penetration testing lifecycle, and we will then have a dedicated chapter
+devoted to each of these stages. The dedicated chapters will also introduce
+you to the most common tools used by ethical hackers in each stage. This
+way, you will not only understand the five stages of the penetration testing
+lifecycle but also have an idea of the tools used by security professionals
+when you engage in penetration testing.
+The Five Stages of the Penetration Testing Lifecycle
+We will discuss the five stages of the penetration testing lifecycle with an
+analogy to the functioning of an army in a war situation on the international
+borders.
+Stage 1: Reconnaissance
+Imagine a dimly lit room, where analysts and officers are going through the
+map of a foreign territory. Other analysts in the room are watching the news
+on numerous televisions and taking down notes from the incoming news.
+There is a final group in this room, which is preparing a final draft of all the
+information that has been gathered by every group about the target. This
+
+scenario tells you about what happens during military reconnaissance but is
+very similar to what an ethical hacker will do in the reconnaissance stage of
+the penetration testing lifecycle.
+An organization will hire a team of penetration testers or ethical hackers, and
+every member of the team will be working on discovering as much
+information about the target that can be gathered from public sources. This is
+executed by searching the Internet for publicly available information about
+the target and then conducting passive scans on the target’s network. In this
+stage, an ethical hacker does not breach the target’s network but just scans it
+and documents all the information to be used in the next stages.
+Stage 2: Scanning
+Continuing with the military analogy, imagine there is a hilltop behind the
+enemy lines, and there is one soldier from your army who is hidden in the
+bushes using camouflage. The soldier brings back reports of the enemy
+camp’s location, the objectives of this particular camp, and the kind of
+activities being done on each tent of this camp. The soldier also brings in
+information about all the routes that lead you in and out of this camp and the
+kind of security around it.
+The soldier in this analogy was given a mission based on the information
+provided to him, from the information that was gathered in the
+reconnaissance stage. This holds for the scanning stage of the penetration
+testing lifecycle. An ethical hacker uses the information gathered in stage one
+to scan the networks and the systems of the target. The tools available for
+scanning help to gather precise information about the target’s network and
+system infrastructure, which is further used in the exploitation stage.
+Stage 3: Exploitation
+Four soldiers from your army make their way through an open field under a
+cloudy sky at night, with a sliver of moonlight. They have their night goggles
+on and can see everything in a green glow. They break their way into the
+enemy camp through a gap in the fence and get inside through an open back
+door. They spend some time inside the camp and then make their way out
+with information about the enemy troops for the immediate future.
+This is again what an ethical hacker will do in the exploitation stage. The
+motive of this stage is just to get into the target system and quickly get out
+
+with information without getting detected. The stage successfully exploits the
+system and provides information to the ethical hacker to break into the
+system again.
+Stage 4: Maintaining Access
+Based on the enemy plans provided by the four soldiers, an engineering team
+does digs a hole in the earth to make a way to the room in the enemy camp
+that had all this information. The purpose of this tunnel is to provide
+continuous and easy access to this room full of information. An ethical
+hacker does the same in the maintaining access stage. The ethical hacker
+discovered how to get into the target system in the exploitation stage and how
+to get in and out of the system. If they keep repeating this process, they are
+bound to get caught some time. Therefore, with the information gathered in
+the exploitation state, they automate a way to keep their access continued to
+the target system.
+Stage 5: Reporting
+The commander of the team of soldiers now stands in front of his higher
+officers, such as generals and admirals, and explains the details of the raid to
+them. Every step is explained in detail, and every detail is further expanded to
+explain the details of how the exploitation was successful. At the end of the
+penetration testing lifecycle, ethical hackers also need to create a report that
+explains each stage of the hacking process, the loopholes discovered, the
+vulnerabilities exploited, and the systems that were targeted. In certain other
+cases, a senior member of the ethical hacking team may be required to
+provide a detailed report to the senior management of the organization and
+suggest steps to be taken to make the infrastructure secure.
+The next few chapters will explain all these stages in more detail. You will
+understand the advantages of every stage and the tools used in every stage
+using the process that is drawn for the penetration testing lifecycle.
+
+Chapter Four
+Reconnaissance
+In this chapter, you will understand the reconnaissance stage of the
+penetration testing lifecycle in depth. The process of reconnaissance will help
+an ethical hacker discover all kinds of information about a target organization
+and its infrastructure. The information collected in this stage will be used in
+the later stages of the penetration testing lifecycle to engage with the target
+organization.
+Just as a military analyzes all information available to them before creating a
+strategy for battle, an ethical hacker needs to gather all publicly available
+information about a target system before planning a penetration test on it.
+Many times, the required information can be obtained from search engines
+like Google and social media. The nameservers of a domain name are
+responsible for routing a user to a particular website on the Internet.
+Therefore, these nameservers can be used to fetch information as well.
+Emails that are routed through an organization can be used to discover
+information too. An ethical hacker can also download the publicly available
+front end of a target organization and maintain it offline to retrieve as much
+information from it as possible. The information gathered from all these
+sources can be used as an input for social engineering, if social engineering is
+approved by the management, as per the rules of engagement.
+When the reconnaissance stage begins, the ethical hacking team knows very
+few details about the target. The details provided to the team can range from
+only the name and website of the target organization to detailed information
+about the target’s network and information systems, and even the
+technologies used in the target organization. The penetration test will always
+be limited by the Rules of Engagement (ROE) that are defined by the
+management. The ROE may limit an ethical hacking team from conducting
+destructive tests like the Denial of Server (DoS) and Distributed Denial of
+Service (DDoS) attacks on the target infrastructure.
+
+The main objective of the reconnaissance stage is to discover as much
+information about the target organization as possible. Some important things
+about the target organization that need to be determined are as follows.
+•         The structure of the organization. This would include detailed
+information about the departments and the organizational charts of
+various teams in the organization.
+•         The digital infrastructure of the organization. This would include the
+IP space of all devices and the network topology.
+•         The various technologies used for both software and hardware.
+•         Email addresses of all employees.
+•         The commercial partners of the organization.
+•         The various physical locations of the organization.
+•         Any available phone numbers.
+Trusted Agent
+A trusted agent is the person who hired the ethical hacking team to conduct
+penetration tests for the organization. They are mostly individuals who are
+representatives of the organization. They provide guidelines to the ethical
+hacking team and will not disclose information about the penetration test to
+the rest of the organization.
+Let us now understand how you can begin with the process of reconnaissance
+as an ethical hacker.
+Start with Target’s Website
+The target’s profile can be created by gathering information from their
+website as it is a huge treasure of information, to begin with. For example,
+many organizational websites openly display the hierarchy of their
+organization with the profiles of their key leaders. This information should be
+used as the foundation to create target profiles. How? The information
+available on the organizational leaders can be further used to know more
+about them on social media websites and to execute social engineering later
+on. This should, however, be supported by the rules of engagement.  
+One very useful section of an organizational website is the job opportunities
+
+or the career page. This page can provide detailed information about the
+technologies used in the organization. For example, if there is an opening for
+a Linux Systems Administrator and the requirements include knowledge of
+the Red Hat Linux flavor, you can be sure that the organization has Linux
+servers that use the Red Hat flavor. Moreover, if there are openings for
+systems administrators for servers running technology like Windows Server
+2000 or 2003, this should trigger an ethical hacker almost instantly as these
+are older operating systems that are more vulnerable to attacks.
+Every organizational website must be checked for a webmail URL as most
+webmail URLs have the syntax webmail.domainname.com. If the URL leads
+you to a webpage for an Outlook Web Access login, you can be sure that the
+backend is using Microsoft Exchange servers for their emails. Alternatively,
+if a Gmail login page is displayed, you know that the email service is
+outsourced to G Suite and will be outside the limitations defined by the rules
+of engagement. It is very important to lay down boundaries before beginning
+engagement. If the ethical hacking team has questions about crossing
+boundaries, they should always consult the trusted agent before any kind of
+engagement.
+Website Mirroring
+There are times when it is just more efficient to download the target’s entire
+website and evaluate it offline. A set of automated tools can be run on the
+offline copy to fetch relevant information, or this can just help to have an
+offline copy in case the organization makes changes to the live website. Kali
+Linux has command-line tools such as the wget command that will copy all
+the HTML and CSS files of a website and store them locally on your hard
+drive. The wget tool is available in Kali Linux by default and is very easy to
+use as well. You can use the following command to copy all the HTML and
+CSS files. Do note that this command will not copy any code, such as a PHP
+script that is used on the server-side.
+wget -m -p -E -k -K -np -v http://example.com
+In the example mentioned above, the wget command is followed by several
+
+options and switches. You can use the command’s man page in Kali Linux to
+know more about the functions of these options.
+man wget
+This will pop up the man page for the wget command, and you can use the
+arrow keys to navigate through the description and function of each option.
+The man page would give you the following description of the options used
+in the example, as mentioned above.
+-m
+mirror enables settings to mirror a website
+-p
+prerequisites or page, this option ensures all files are
+downloaded including image files
+-E
+extension, this option ensures that all downloaded files are
+stored with the .html extension
+-k
+this option converts links and makes them suitable for local
+viewing
+-K
+this option creates a backup of the original files with a .orig
+extension
+The files copied from an organization’s website will be stored in a folder with
+the same name as that of the website being copied. When pages are being
+copied, there can be errors when a page containing a PHP is being
+downloaded. This happens when a front-end page depends too much on
+server-side scripting to display the content of the page. Such pages cannot be
+accessed by tools that clone a website.
+After you download the files, it is very important to keep it limited to the
+ethical hacking team for evaluation. Reposting such a website online again
+can violate copyright-related laws.
+Google Search
+The advanced search operators available for Google search can be leveraged
+to a great extent for reconnaissance. You can locate the Google Advanced
+
+Search on the following URL.
+https://www.google.com/advanced_search
+This will open a webpage. The top half of this tool will help you find web
+pages by including or excluding terms or numbers. The bottom half of this
+tool will help you make your search more specific. An ethical hacker can use
+all possible combinations of input fields in this tool to create a search string
+as per their requirement. Using multiple input fields will make the search
+complex but more accurate.
+Let us go through all the fields available in the Google Advanced Search tool
+one by one.
+All These Words
+This input field can be used to find a web page that contains all the words
+typed by you in the field. Their location on the web page does not matter, and
+it’s also not necessary for the words to be in the same order as typed by you;
+they just need to be on the web page.
+To execute this search, type any number of words in the All These Words
+input field, and it would get converted into a search string by Google’s search
+engine.
+This Exact Word or Phrase
+Providing an input of words to a phrase in this field will result in a Google
+search for web pages containing those words or phrases and in the same order
+as typed by you. This search works in the exact opposite way of the All
+These Words search. This search sends a search string by placing all your
+words or the phrase inside quotes, so they are treated as a single string.
+Any of These Words
+Inputs provided in this field provide results with an either/or query. Google
+will look for web pages that contain any of the words typed by you in this
+field. The Google search query places an OR connector between the words
+
+typed by you before sending a search query.
+None of These Words
+This is the opposite of Any of These Words search parameters. Google search
+will exclude web pages that contain the words typed by you and will show all
+the web pages that do not contain any of those words. The Google search
+query places a minus sign before the words typed by you before sending a
+search query.
+Numbers Ranging From
+This search field contains two fields for inputs. Needless to say, you can enter
+a range of numbers using the two input fields. This search can be further
+improved by using units of measurement such as miles, centimeters, or even
+currency. If you want to conduct the same search using the regular Google
+search method, you need to separate the two numbers with two period
+characters, which will instruct Google that it is a range. The result of this
+search will contain web pages that have the range specified by you.
+Language
+When you choose a specific language from the drop-down menu, the search
+result will contain web pages that have the language you have selected. This
+option is useful to ethical hackers when they target an organization from a
+particular region. For instance, if the target organization is a French firm, you
+can select the French language, which will help you conduct penetration tests
+in the next stages.
+Region
+Selecting a particular region will give search results of web pages that have
+been hosted in a particular region. If you do not specify the language in the
+language dropdown, search results for the region will give web pages
+irrespective of the primary language used in that region. You can conduct a
+more focused search if you provide input for both language and region.
+Last Updated
+The time input provided in this field narrows down the search results to
+
+contain web pages that have been modified in the specified time frame. This
+helps you exclude old websites and ensure that you get results for web pages
+after a key event has occurred for an organization. For example, if there is
+news about an organization’s merger with another organization on a
+particular date, or if they have switched to a newer technology on a particular
+date, you can specify a timestamp to get all possible information about that
+organization after the event has occurred.
+Site or Domain
+This input field can prove to be very helpful to narrow down search results.
+For instance, if your search is about a government-based organization, you
+can specify the .gov domain to narrow down results to show only websites
+hosted on a .gov domain name. You can perform the same search in the
+regular Google search method by using a search restrictor. For example, if
+you want your search to provide results restricted to facebook.com, you can
+use the search restrictor as site: facebook.com.
+Safe Search
+There are two options available for safe search.
+•         Show the most relevant results
+•         Filter explicit
+If you use the explicit filter option, web pages containing sexual content will
+be filtered out. Conversely, selecting show the most relevant results will not
+filter out web pages containing sexual content.
+Terms Appearing
+This option can be used to direct your search query to a particular section of
+the web page. It goes without saying that if you select the option “anywhere
+on the page,” there will be no real restrictions set, and the search will target
+the entire web page.
+Let us go through the different sections of a web page that can be targeted to
+get results.
+In the title of the page
+
+As the phrase suggests, this search will focus your search only on the title of
+web pages. The title of a web page is a short description of the web page,
+which is embedded in the browser tab for a web page. This search can be
+conducted through the regular search method by using the operator intitle: in
+the search box.
+In the text of the page
+When you use this limiter, your Google search will target web pages only for
+text content and exclude other content like images, videos, documents, etc. It
+will also exclude the title of the page. However, if an image is referenced
+using a hyperlink on the web page, the hyperlink will be returned as it is in
+the text format. This search can be conducted through the regular search
+method by using the operator intext: in the search box.
+In URL of the page
+This search will limit your search strings to the uniform resource locator
+section of a web page. The URL is the address of a web page that appears in
+the address bar of a web browser. This search can be conducted through the
+regular search method by using the operator inurl: in the search box.
+In links to the page
+This will return the results of other web pages that have links to your search
+criteria.
+Reading Level
+The search results for this option will return the results of web pages as per
+the complexity of the words on those pages.
+Let us go through the different options available under this search option.
+No reading level displayed
+This will ensure that no reading level is applied to your search criteria at all.
+Annotate results with reading level
+This will display the results, but the web pages will all display the reading
+level for the text on that page.
+The Google algorithm is not as great as other tools developed for language
+
+refined searches, but it can classify the reading levels into three types: basic,
+intermediate, and advanced. If you conduct a penetration test focusing on the
+reading level of a target, this option can be very useful. For example, if your
+target is a research-based organization, you can keep the reading level as
+advanced so that you do not get search results for unnecessary simple web
+pages.
+File Type
+This is another very useful option for an ethical hacker for reconnaissance.
+This search parameter helps you to restrict your search results to display web
+pages that contain specific file types such as a pdf, doc, docx, ppt, etc. You
+can use several file types in this search criteria to get a lot of information. For
+example, usernames and passwords are often stored in an excel file with the
+xls or xlsx extension. If you are lucky, using the excel file extension in your
+search criteria may return files that contain sensitive information of users.
+Usage Rights
+This search criterion restricts the result of your search to content that is
+reusable based on the copyrights. If you select the option “Free to use, share,
+or modify,” the search result will have content that can be reused without any
+restriction or content that can be shared or modified without any kind of fee.
+If you select the option “Commercial” for your search, it will return web
+pages that allow their content to be used commercially.
+Compiling a High-Level Google Search
+A regular user may use the individual search fields of the Google Advanced
+search to get impressive results, but as an ethical hacker, you may want to use
+a combination of fields to get search results that are relevant to your target.
+For example, let us assume that Hello World International, an American
+company recently merged with another company a month ago and has
+requested your ethical hacking team to conduct a penetration test. During a
+transition like this, several new documents are created, and the organizational
+chart of the company may change. An employee in charge of the company’s
+website may update the organizational chart after the merger. One of the
+possible combinations of search parameters you can use is:
+
+This exact word or phrase: Hello Word International
+Language: English
+Region: United States
+Last update: a month ago
+Site or domain: helloworld.com
+Filetype: ppt
+You could further refine your results by adding or removing more fields. You
+may change the file type to PDF to see if there are any PDF documents
+published after the merger.
+Google Hacking
+Johnny Long, a computer security expert, pioneered and popularized Google
+Hacking in early 2000. It is a technique that combines a set of Google
+operators in the Google search engine and returns valuable information. The
+technique uses a particular set of targeted expressions and queries the Google
+databases to fetch information about everything available on the Internet. It
+supercharges the searches we discussed in the Google Advanced Search
+section.
+An ethical hacker can create search strings comprising linked options and
+advanced operators to create targeted queries on the Google search engine.
+Queries can be targeted to assembly information like industrial services and
+other times to fetch user credentials. There are several books available today
+on Google Hacking, and the most popular one is published by Johnny Long,
+named Google Hacking for Penetration Testers.
+Google Hacking Database
+There is a Google Hacking Database (GHDB) that contains a vast set of
+Google Hacking search query strings. You can find the original database on
+the URL http://www.hackersforcharity.org/ghdb/, and the company Offensive
+Security 
+also 
+maintains 
+its 
+Google 
+Hacking 
+Database 
+at
+http://www.offensive-security.com/community-projects/google-hacking-
+database/, which is an extension to the original database.
+
+The Google Hacking Database maintained by Offensive Security contains
+more than 3500 hacks classified into 14 categories. More than 160 of these
+hacking strings can be used to fetch files that contain usernames and
+passwords.
+Let us look at an example search string that can be used to return the Cisco
+passwords.
+Enable password j secret "current configuration" -intext: the
+If you run this search string, you will get over a million search results on
+Google, and most of them will contain files with password-related
+information. You could further add additional operators to this string to
+customize your search, such as focusing it on a particular domain as follows.
+enable password j secret "current configuration" -intext:the
+site:helloworld.com
+Social Media
+It would be a sin to leave out the vast treasure of information that is available
+on social media in the reconnaissance stage. Social media is a part of
+everyone’s daily routine today. This makes social media a huge playground
+for the reconnaissance stage of the penetration testing lifecycle. People
+protect their private information fiercely in the physical world, but post it
+without any thought on social media platforms like Facebook, Twitter,
+Instagram, LinkedIn, etc. This can be of great use for social engineering.
+LinkedIn has proved to be very useful in finding out organizational charts.
+LinkedIn is a social media platform for professionals to connect on, and it
+often helps an ethical hacker to create a complete profile of employees within
+the target organization. Email addresses are not publicly shown on LinkedIn,
+and you may need to employ social engineering to collect information on the
+same. If the rules of engagement allow social engineering, ex-employees of
+an organization can turn out to be a good source of information. In addition to
+
+this, organizations have now started posting job opportunities on LinkedIn
+that help an ethical hacker identify the technologies used within the
+organization.
+Nameserver Queries
+Nameservers are a part of the Domain Name System and serve the DNS
+queries for a particular website. Nameservers are mostly public in nature. The
+following command on the Kali Linux terminal will return the local
+nameservers for your system.
+nslookup
+The command will be followed by a carrot symbol > that indicates that the
+terminal is waiting for input from you. You could type google.com to get the
+nameservers and IP addresses for google.com.
+>www.google.com
+This will return authoritative and nonauthoritative information about
+Google.com’s nameservers and IP addresses.
+You can exit from this tool by typing exit in front of the carrot prompt.
+>exit
+The nslookup command will use your local system’s nameservers or your
+Internet Service Provider ISP’s nameservers to display the result. You can
+specify a specific server to query the DNS for a domain as well. This can be
+seen in the command below.
+nslookup
+>server (for example 1.1.1.1 which is the server for Cloudflare)
+The nslookup command can be used to fetch other DNS related information
+too. For example, if you wish to fetch the mail servers for a domain name,
+you can use the following command.
+nslookup
+
+>set type = MX
+>google.com
+This will return all the mail servers for google.com.
+Different types of DNS records
+
+Chapter Five
+Scanning
+In this chapter, we will learn in detail about the second stage of the
+penetration testing lifecycle known as Scanning. This stage takes input from
+all the discoveries made in the first stage of reconnaissance. The information
+gathered about the employees and the information systems in the first stage
+will be expanded further to picture a physical and logical view of the
+organization’s infrastructure. As mentioned before, an ethical hacker is free
+to return to the reconnaissance stage again as when required if they feel the
+need to discover some more information to help the processes in the scanning
+stage.
+The main objective of the scanning stage is to fetch specific information on
+the target organization related to their network and information systems.
+Throughout this stage, an ethical hacker needs to focus on getting
+information about live hosts, device types (laptop, desktop, router, mobile,
+etc.), operating systems, software, public-facing services offered (SMTP,
+FTP, web applications, etc.). If possible, they should even try to find
+preliminary vulnerabilities. Vulnerabilities discovered during the scanning
+stage are known as low hanging fruit. There are several tools available for
+scanning, but we will focus on effective tools like Nmap, HPing, etc. in this
+chapter. The goal of the scanning stage is to have information that can be
+passed onto the next stage of the penetration testing lifecycle.
+Network Traffic
+It is important to have a basic understanding of network traffic to be able to
+understand the process and tools used in the scanning stage. The electronic
+communication that takes place between various computer systems through
+various methods is known as network traffic. Wired Ethernet and Wireless
+Ethernet are the most popular methods of networking today. You will be
+introduced to firewalls, ports, Internet Protocols such as Internet Control
+Management Protocol (ICMP), User Datagram Protocol (UDP), and
+
+Transmission Control Protocol (TCP) in this chapter.
+Firewalls and Ports
+The most common implementation in any organization to protect its network
+and information systems is by placing a firewall between its internal network
+and the external network, which is mostly the Internet. A firewall can is a
+software or hardware, which has rules to serve as a gatekeeper to a network.
+There are access control rules defined in a firewall to monitor inbound traffic
+called ingress and outbound traffic called egress. The traffic that satisfies
+these access control rules is allowed to pass through the firewall while the
+rest of it is dropped or discarded. This is done by opening and closing ports
+on the firewall that allow or reject traffic.
+Ports can be defined as communication channels used by computers to
+communicate with each other. A computer system has 65,535 ports each for
+TCP and UDP that can be used for communication. Some of these ports are
+reserved for specific functions but are not restricted for use by any other
+function. For example, port 80 is a TCP port that is used for regular Internet
+traffic over hypertext transfer protocol (HTTP). You can, however, allow
+other traffic over port 80 and HTTP traffic can be transmitted over other ports
+too.
+A simple analogy is to think of ports as different rooms to a big office
+building. Every room has a designated staff doing specific work and specific
+functions. The room with suite number 80 marked on it allows all web page
+requests through it. However, it is possible to move these functions to a
+different room, say suite number 8080, and perform the same function out of
+suite 8080. Meanwhile, a different set of staff can move into suite 80 and just
+lock it and do nothing. People trying to visit the web team will need to go to
+suite 8080 instead of suite 80 now to get their work done.
+A visitor trying to get web information from suite 80 will not get any
+information as the team in there will be a wrong team, or the room will be
+simply locked. Other times people requesting web information from room
+8080 will get the information they came looking for.
+IP Protocols
+Protocols in simple terms mean rules, applied to real-life or information

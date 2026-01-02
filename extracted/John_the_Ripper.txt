@@ -1,0 +1,677 @@
+=== John_the_Ripper.pdf ===
+Total Pages: 33
+============================================================
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+John The 
+Ripper 
+
+Page | 2  
+ 
+ 
+Table of Contents 
+ 
+Abstract ................................................................................................................................................... 3 
+Introduction ............................................................................................................................................ 4 
+Usage ............................................................................................................................................. 4 
+Wordlist Crack Mode ............................................................................................................... 6 
+Cracking the User Credentials............................................................................................. 7 
+Stopping and Restoring Cracking ...................................................................................... 10 
+SHA1 ............................................................................................................................................ 11 
+MD5 .............................................................................................................................................. 12 
+MD4 .............................................................................................................................................. 12 
+SHA256 ....................................................................................................................................... 13 
+RIPEMD128 ................................................................................................................................ 13 
+Whirlpool ................................................................................................................................... 14 
+View All Formats .................................................................................................................... 14 
+Abbreviating the Options .................................................................................................... 15 
+Cracking Multiple Files ......................................................................................................... 16 
+Password Hash Cracking ...................................................................................................... 17 
+Cracking the SSH Password Hash ..................................................................................... 18 
+Cracking the KeepPass2 Password Hash ........................................................................ 20 
+Cracking the RAR Password Hash ..................................................................................... 22 
+Cracking the ZIP Password Hash ....................................................................................... 24 
+Cracking the 7-Zip Password Hash................................................................................... 26 
+Cracking the PDF Password Hash ..................................................................................... 27 
+Cracking the PuTTY Password Hash ................................................................................ 29 
+Cracking the “Password Safe” Password Hash ........................................................... 31 
+Conclusion ............................................................................................................................................ 33 
+References ........................................................................................................................................... 33 
+ 
+ 
+ 
+ 
+ 
+
+Page | 3  
+ 
+Abstract 
+ 
+We know the importance of John the ripper in penetration testing, as it is quite 
+popular among password cracking tool. In this report, we are introducing John the 
+ripper and its various usage for beginners.  
+ 
+Additionally, we will use John the Ripper to crack the password hashes of some of 
+the file formats like zip, rar, pdf and much more. 
+ 
+Disclaimer: This report is provided for educational and informational 
+purpose only (Penetration Testing). Penetration Testing refers to legal 
+intrusion tests that aim to identify vulnerabilities and improve cybersecurity, 
+rather than for malicious purposes. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Page | 4  
+ 
+Introduction 
+ 
+What is John the Ripper? 
+John the Ripper is a free password cracking software tool developed by Openwall. Originally 
+developed for Unix Operating Systems but later on developed for other platforms as well. It 
+is one of the most popular password testings and breaking programs as it combines a number 
+of password crackers into one package, autodetects password hash types, and includes a 
+customizable cracker. It can be run against various encrypted password formats including 
+several crypt password hash types commonly found in Linux or  Windows. It can also be to 
+crack passwords of Compressed files like ZIP and also Documents files like PDF. 
+Where to get John the Ripper? 
+John the Ripper can be downloaded from Openwall’s Website, or from the Official John the 
+Ripper Github Repo. 
+ 
+Usage 
+ 
+John the Ripper comes pre-installed in Linux Kali and can be run from the terminal as shown 
+below: 
+ 
+
+Page | 5  
+ 
+John the Ripper works in 3 distinct modes to crack the passwords: 
+1. Single Crack Mode 
+2. Wordlist Crack Mode 
+3. Incremental Mode 
+John the Ripper Single Crack Mode 
+In this mode John the ripper makes use of the information available to it in the form of a 
+username and other information. This can be used to crack the password files with the format 
+of 
+ 
+For Example: If the username is “Hacker” it would try the following passwords: 
+hacker 
+HACKER 
+hacker1 
+h-acker 
+hacker= 
+We can use john the ripper in Single Crack Mode as follows: 
+Here we have a text file named crack.txt containing the username and password, where the 
+password is encrypted in SHA1 encryption so to crack this password we will use: 
+Syntax: john [mode/option] [password file] 
+ 
+As you can see in the screenshot that we have successfully cracked the password. 
+Username: ignite  
+Password: IgNiTe 
+john --single --format=raw-sha1 crack.txt 
+Username:Password 
+
+Page | 6  
+ 
+ 
+ 
+Wordlist Crack Mode 
+ 
+In this mode John the ripper uses a wordlist that can also be called a Dictionary and it 
+compares the hashes of the words present in the Dictionary with the password hash. We can 
+use any desired wordlist. John also comes in build with a password.lst which contains most of 
+the common passwords. 
+Let’s see how John the Ripper cracks passwords in Wordlist Crack Mode: 
+Here we have a text file named crack.txt containing the username and password, where the 
+password is encrypted in SHA1 encryption so to crack this password we will use: 
+Syntax: john [wordlist] [options] [password file] 
+ 
+As you can see in the screenshot, john the Ripper have cracked our password to be asdfasdf 
+ 
+ 
+john --wordlist=/usr/share/john/password.lst --format=raw-sha1 crack.txt 
+
+Page | 7  
+ 
+ 
+Cracking the User Credentials 
+ 
+We are going to demonstrate two ways in which we will crack the user credentials of a Linux 
+user. 
+Before that we will have to understand, what is a shadow file? 
+In the Linux operating system, a shadow password file is a system file in which encrypted 
+user password is stored so that they are not available to the people who try to break into the 
+system. It is located at /etc/shadow. 
+First Method  
+Now, for the first method, we will crack the credentials of a particular user “pavan”. 
+Now to do this First we will open the shadow file as shown in the image. 
+ 
+And we will find the credentials of the user pavan and copy it from here and paste it into a 
+text file. Here we have the file named crack.txt. 
+
+Page | 8  
+ 
+ 
+Now we will use john the ripper to crack it. 
+ 
+As you can see in the image below that john the ripper has successfully cracked the password 
+for the user pavan. 
+ 
+Second Method 
+Now, for the second method, we will collectively crack the credentials for all the users. 
+To do this we will have to use John the ripper utility called “unshadow”. 
+ 
+john crack.txt 
+unshadow /etc/passwd /etc/shadow > crack.txt 
+
+Page | 9  
+ 
+unshadow /etc/passwd /etc/shadow > crack.txt 
+ 
+Here the unshadow command is combining the /etc/passwd and /etc/shadow files so that John 
+can use them to crack them. We are using both files so that John can use the information 
+provided to efficiently crack the credentials of all users. 
+Here is how the crack file looks after unshadow command. 
+ 
+ 
+Now we will use john to crack the user credentials of all the users collectively. 
+ 
+john --wordlist=/usr/share/john/password.lst crack.txt 
+
+Page | 10  
+ 
+ 
+As you can see from the provided image that we have discovered the following credentials: 
+User 
+Password 
+Raj 
+123 
+Pavan 
+Asdfasdf 
+Ignite 
+Yellow 
+ 
+ 
+Stopping and Restoring Cracking 
+ 
+While John the ripper is working on cracking some passwords we can interrupt or pause the 
+cracking and Restore or Resume the Cracking again at our convenience. 
+So, while John the Ripper is running you can interrupt the cracking by Pressing “q” or Crtl+C 
+as shown in the given image. 
+ 
+
+Page | 11  
+ 
+Now to resume or restore the cracking process we will use the –restore option of John the 
+ripper as shown : 
+ 
+ 
+Now we will decrypt various hashes using John the Ripper 
+ 
+SHA1 
+ 
+To decrypt SHA1 encryption we will use RockYou as wordlist and crack the password as 
+shown below: 
+ 
+As you can see in the given image that we have the username pavan and password as Hacker 
+ 
+ 
+ 
+ 
+ 
+ 
+john --restore 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-sha1 crack.txt 
+
+Page | 12  
+ 
+ 
+MD5 
+ 
+To decrypt MD5 encryption we will use RockYou as wordlist and crack the password as 
+shown below: 
+ 
+As you can see in the given screenshot that we have the username pavan and password as 
+P@ssword. 
+ 
+ 
+MD4 
+ 
+To decrypt MD4 encryption we will use RockYou as wordlist and crack the password as 
+shown below: 
+ 
+As you can see in the given screenshot that we have the username pavan and password as 
+Rockyou 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-md5 rack.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-md4 crack.txt 
+
+Page | 13  
+ 
+ 
+ 
+SHA256 
+ 
+To decrypt SHA256 encryption we will use RockYou as wordlist and crack the password as 
+shown below: 
+ 
+As you can see in the given screenshot that we have the username pavan and password as 
+pAsSwOrD 
+ 
+RIPEMD128 
+ 
+To decrypt RIPEMD128 encryption we will use RockYou as wordlist and crack the password 
+as shown below: 
+ 
+As you can see in the given image that we have the username pavan and password as 
+password123 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=raw-sha256 crack.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=ripemd-128 crack.txt 
+
+Page | 14  
+ 
+ 
+ 
+Whirlpool 
+ 
+To decrypt whirlpool encryption, we will use RockYou as wordlist and crack the password as 
+shown below: 
+ 
+As you can see in the given screenshot that we have the username pavan and password as 
+password666 
+ 
+ 
+View All Formats 
+ 
+John the Ripper supports much encryption some of which we showed above. To view all the 
+formats, it supports: 
+ 
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=whirlpool crack.txt 
+john --list=formats 
+
+Page | 15  
+ 
+john --list=formats 
+Hope, you can take reference of this article while using John the ripper, More on John the 
+Ripper will be in the Next Part. 
+ 
+ 
+Abbreviating the Options 
+ 
+We don’t have to type complete option every time we use john the ripper, Developers have 
+given users the option to abbreviate the options like 
+–single can be written as -si 
+–format can be written as -form 
+Shown below is an example of how to use these abbreviations. 
+ 
+john -si crack.txt -form=raw-md5 
+
+Page | 16  
+ 
+ 
+Another abbreviation we can use is: 
+–wordlist can be written as -w 
+ 
+ 
+ 
+Cracking Multiple Files 
+ 
+We can also crack multiple hash files if they have the same encryption. Let’s take an 
+example, we have two files. 
+1. crack.txt 
+2. md5.txt 
+Both contain md5 hashes, so to crack both files in one session, we will run john as follows: 
+Syntax: john [file 1][file 2] 
+ 
+john -form=raw-md5 crack.txt md5.txt 
+john -w=/usr/share/wordlists/rockyou.txt crack.txt -form=raw-md5 
+john -form=raw-md5 crack.txt md5.txt 
+
+Page | 17  
+ 
+ 
+ 
+Password Hash Cracking 
+ 
+To crack these password hashes, we are going to use some of the inbuilt and some other 
+utilities which extract the password hash from the locked file. There are some utilities that 
+come inbuilt with John which can be found using the following command. 
+ 
+As you can see that we have the following utilities, we will demonstrate some of them here. 
+ 
+ 
+ 
+ 
+ 
+ 
+locate *2john 
+
+Page | 18  
+ 
+ 
+Cracking the SSH Password Hash 
+ 
+John the Ripper can crack the SSH private key which is created in RSA Encryption. To test 
+the cracking of the private key, first, we will have to create a set of new private keys. To do 
+this we will use a utility that comes with ssh, called “ssh-keygen”. 
+ 
+ 
+After opening, it asks for the location at which we want the public/private RSA key pair to 
+store? You can use any location or you can leave it as default. 
+After that it asks for the passphrase, after entering the password again, we successfully 
+generate the RSA private key. (Refer the image) 
+When you will try to open the file, you will be greeted by the following prompt. 
+ssh-keygen 
+
+Page | 19  
+ 
+ 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “ssh2john”. 
+Syntax: ssh2john [location of key] 
+ 
+ 
+You can see that we converted the key to a crackable hash and then entered it into a text file 
+named id_rsa.txt. 
+Now let’s use John the Ripper to crack this hash. 
+ 
+ssh2john /home/pavan/.ssh/id_rsa > crack.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.txt 
+
+Page | 20  
+ 
+Great! We have successfully cracked the passphrase used to create the private ssh key to be 
+“password123” 
+ 
+ 
+Cracking the KeepPass2 Password Hash 
+ 
+John the Ripper can crack the KeepPass2 key. To test the cracking of the key, first, we will 
+have to create a set of new keys. To do this we will use a utility that is called “kpcli”. 
+ 
+ 
+Now we will create a database file using the command “save as” and naming the database file 
+as ignite.kdb and entering a passcode to secure it. 
+When you will try to open the file, you will be greeted by the following prompt. 
+kpcli 
+
+Page | 21  
+ 
+ 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “keepass2john”. 
+Syntax: keepass2john [location of key] 
+ 
+ 
+Now let’s use John the Ripper to crack this hash. 
+ 
+Great! We have successfully cracked the passphrase used to create the key to be “12345678” 
+keepass2john ignite.kdb > crack.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt crack.txt 
+
+Page | 22  
+ 
+ 
+ 
+Cracking the RAR Password Hash 
+ 
+Now we will crack some compressed files, to do that we will have to create a file to be 
+compressed so let’s do that using echo command as shown in the given screenshot. 
+You can see that we created a file.txt which we will be using to create compressed files. 
+ 
+ 
+John the Ripper can crack the RAR file passwords. To test the cracking of the password, first, 
+let’s create a compressed encrypted rar file. 
+ 
+echo hackingarticles.in > file.txt 
+rar a -hpabc123 file.rar file.txt 
+
+Page | 23  
+ 
+ 
+ 
+a = Add files to archive 
+ 
+hp[password] = Encrypt both file data and headers 
+ This will compress and encrypt our file.txt into a file.rar. So, when you will try to open the 
+file, you will be greeted by the following prompt. 
+ 
+Now John cannot directly crack this key, first, we will have to change it format, which can be 
+done using a john utility called “rar2john”. 
+Syntax: rar2john [location of key] 
+ 
+ 
+Now let’s use John the Ripper to crack this hash. 
+rar2john file.rar > crack.txt 
+
+Page | 24  
+ 
+ 
+Great! We have successfully cracked the passphrase used to create the key to be “abc123” 
+ 
+ 
+Cracking the ZIP Password Hash 
+ 
+John the Ripper can crack the ZIP file passwords. To test the cracking of the password, first, 
+let’s create a compressed encrypted zip file. 
+ 
+ 
+ 
+e = Encrypt 
+ 
+r = Recurse into directories 
+This will compress and encrypt our file.txt into a file.zip. So, when you will try to open the 
+file, you will be greeted by the following prompt. 
+john --wordlist=/usr/share/wordlists/rockyou.txt crack.txt 
+zip -er file.zip file.txt 
+
+Page | 25  
+ 
+ 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “zip2john”. 
+Syntax: zip2john [location of key] 
+ 
+ 
+Now let’s use John the Ripper to crack this hash. 
+ 
+ 
+Great! We have successfully cracked the passphrase used to create the key to be “654321” 
+ 
+ 
+zip2john file.zip > crack.txt 
+john --wordlist=/usr/share/wordlists/rockyou.txt crack.txt 
+
+Page | 26  
+ 
+ 
+Cracking the 7-Zip Password Hash 
+ 
+John the Ripper can crack the 7-Zip file passwords. To test the cracking of the password, 
+first, let’s create a compressed encrypted 7z file. 
+ 
+ 
+ 
+a = Add files to archive 
+ 
+m = Set compression Method 
+ 
+h = Calculate hash values for files 
+ 
+e = Encrypt file 
+ 
+p = set Password 
+This will compress and encrypt our file.txt into a file.7z. So, when you will try to open the 
+file, you will be greeted by the following prompt. 
+ 
+Now John cannot directly crack this key, first, we will change its format, which can be done 
+using a john utility called “7z2john”. This is not inbuilt utility, It can be downloaded from 
+here. 
+Syntax: zip2john [location of key] 
+7z a -mhe file.7z file.txt -p"password" 
+
+Page | 27  
+ 
+ 
+ 
+Now let’s use John the Ripper to crack this hash. 
+ 
+Great! We have successfully cracked the passphrase used to create the key to be “password” 
+ 
+ 
+Cracking the PDF Password Hash 
+ 
+John the Ripper can crack the PDF file passwords. You can encrypt your pdf online by using 
+Soda PDF website. This will compress and encrypt our pdf into a password protected file.pdf. 
+So, when you will try to open the file, you will be greeted by the following prompt. 
+python 7z2john.py file.7z > crack.txt 
+john –wordlist=/usr/share/wordlists/rockyou.txt crack.txt 
+
+Page | 28  
+ 
+ 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “pdf2john”. This is not an inbuilt utility, it can be 
+downloaded from here. 
+Syntax: pdf2john [location of key] 
+ 
+ 
+Now let’s use John the Ripper to crack this hash. 
+ 
+Great! We have successfully cracked the passphrase used to create the key to be 
+“password123”. 
+python pdf2john.py file.pdf > crack.txt 
+john –wordlist=/usr/share/wordlists/rockyou.txt crack.txt 
+
+Page | 29  
+ 
+ 
+ 
+Cracking the PuTTY Password Hash 
+ 
+John the Ripper can crack the PuTTY private key which is created in RSA Encryption. To 
+test the cracking of the private key, first, we will have to create a set of new private keys. To 
+do this we will use a utility that comes with PuTTY, called “PuTTY Key Generator”. 
+ 
+Click on “Generate”. After Generating the key, we get a window where we will input the key 
+passphrase as shown in the image. 
+
+Page | 30  
+ 
+ 
+After entering the passphrase, click on Save private key to get a private key in the form of a 
+.ppk file 
+After generating transfer this .ppk file to Kali Linux. 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “putty2john”. 
+Syntax: putty2john [location of key] 
+ 
+putty2john file.ppk > crack.txt 
+
+Page | 31  
+ 
+ 
+You can see that we converted the key to a crackable hash and then entered it into a text file 
+named crack.txt. 
+Now let’s use John the Ripper to crack this hash. 
+ 
+Great! We have successfully cracked the passphrase used to create the private PuTTY key to 
+be “password”. 
+ 
+ 
+Cracking the “Password Safe” Password Hash 
+ 
+John the Ripper can crack the Password Safe Software’s key. To test the cracking of the key, 
+first, we will have to create a set of new keys. To do this we will install the Password Safe 
+Software on our Windows 10 System. 
+john –w=/usr/share/wordlists/rockyou.txt crack.txt 
+
+Page | 32  
+ 
+ 
+To get a new key, Click on “New” 
+ 
+In this prompt, check the Show Combination Box. After that Enter the passphrase you want 
+to use to generate the key. This will generate a .psafe3 file. 
+After generating transfer this .safe3 file to Kali Linux. 
+Now John cannot directly crack this key, first, we will have to change its format, which can 
+be done using a john utility called “pwsafe2john”. 
+Syntax: pwsafe2john [location of key] 
+ 
+pwsafe2john ignite.psafe3 > crack.txt 
+
+Page | 33  
+ 
+ 
+You can see that we converted the key to a crackable hash and then entered it into a text file 
+named crack.txt. 
+Now let’s use John the Ripper to crack this hash. 
+ 
+Great! We have successfully cracked the passphrase used to create the private pwsafe key to 
+be “password123” 
+ 
+ 
+Conclusion 
+Hence, one can make use of these commands as a cybersecurity professional to 
+assess vulnerabilities on systems and keep these systems away from threat. 
+ 
+References 
+• 
+https://www.hackingarticles.in/beginner-guide-john-the-ripper-part-1/ 
+• 
+https://www.hackingarticles.in/beginners-guide-for-john-the-ripper-part-2/ 
+• 
+https://www.openwall.com/john/ 
+• 
+https://github.com/openwall/john 
+• 
+https://www.sodapdf.com/password-protect-pdf/ 
+ 
+john –w=/usr/share/wordlists/rockyou.txt crack.txt 

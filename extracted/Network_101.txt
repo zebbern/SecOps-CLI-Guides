@@ -1,0 +1,537 @@
+Prepared by: Aamir Sohail 
+ 
+
+Prepared by: Aamir Sohail 
+Table of Contents 
+1. Introduction 
+o 
+Overview of Network Protocols and Services 
+2. Configuring HTTP Server 
+o 
+Adding a New Website 
+o 
+Configuring HTTP Settings (IP and Port 80) 
+o 
+Verifying HTTP Server Setup 
+o 
+Creating and Configuring a Simple Login Page 
+o 
+Configuring Firewall for HTTP Traffic 
+o 
+Checking Logs 
+3. Configuring HTTPS Server 
+o 
+Introduction to HTTPS 
+o 
+Setting Up HTTPS Server 
+o 
+Installing SSL Certificate 
+o 
+Configuring Port 443 
+o 
+Verifying HTTPS Setup 
+o 
+Configuring Firewall for HTTPS Traffic 
+4. SNMP (Simple Network Management Protocol) - Port 161 
+o 
+Overview of SNMP 
+o 
+Checking and Ensuring Port 161 is Open 
+o 
+Installing SNMP Services 
+o 
+Configuring SNMP Settings 
+o 
+Verifying SNMP Configuration 
+o 
+Using SNMP-Check for Enumeration 
+5. SMB (Server Message Block Protocol) - Port 445 
+o 
+Overview of SMB 
+o 
+Creating and Sharing a Folder 
+o 
+Configuring Folder Permissions 
+o 
+Checking SMB Configuration 
+o 
+Verifying Access and Permissions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Configuring HTTP Server 
+HTTP (Hypertext Transfer Protocol) is a foundational protocol used for transmitting data over 
+the web. 
+1- Adding new Website. 
+ 
+2- Give site name, Path where i save the simple website files. 
+ 
+
+Prepared by: Aamir Sohail 
+3- In type select http and select IP (your window) and port is 80. 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+4- Let’s check that it is added or not, so as we can see that it is successfully added. 
+ 
+ 
+5- Now we will make a simple login page  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+6- Now we will allow it that everyone can use it, open the control panel and open the 
+window defender firewall. 
+ 
+7- Click on Advance settings 
+ 
+
+Prepared by: Aamir Sohail 
+8- Now click on inbound Rules and then click new Rule. 
+ 
+9- Click port and then next 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+10- Write port 80 
+ 
+11- Allow the connection and next 
+ 
+
+Prepared by: Aamir Sohail 
+12- By default the Domain, Private and Public is checked. 
+ 
+ 
+13- Give the name like here i give http and then click next. 
+ 
+
+Prepared by: Aamir Sohail 
+ 
+14- Here we can see that it is done. 
+ 
+ 
+15- Now we will open it through IP, simply give your window IP like http://192.168.?.?  
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+ 
+ 
+16- Here i give username and password 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+ 
+CHECKING THE LOGS 
+ Open this location and open this file 
+ 
+ Now we check there logs 
+Here i get there username and password, port 80. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Configuring HTTPS Server 
+HTTPS is the secure version of HTTP, used to encrypt data exchanged between a web server and 
+a client to ensure privacy and integrity. It uses port 443 by default, as opposed to HTTP, which 
+uses port 80. HTTPS is essential for protecting sensitive information like passwords, credit card 
+details, and other personal data when transmitted over the web. 
+To configure an HTTPS server: 
+1. Set up a web server 
+2. Install certificate on the server to enable HTTPS. 
+3. Ensure port 443 is open on your firewall. 
+4. Test the connection by accessing the server using a browser or a tool like curl from 
+another machine. 
+If the port isn't open, you'll need to configure your firewall to allow traffic on port 443 and then 
+test the connection using your Windows machine's IP address. 
+Checking port 443 
+I will check it in kali that the port is open or not. 
+Here through nmap i checked the port 443 with IP (window IP) but the port is filtered. 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Set up a web server 
+First we will make a certificate. 
+Open the IIS (internet information services manager) and click on Desktop which i highlighted 
+(1) and then click on server certificates (2) and then click on open feature (3).  
+ 
+ 
+Now click on Create Self-Signed Certificate 
+ 
+
+Prepared by: Aamir Sohail 
+Give any name 
+ 
+ 
+Certificate is added successfully. 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Now i will make a new website, so for that open the IIS (internet information services 
+manager), and right click on sites and add website 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Give name and path below i show about the path, and click type as https, IP, and port is 443, 
+and then select the certificate which we created. 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+About path: 
+I created a simple login page in the below location. 
+ 
+ 
+So the https is added. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Configuring Firewall to allow traffic on port 443 
+Open control panel and then click on window defender firewall. Click on inbound (1), then 
+inbound rule (2), then check port (3), and next. 
+ 
+Give 443 in port and next 
+ 
+
+Prepared by: Aamir Sohail 
+Click Allow the connection and next. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+Click next 
+ 
+Give name like here i give https and then click next. 
+ 
+
+Prepared by: Aamir Sohail 
+So we can see that the https rule is added. 
+ 
+ 
+Now if i rechecked the port so it is open, and ssl/http mean https. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+SNMP (Simple Network Management 
+Protocol) - Port 161 
+SNMP is a widely used protocol for network management, allowing devices on a network to be 
+monitored, configured, and managed remotely. It operates on port 161 (UDP) for 
+communication between network devices, such as routers, switches, and servers, and a 
+management station. 
+SNMP gathers detailed system information, including network configurations, user accounts, 
+shared folders, and overall system data. Network administrators use this information to 
+understand and manage system and network configurations effectively. However, if exploited 
+by hackers, SNMP can be used to gain critical system information, making it essential to secure 
+SNMP access. 
+ 
+1. First i will check my IP , in cmd through ipconfig commond. 
+ 
+2. Ensure Port 161 is Open: 
+ We will Check that UDP port 161 is open on the device's firewall. 
+ Use tools like nmap to verify that port 161 is open and accessible. 
+
+Prepared by: Aamir Sohail 
+ 
+When nmap reports "open|filtered", it usually indicates that the port might be open but could 
+also be filtered by a firewall, making it difficult to definitively state its status. 
+3. The snmp-check command did not receive a response from the SNMP service on port 
+161 of the target IP address (192.168.?.?), resulting in a timeout. This could indicate that 
+the SNMP service is either not running, is configured with different settings, or is being 
+blocked by a firewall or network filter. 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+4. Now we will first install the snmp services because it is not showing me in services 
+option.  
+I. 
+Open the Setting, then click on system, and then click on view features 
+ 
+II. 
+Now search the snmp and checked and next 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+III. 
+Then click add 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+IV. 
+Now it is adding 
+ 
+V. 
+Added successfully 
+ 
+ 
+5. Now it is added. 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+6. Configuring SNMP 
+I. 
+Right click on SNMP service and stop it and then click their properties.  
+After that click automatic  
+ 
+ 
+
+Prepared by: Aamir Sohail 
+II. 
+Now go to security section and uncheck the send authentication trap, and then check 
+the accept SNMP packets from any host, and then click add and click read only and give 
+name like here i give public and then click on add. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+III. 
+Now apply, start, and ok 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+7. Now we will check that the port is open or not. 
+ 
+ 
+8. The sudo snmp-check 192.168.?.? command is used to perform an SNMP enumeration 
+on a target device with the IP address. This command helps in gathering detailed 
+information about the device, such as system configuration, network settings, and 
+hardware details, using the SNMP protocol. It's commonly used by network 
+administrators for monitoring and managing network devices, and by security 
+professionals to audit or assess network security.  
+ 
+ 
+And now we get the system information  
+
+Prepared by: Aamir Sohail 
+Here also we get the information about the network there complete details. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+SMB (Server Message Block Protocol) - 
+Port 445 
+SMB is a network protocol used for sharing files, printers, and other resources between devices on a 
+network. It operates over port 445 (TCP) and allows users to access and manage files on remote systems 
+as if they were on their local machine. SMB is widely used in Windows environments for network file 
+sharing, and it can also be used for inter-process communication (IPC) and printer sharing. 
+ 
+ 
+1. Create a folder and share it on network 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+2. Open and save some files in this folder 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+3. Now open the properties of this folder (SMB-Server) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+4. Click find, and here i click my window, now if someone have my window username and 
+password they will access this folder. 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+5. Click ok 
+ 
+6. Now click on window and give the permissions. 
+ 
+
+Prepared by: Aamir Sohail 
+7. First click ok (1), and then click on network & sharing center 
+ 
+8. Public network setting 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+9. Private network setting, now the folder is shared. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+10. Now we will check that the configuration is correct or not. Open the smbmap 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+11. Copy 
+ 
+12. Here i give after –u my window user name & after –p give password. So my SMB-Server 
+status is read, write, its mean the configuration is ok. 
+ 
+13. Also i checked that the server is added, i checked through  
+Sudo snmp-check IP 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+14. Here i open my vm window and open the network and on this and give the user name 
+and password. 
+ 
+15. After giving the username and password, smb server is showed now open. 
+ 
+ 
+ 
+ 
+ 
+
+Prepared by: Aamir Sohail 
+16. The files are showed, now everyone can access this if they have the username and 
+password. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

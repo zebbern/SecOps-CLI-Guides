@@ -1,0 +1,1045 @@
+=== All-About-Hacking.pdf ===
+Total Pages: 238
+============================================================
+
+
+CHAPTER 5 : Various Types of Hacking attacks
+CHAPTER 6 : Hacking Tools
+CHAPTER 7 : Malware : A hackers Henchman
+CHAPTER 8 : Common Attacks and Viruses
+CHAPTER 9 : Password cracking and How to hack an Email password?
+CHAPTER 10 : Penetration Testing
+CHAPTER 11 : Windows Hacking Tricks
+CHAPTER 12 : Internet Hacking Tricks
+__________________________________
+CHAPTER 1
+Hacking briefly
+__________________________________
+ 
+Hacking
+Hacking is the practice of modifying the features of a system, in order to accomplish a goal outside of
+the creator's original purpose.
+The most fundamental meaning of hacking is gaining unauthorized access to data in a system or
+computer.
+Hacking is exploiting security controls either in a technical, physical or a human-based element.  ~
+Kevin Mitnick
+The person who is consistently engaging in hacking activities, and has accepted hacking as a lifestyle
+and philosophy of their choice, is called a hacker.
+Computer hacking is the most popular form of hacking nowadays, especially in the field of computer
+security.
+The mass attention given to blackhat hackers from the media cause the whole hacking term is often
+mistaken for any security related cybercrime.
+However, the word "hacking" has two definitions. The first definition refers to the hobby/profession
+of working with computers. The second definition refers to modifies computer hardware or software
+in a way that changes the creator's original intent.
+It is the art of exploiting computers to get access to otherwise unauthorized information. Now that the
+world is using IT systems to gather, store and manipulate important information there is also a need to
+make sure that data is secure. However, no system is without is problems. Holes are often present
+within security systems which, if exploited, allow hackers to gain access to this otherwise restricted
+
+information.
+Purpose behind Hacking : When somebody tries to access other's computer systems with the aim
+of destroying or altering important information or data, such an activity is defined as hacking and
+the person is called a hacker. It is believed that hacking activities are not backed by solid logical
+reasons. On the contrary, hackers try to experiment with the computer brilliance by trying of
+affect other system with viruses. Hacking is done mostly for sheer pleasure by which a hacker
+wants to prove his skills. But if at all one searches for reasons behind it, it can be logically
+concluded Hacking is carried out with the objective of tracing vital information and affecting
+computer systems with viruses.
+Hacker
+Hacker is a term used by some to mean "a clever programmer" and by others, especially those in
+popular media, to mean "someone who tries to break into computer systems.
+Cracking
+Cracking is the act of breaking into a computer system, often on a network. A cracker can be doing
+this for profit, maliciously, for some altruistic purpose or cause, or because the challenge is there.
+Some breaking-and-entering has been done ostensibly to point out weaknesses in a site's security
+system.
+Contrary to widespread myth, cracking does not usually involve some mysterious leap of hackerly
+brilliance, but rather persistence and the dogged repetition of a handful of fairly well-known tricks
+that exploit common weaknesses in the security of target systems. Accordingly, most crackers are
+only mediocre hackers. These two terms should not be confused with each others. Hackers generally
+deplore cracking.
+Cracker
+A cracker is someone who breaks into someone else's computer system, often on a network; bypasses
+passwords or licenses in computer programs; or in other ways intentionally breaches computer
+security.
+Hacking as a Destructive Tool
+The common stance on hacking with the average person is that it is morally wrong. There have been
+several instances where hacking has proven to have caused problems. Hacking can create a variety of
+damages to people, groups and systems of broad spectrum. Negative Hacking Interactions:
+Identity Theft – Some hackers can gain access to sensitive information which could be used to fuel
+
+identity theft. This identity theft can cause damages to credit ratings from consumer agencies, run-ins
+with the law because the person who stole the identity committed a crime, or other damages which
+may not be repairable at all.
+E-mail Access – Hackers have the ability to gain access to personal e-mail accounts. These can have
+a variety of information and other private files which most people would regard as important. This
+information could also hold sensitive data which could be used against someone or simply cause ruin
+for those who are involved in the breach of privacy.
+Website Security – Many websites have been victims of hackers. Usually the hackers would simply
+destroy data and leave the websites in an inoperable state which would leave website owners with
+the task of rebuilding their sites from scratch if they did not have a backup. This could also pose risks
+for companies who had their consumer's payment information hosted on their websites. Defacing the
+websites by leaving tags or "calling cards" stating the unknown group's signature was not uncommon
+in the early days of hacking websites.
+Hacking as a Political Statement
+Some hackers are out to get the government and show the vulnerabilities that the government has in
+trusting their systems too much.
+This is extremely illegal in the United States and other countries. This has led to some vulnerability in
+security systems to being fixed and made the government computer systems even stronger. Of course it
+is difficult to do this kind of hacking without a trace being left behind.
+Most if not all hackers who get into the government systems around the world are captured by the
+government and punished for unauthorized access to their systems.
+Hacking through Worm Exploits
+Worms are nasty pieces of malicious code which are designed to find vulnerabilities in computer
+systems and exploit them with automated processing.
+They can be used to destroy data, collect information or simply lie in wait until they are given
+commands to do something. The worm code self replicates and tries to infect as many systems as
+possible.
+The big threat that these worms bring is the knowledge that a system is open.   This can allow the
+automated response to install a back door into a system which can allow malicious hackers to gain
+access to computers as well as turning systems into "zombies" which could be used for various
+purposes including spamming and masking the actions of the original hacker. Creators of catastrophic
+software such as the author of the first Internet worm, Robbert Tappan Morris Jr. did not mean to do
+bad at all.
+Before the Internet, there was ARPANET (Advanced Research Projects Agency Network), whic
+was used by the United States government Department of Defense. Morris created the Morris worm
+
+which was meant to gauge the size of the Internet but had actually gained access to ARPANET by
+accessing vulnerabilities in Unix based systems which were in use at the time.
+There was an error in his coding of the worm which caused replication at exponential rates which
+gained access into NASA and the Air Force systems. It was not intended to harm the computers, bu
+did show that they were vulnerable to attacks. He got off with only community service even though
+federal guidelines should have given him extensive consequences for his actions. He was hired by
+MIT and is currently a professor working in the Artificial Intelligence Laboratory.
+Hacking as a Learning Tool
+Hacking leads several people into the interest of creating newer, better software which can
+revolutionize the electronic world.
+Although it is important to remember that hacking is a varied skill and those who have been hacking
+the longest will have more success because they know how computers work and how they have
+evolved over time.
+Ethical hackers use their knowledge to improve the vulnerabilities in systems, their hardware and
+software. The ethical hackers come from a wide variety of different backgrounds.
+The best examples are from ex-malicious hackers who decide their purpose is to help prevent
+damages to companies by holes in their security. These companies pay their ethical hackers
+handsomely as they are providing a service which could be extremely useful in preventing damages
+and loss.
+They can be hired by single companies who need advanced protection while others could be hired by
+software designers who will reach millions of people around the world.
+Possible Protection from Hackers
+Protection from hackers is important no matter whether it is for personal use or for large
+corporations. The following tools are the best defense against hackers:
+Firewalls – The firewall is a software barrier which is designed to protect private resources and
+prevents unauthorized network traffic. They are designed to block off ports of access on the computer
+and require administrative clearance to access resources.
+Routers – All modern routers include firewalls and protective features. You can password protect
+wireless networks and create useful protection with them.
+Updates – Software updates are crucial to ensure the safety and security of any application of the
+software. It could be the operating system at home or the server software that processes website
+information and more.
+___________________________
+
+CHAPTER 2
+Classification
+various Kind of hacking
+___________________________
+Computer Hackers have been around for so many years. Since the Computer and Internet became
+widely used in the World, We have started to hear more and more about hacking.
+As the word ‘Hacking’ has two meaning, so the word ‘Hacker’ is a word that has two meanings:
+Traditionally, a Hacker is someone who likes to play with Software or Electronic Systems. Hackers
+enjoy Exploring and Learning how Computer systems operate. They love discovering new ways to
+work electronically.
+Recently, Hacker has taken on a new meaning that someone who finds weaknesses in a computer or
+computer network, though the term can also refer to someone with an advanced understanding of
+computers and computer networks.
+Normally, Hackers are people who try to gain unauthorized access to your computer.
+With controversy, the term hacker is reclaimed by computer programmers who argue that someone
+breaking into computers is better called a cracker, not making a difference between computer
+criminals (black hats) and computer security experts (white hats). Some white hat hackers claim that
+they also deserve the title hacker, and that only black hats should be called crackers.
+If hackers, if anyone committing a criminal act, wants to reduce their risk, they obviously don't
+involve anybody else. The greater the circle of people that know what you're doing, the higher the
+risk. ~ Kevin Mitnick
+Classifications of Hacker
+There are many more types of hackers in the world according to their motive and type of work. The
+following list forwards one mote steps to better knowing hackers.
+White hat hacker
+The term "White hat hacker" refers to an ethical hacker, or a computer security expert, who
+specializes in penetration testing and in other testing methodologies to ensure the security of an
+organization's information systems. Ethical hacking is a term coined by IBM meant to imply a broader
+category than just penetration testing. White-hat hackers are also called penetration tester, sneakers,
+red teams, or tiger teams. Generally, White hat hackers or ethical hackers are the good guy in the
+world of hackers.
+Black hat hacker
+A black hat hacker is an individual with extensive computer knowledge whose purpose is to breach
+or bypass internet security. Black hat hackers are also known as crackers or dark-side hackers. The
+
+general view is that, while hackers build things, crackers break things. They are computer security
+hackers that break into computers and networks or also create computer viruses. The term “black hat”
+comes from old westerns where the bad guys usually wore black hats.
+Black hat hackers break into secure networks to destroy data or make the network unusable for those
+who are authorized to use the network.
+They choose their targets using a two-pronged process known as the "pre-hacking stage".
+Step 1: Targeting
+Step 2: Research and Information Gathering
+Step 3: Finishing the Attack
+Grey hat hacker
+A grey hat hacker is a combination of a black hat and a white hat hacker. It may relate to whether they
+sometimes arguably act illegally, though in good will, or to show how they disclose vulnerabilities.
+They usually do not hack for personal gain or have malicious intentions, but may be prepared to
+technically commit crimes during the course of their technological exploits in order to achieve better
+security.
+Blue hat
+A blue hat hacker is someone outside computer security consulting firms who is used to bug test a
+system prior to its launch, looking for exploits so they can be closed. Microsoft also uses the term
+BlueHat to represent a series of security briefing events.
+Elite hacker
+A social status among hackers, elite is used to describe the most skilled. Newly discovered activities
+will circulate among these hackers.
+Script kiddie
+A script kiddie (or skiddie) is a non-expert who breaks into computer systems by using pre-packaged
+automated tools written by others, usually with little understanding of the underlying concept hence
+the term script (i.e. a prearranged plan or set of activities) kiddie (i.e. kid, child an individual lacking
+knowledge and experience, immature).
+Neophyte “newbie”
+A neophyte, "n00b", or "newbie" is someone who is new to hacking or phreaking and has almost no
+knowledge or experience of the workings of technology, and hacking.
+Hacktivist
+A hacktivist is a hacker who utilizes technology to announce a social, ideological, religious, or
+political message. In general, most hacktivism involves website defacement or denial-of-service
+attacks.
+Nation state
+
+It refers to Intelligence agencies and cyber warfare operatives of nation states.
+Organized criminal gangs
+Criminal activity carried on for profit.
+Bots
+Automated software tools, some freeware, available for the use of any type of hacker.
+_____________________
+CHAPTER 3
+Computer Security
+Computer Crime and
+Intelligence Agency
+_____________________
+Computer Security
+The security applied to computing devices such as computers and smartphones, as well as computer
+networks such as private and public networks, including the whole Internet is called as Computer
+Security.
+It includes physical security to prevent theft of equipment and information security to protect the data
+on that equipment. It is sometimes referred to as "Cyber Security" or "IT security".
+Cybersecurity is the process of applying security measures to ensure confidentiality, integrity, and
+availability of data.
+Computer Threats
+A threat is a possible danger that might exploit a vulnerability to breach security and thus cause
+possible harm.
+
+It can be either "intentional" (i.e., intelligent; e.g., an individual cracker or a criminal organization) or
+"accidental" (e.g., the possibility of a computer malfunctioning, or the possibility of a natural disaster
+such as an earthquake, a fire, or a tornado) or otherwise a circumstance, capability, action, or event.
+Computer Crime
+Computer crime refers to any crime that involves a computer and a network. Net crime refers to
+criminal exploitation of the Internet.
+Cybercrimes are defined as: "Offences that are committed against individuals or groups of
+individuals with a criminal motive to intentionally harm the reputation of the victim or cause
+physical or mental harm to the victim directly or indirectly, using modern telecommunication
+networks such as Internet (Chat rooms, emails, notice boards and groups) and mobile phones
+(SMS/MMS)".
+Such crimes may threaten a nation’s security and financial health. Issues surrounding this type of
+crime has become high-profile, particularly those surrounding cracking, copyright infringement, child
+pornography, and child grooming. There are also problems of privacy when confidential information
+is lost or intercepted, lawfully or otherwise.
+
+Topology of computer crime
+Computer crime encompasses a broad range of activities. Generally, however, it may be divided into
+two categories: (1) crimes that target computers directly; (2) crimes facilitated by computer networks
+or devices, the primary target of which is independent of the computer network or device.
+1. Crimes that primarily target computer networks or devices include: Computer viruses,
+Denial-of-service attacks, Malware (malicious code)
+2. Crimes that use computer networks or devices to advance other ends include: Cyber
+
+stalking, Fraud and identity theft, Information warfare, Phishing scams
+Cyber Terrorism
+Cyber terrorism in general, can be defined as an act of terrorism committed through the use of
+cyberspace or computer resources. As such, a simple propaganda in the Internet, that there will be
+bomb attacks during the holidays can be considered cyber-terrorism.
+Top 10 Intelligence agencies of the world
+CIA – America
+Formed : September 18, 1947
+Agency executive : Leon Panetta, Director
+Parent agency : Central Intelligence Group
+CIA is the largest of the intelligence agencies and is responsible for gathering data from other
+countries that could impact U.S. policy. It is a civilian intelligence agency of the United States
+government responsible for providing national security intelligence to senior United States
+policymakers. The CIA also engages in covert activities at the request of the President of the United
+States of America. The CIA’s primary function is to collect information about foreign governments,
+corporations, and individuals, and to advise public policymakers. The agency conducts covert
+operations and paramilitary actions, and exerts foreign political influence through its Special
+Activities Division. It has failed to control terrorism activities including 9/11, Not even a single top
+level Al-Queda leader captured own its own in the past 9 years – ‘they missed 1 Million’ Soviet
+troops marching into Afghanistan’. Iraq’s Weapons of Mass Destruction, Have the found them yet? -
+Number of defectors/ double agents numbers close to a thousand. On 50th anniversary of CIA
+President Clinton said ”By necessity, the American people will never know the full story of your
+courage. Indeed, no one knows that what CIA really does”. Highly funded and technologically most
+advanced Intelligence set-up in the world.
+M1-6 – United Kingdom
+Formed : 1909 as the Secret Service Bureau
+Jurisdiction : Government of the United Kingdom
+Headquarters : Vauxhall Cross, London
+Agency executive : Sir John Sawers KCMG, Director General
+Parent agency : Foreign and Commonwealth Office
+The British have had a long public perception of an effective intelligence agency (due to the success
+of the unrealistic, yet entertaining, James Bond movies). This perception matches reality. MI6, the
+
+British equivalent to the CIA, has had two big advantages in staying effective: The British Officia
+Secrets Act and D notices can often prevent leaks (which have been the bane of the CIA’s existence).
+Some stories have emerged. In the Cold War, MI6 recruited Oleg Penkovsky, who played a key part
+in the favorable resolution of the Cuban Missile Crisis, and Oleg Gordievski, who operated for a
+decade before MI6 extracted him via Finland. The British were even aware of Norwood’s activities
+but made the decision not to tip their hand. MI6 also is rumored to have sabotaged the Tu-144
+supersonic airliner program by altering documents and making sure they fell into the hands of the
+KGB.
+ISI – Pakistan
+Formed : 1948
+Jurisdiction : Government of Pakistan
+Headquarters : Islamabad, Pakistan
+Agency executive : Lieutenant General Ahmad Shuja Pasha, PA Director General
+With the lengthiest track record of success, the best know Intelligence so far on the scale of records is
+ISI. The Inter-Services Intelligence was created as an independent unit in 1948 in order to strengthen
+the performance of Pakistan’s Military Intelligence during the Indo-Pakistani War of 1947. Its success
+in achieving its goal without leading to a full scale invasion of Pakistan by the Soviets is a feat
+unmatched by any other through out the intelligence world. KGB, The best of its time, failed to
+counter ISI and protect Soviet interests in Central Asia. It has had 0 double agents or Defectors
+through out its history, considering that in light of the whole war campaign it carried out from money
+earned by selling drugs bought from the very people it was bleeding, The Soviets. It has protected its
+Nuclear Weapons since formed and it has foiled Indian attempts to attain ultimate supremacy in the
+South-Asian theatres through internal destabilization of India. It is above All laws in its host country
+Pakistan ‘A State, with in a State’. Its policies are made ‘outside’ of all other institutions with the
+exception of The Army. Its personnel have never been caught on camera. Its is believed to have the
+highest number of agents worldwide, close to 10,000. The most striking thing is that its one of the
+least funded Intelligence agency out of the top 10.
+Mossad – Israel
+Formed : December 13, 1949 as the Central Institute for Coordination
+Agency executive : Meir Dagan, Director
+Parent agency : Office of the Prime Minister
+The Mossad is responsible for intelligence collection and covert operations including paramilitary
+activities. It is one of the main entities in the Israeli Intelligence Community, along with Aman
+(military intelligence) and Shin Bet (internal security), but its director reports directly to the Prime
+Minister. The list of its successes is long. Israel’s intelligence agency is most famous for having taken
+
+out a number of PLO operatives in retaliation for the attack that killed eleven Israeli athletes at the
+1972 Olympic games in Munich. However, this agency has other success to its name, including the
+acquisition of a MiG-21 prior to the Six-Day war of 1967 and the theft of the plans for the Mirage 5
+after the deal with France went sour. Mossad also assisted the United States in supporting Solidarity
+in Poland during the 1980s.
+MSS – China
+Jurisdiction : People’s Republic of China
+Headquarters : Beijing
+Agency executive : Geng Huichang, Minister of State Security
+Parent agency : State Council
+Ministry of State Security is the security agency of the People’s Republic of China. It is also probably
+the Chinese government’s largest and most active foreign intelligence agency, though it is also
+involved in domestic security matters. Article 4 of the Criminal Procedure Law gives the MSS the
+same authority to arrest or detain people as regular police for crimes involving state security with
+identical supervision by the procuratorates and the courts. It is headquartered near the Ministry of
+Public Security of the People’s Republic of China in Beijing. According to Liu Fuzhi, Secretary
+General of the Commission for Politics and Law under the Central Committee of the Communist Party
+of China and Minister of Public Security, the mission of the MSS is to ensure “the security of the state
+through effective measures against enemy agents, spies, and counter-revolutionary activities designed
+to sabotage or overthrow China’s socialist system.”  One of the primary missions of the MSS is
+undoubtedly to gather foreign intelligence from targets in various countries overseas. Many MSS
+agents are said to have operated in the Greater China region (Hong Kong, Macau, and Taiwan) and to
+have integrated themselves into the world’s numerous overseas Chinese communities. At one point,
+nearly 120 agents who had been operating under non-official cover in the U.S., Canada, Western and
+Northern Europe, and Japan as businessmen, bankers, scholars, and journalists were recalled to
+China, a fact that demonstrates the broad geographical scope of MSS agent coverage.
+BND – Germany
+Formed : 1 April 1956
+Agency executive : Gehlen Organization
+Parent agency : Central Intelligence Group
+The Bundesnachrichtendienst is the foreign intelligence agency of the German government, under the
+control of the Chancellor’s Office. The BND acts as an early warning system to alert the German
+government to threats to German interests from abroad. It depends heavily on wiretapping and
+electronic surveillance of international communications. It collects and evaluates information on a
+variety of areas such as international terrorism, WMD proliferation and illegal transfer of technology,
+
+organized crime, weapons and drug trafficking, money laundering, illegal migration and information
+warfare. As Germany’s only overseas intelligence service, the BND gathers both military and civil
+intelligence.
+FSB – Russia
+Formed : 3 April, 1995
+Headquarters : Lubyanka Square
+Preceding agency : KGB
+The Federal Security Service of Russian Federation (FSD) is the main domestic security agency o
+the Russian Federation and the main successor agency of the Soviet-era Cheka, NKVD and KGB. Th
+FSB is involved in counter-intelligence, internal and border security, counter-terrorism, and
+surveillance. Its headquarters are on Lubyanka Square, downtown Moscow, the same location as the
+former headquarters of the KGB. All law enforcement and intelligence agencies in Russia work under
+the guidance of FSB, if needed. For example, the GRU, spetsnaz and Internal Troops detachments o
+Russian Ministry of Internal Affairs work together with the FSB in Chechnya. The FSB is responsibl
+for internal security of the Russian state, counterespionage, and the fight against organized crime,
+terrorism, and drug smuggling. The number of FSB personnel and its budget remain state secrets
+although the budget was reported to jump nearly 40% in 2006.
+DGSE – France
+Formed : April 2, 1982
+Preceding agency : External Documentation and Counter-Espionage Service
+Minister responsible : Hervé Morin, Minister of Defence
+Agency executive : Erard Corbin de Mangoux, Director
+Directorate General for External Security is France’s external intelligence agency. Operating under
+the direction of the French ministry of defence, the agency works alongside the DCRI (the Centra
+Directorate of Interior Intelligence) in providing intelligence and national security, notably by
+performing paramilitary and counterintelligence operations abroad. The General Directorate for
+External Security (DGSE) of France has a rather short history compared to other intelligence agencies
+in the region. It was officially founded in 1982 from a multitude of prior intelligence agencies in the
+country. Its primary focus is to gather intelligence from foreign sources to assist in military and
+strategic decisions for the country. The agency employs more than five thousand people.
+RAW – India
+Formed : 21 September 1968
+
+Headquarters : New Delhi, India
+Agency executive : K. C. Verma, Secretary (R)
+Parent agency : Prime Minister’s Office, GoI
+Research and Analysis Wing is India’s external intelligence agency. It was formed in September
+1968, after the newly independent Republic of India was faced with 2 consecutive wars, the Sino-
+Indian war of 1962 and the India-Pakistani war of 1965, as it was evident that a credible intelligence
+gathering setup was lacking. Its primary function is collection of external intelligence, counter-
+terrorism and covert operations. In addition, it is responsible for obtaining and analyzing information
+about foreign governments, corporations, and persons, in order to advise Indian foreign policymakers.
+Until the creation of R&AW, the Intelligence Bureau handled both internal and external intelligence.
+ASIS – Australia
+Formed : 13 May 1952
+Headquarters : Canberra, Australian Capital Territory, Australia
+Minister responsible : The Hon. Stephen Smith MP, Minister for Foreign Affairs
+Agency executive : Nick Warner, Director-General
+Australian Secret Intelligence Service is the Australian government intelligence agency responsible
+for collecting foreign intelligence, undertaking counter-intelligence activities and cooperation with
+other intelligence agencies overseas. For more than twenty years, the existence of the agency was a
+secret even from its own government. Its primary responsibility is gathering intelligence from mainly
+Asian and Pacific interests using agents stationed in a wide variety of areas. Its main purpose, as with
+most agencies, is to protect the country’s political and economic interests while ensuring safety for
+the people of Australia against national threats.
+______________________________
+CHAPTER 4
+Network systems and DNS working
+______________________________
+Computer Network
+A computer network is a group of computer systems and other computing hardware devices that are
+linked together through communication channels to facilitate communication and resource-sharing
+among a wide range of users. Networks are commonly categorized based on their characteristics.
+One of the earliest examples of a computer network was a network of communicating computers that
+
+functioned as part of the U.S. military's Semi-Automatic Ground Environment (SAGE) radar system
+In 1969, the University of California at Los Angeles, the Stanford Research Institute, the University o
+California at Santa Barbara and the University of Utah were connected as part of the Advanced
+Research Projects Agency Network (ARPANET) project. It is this network that evolved to becom
+what we now call the Internet.
+Networks are used to:
+Facilitate communication via email, video conferencing, instant messaging, etc.
+Enable multiple users to share a single hardware device like a printer or scanner
+Enable file sharing across the network
+Allow for the sharing of software or operating programs on remote systems
+Make information easier to access and maintain among network users
+There are many types of networks, including:
+Local Area Networks (LAN)
+The computers are geographically close together (that is, in the same building).
+Wide Area Networks (WAN)
+The computers are farther apart and are connected by telephone lines or radio waves.
+Metropolitan Area Networks (MAN)
+A data network designed for a town or city.
+Home Area Networks (HAN)
+A network contained within a user's home that connects a person's digital devices.
+Intranet
+An intranet is basically a network that is local to a company. In other words, users from within this
+company can find all of their resources without having to go outside of the company. An intranet can
+include LANs, private WANs and MANs,
+Extranet
+An extranet is an extended intranet, where certain internal services are made available to known
+external users or external business partners at remote locations.
+Internet
+An internet is used when unknown external users need to access internal resources in your network. In
+other words, your company might have a web site that sells various products, and you want any
+external user to be able to access this service.
+
+VPN
+A virtual private network (VPN) is a special type of secured network. A VPN is used to provide a
+secure connection across a public network, such as an internet. Extranets typically use a VPN to
+provide a secure connection between a company and its known external users or offices.
+Authentication is provided to validate the identities of the two peers.
+Confidentiality provides encryption of the data to keep it private from prying eyes.
+Integrity is used to ensure that the data sent between the two devices or sites has not been tampered
+with.
+Benefits of networking
+There are lots of advantages from build up a network, but the three big facts are-
+File Sharing
+From sharing files you can view, modify, and copy files stored on a different computer on the network
+just as easily as if they were stored on your computer.
+Resource Sharing
+Resources such as printers, fax machines, Storage Devices (HDD, FDD and CD Drives), Webcam
+Scanners, Modem and many more devices can be shared.
+Program Sharing
+Just as you can share files on a network, you can often also share program on a network. For example,
+if you have the right type of software license, you can have a shared copy of Microsoft Office, or
+some other program, and keep it on the network server, from where it is also run.
+Network Host
+A network host (or simply referred to as a host) can be any computer or network device connected to
+
+the computer network. This computer can be a terminal or a web server offering services to its
+clients.
+Network Protocol
+A network protocol (or just referred to as protocol) is a set of rules and conventions that are
+necessary for the communication between two network devices. For example, two computers on a
+network can communicate only if they agree to follow the protocols.
+The following are some of the most widely referred network protocols:
+Internet Protocol (IP Address)
+An Internet Protocol address (IP address) is a numerical label assigned to each device (e.g.
+computer, printer) participating in a computer network that uses the Internet Protocol for
+communication. An IP address serves two principal functions: host or network interface identification
+and location addressing. Its role has been characterized as follows: "A name indicates what we seek.
+An address indicates where it is. A route indicates how to get there."
+IP addresses are binary numbers, but they are usually stored in text files and displayed in human-
+readable notations, such as 172.16.254.1 (for IPv4), and 2001:db8:0:1234:0:567:8:1 (for IPv6).
+Types of IP Address
+Private IP Address: A private IP address is the one that is assigned to a computer on the Local Area
+Network (LAN). A typical example of private IP address would be something like: 192.168.0.4
+Public IP Address: A public IP address is the one that is assigned to a computer connected to the
+Internet. An example public IP address would be something like: 59.93.115.119
+In most cases a computer gets connected to the ISP network using a private IP. Once a computer is on
+the ISP network it will be assigned a public IP address using which the communication with the
+Internet is made possible.
+How to Find the IP Address of a Computer?
+Finding your public IP is extremely simple. Just type “what is my IP” on Google to see your public IP
+address displayed in search results.
+
+In order to find your private IP, just open the command prompt window (type cmd in the “Run” box)
+and enter the following command:
+ipconfig/all
+This will display a long list of details about your computer’s network devices and their configuration.
+To see your private IP address, just scroll down to find something as “IPv4 Address” which is
+nothing but your private IP.
+Hyper Text Transfer Protocol (HTTP)
+Hypertext Transfer Protocol, abbreviated as HTTP, is a communications protocol used for the
+transfer of information over the Internet. A client makes an HTTP request using a web browser to
+which an HTTP response is sent from the server.
+File Transfer Protocol (FTP)
+The File Transfer Protocol provides a standard for transferring files between two computers on the
+network. FTP is most widely used in carrying out upload/download operations between a server and
+a workstation.
+
+Simple Main Transfer Protocol (SMTP)
+The Simple Mail Transfer Protocol provides a standard for sending e-mails from one server to
+another. Most e-mail systems that send mail over the Internet use SMTP to exchange messages
+between the server.
+Telnet
+Telnet is a network protocol that allows you to connect to remote hosts on the Internet or on a local
+network. It requires a telnet client software to implement the protocol using which the connection is
+established with the remote computer.
+In most cases telnet requires you to have a username and a password to establish connection with the
+remote host. Occasionally, some hosts also allow users to make connection as a guest or public.
+After the connection is made, one can use text based commands to communicate with the remote host.
+The syntax for using the telnet command is as follows:
+telnet <hostname or IP> port
+WWW
+The World Wide Web (abbreviated as WWW or W3, and commonly known as the Web) is a system
+of interlinked hypertext documents accessed via the Internet. With a web browser, one can view web
+pages that may contain text, images, videos, and other multimedia, and navigate between them via
+hyperlinks.
+It is the collection of internet resources (such as FTP, telnet, Usenet), hyperlinked text, audio, and
+video files, and remote sites that can be accessed and searched by browsers based on standards such
+as HTTP and TCP/IP.
+SSH - Secure Shell
+Developed by SSH Communications Security Ltd., Secure Shell is a program to log into anothe
+computer over a network, to execute commands in a remote machine, and to move files from one
+machine to another. It provides strong authenticationand secure communications over insecure
+channels. It is a replacement for rlogin, rsh, rcp, and rdist.
+SSH protects a network from attacks such as IP spoofing, IP source routing, and DNS spoofing.
+An attacker who has managed to take over a network can only force ssh to disconnect. He or she
+cannot play back the traffic or hijack the connection when encryptionis enabled.
+When using ssh's slogin (instead of rlogin) the entire login session, including transmission of
+password, is encrypted; therefore it is almost impossible for an outsider to collect passwords.
+
+SSH port forwarding
+An SSH service that provides secure and encrypted connections to traditionally non-encrypted
+services, such as e-mail or news.
+SSH port forwarding allows you to establish a secure SSH session and then tunnel TCP connection
+through it. It works by opening a connection to forward a local port to a remote port over SSH.
+The client software (e.g. your e-mail client) is then set to connect to the local port. With SSH port
+forwarding passwords are sent over an encrypted connection. Also called SSH tunneling.
+Network Port
+A computer may be running several services on it like HTTP (web server), SMTP, FTP and so on
+Each of these services are uniquely identified by a number called network port (or simply referred to
+as port). If a computer wants to avail a specific service from another computer, it has to establish a
+connection to it on the exact port number where the intended service is running.
+For example, if a terminal is to request a web document from a remote server using HTTP, it has to
+first establish a connection with the remote server on port 80 (HTTP service runs on port 80) before
+placing the request.
+In simple words, port numbers can be compared to door numbers where each door grants access to a
+specific service on a computer.
+List of Well-Known Ports
+Port
+Number
+Description
+1
+TCP 
+Port 
+Service 
+Multiplexer
+(TCPMUX)
+5
+Remote Job Entry (RJE)
+7
+ECHO
+18
+Message Send Protocol (MSP)
+20
+FTP -- Data
+21
+FTP -- Control
+22
+SSH Remote Login Protocol
+23
+Telnet
+25
+Simple 
+Mail 
+Transfer 
+Protocol
+(SMTP)
+29
+MSG ICP
+37
+Time
+42
+Host Name Server (Nameserv)
+43
+WhoIs
+49
+Login Host Protocol (Login)
+53
+Domain Name System (DNS)
+
+69
+Trivial File Transfer Protocol (TFTP)
+70
+Gopher Services
+79
+Finger
+80
+HTTP
+103
+X.400 Standard
+108
+SNA Gateway Access Server
+109
+POP2
+110
+POP3
+115
+Simple File Transfer Protocol (SFTP)
+118
+SQL Services
+119
+Newsgroup (NNTP)
+137
+NetBIOS Name Service
+139
+NetBIOS Datagram Service
+143
+Interim Mail Access Protocol (IMAP)
+150
+NetBIOS Session Service
+156
+SQL Server
+161
+SNMP
+179
+Border Gateway Protocol (BGP)
+190
+Gateway Access Control Protocol
+(GACP)
+194
+Internet Relay Chat (IRC)
+197
+Directory Location Service (DLS)
+389
+Lightweight Directory Access Protocol
+(LDAP)
+396
+Novell Netware over IP
+443
+HTTPS
+444
+Simple 
+Network 
+Paging 
+Protocol
+(SNPP)
+445
+Microsoft-DS
+458
+Apple QuickTime
+546
+DHCP Client
+547
+DHCP Server
+563
+SNEWS
+569
+MSN
+1080
+Socks
+A port number is a way to identify a specific process to which an Internet or other network
+message is to be forwarded when it arrives at a server.
+A port number is a way to identify a specific process to which an Internet or other network
+message is to be forwarded when it arrives at a server. For the Transmission Control Protocol and
+the User Datagram Protocol, a port number is a 16-bit integer that is put in the header appended
+
+to a message unit. This port number is passed logically between client and server transport layers
+and physically between the transport layer and the Internet Protocol layer and forwarded on.
+Domain Name System
+DNS, as it is called, refers to the hierarchical naming system used for computers, resources and
+services on the Internet. It translates the computer hostnames to IP addresses.
+DNS resolves an IP address to a hostname or vice versa.
+DNS is basically a large database which resides on various computers that contains the names and IP
+addresses of various hosts/domains. Other than ip-address DNS also associates various information
+with the domain names.
+Structure of a DNS
+DNS uses a hierarchical tree based name structure. At top of the tree is the “root” (represented as a
+dot (.) ) followed by the TLD ( Top Level Domain ), then by the domain-name and any number of
+lower level sob-domains separated by a dot.
+The Top Level Domains are divided into 2 categories:
+1. Generic TLD (gTLD)
+2. Country Code TLD (ccTLD)
+Below are some of the common Generic Top Level Domains:
+.com – comercial web sites
+.org – non profit organizations web sites
+.edu – restricted to schools and institutions.
+.net – originally for network infrastructures, now unrestricted
+
+Below are some fo the Country Code Top Level Domains:
+.us – United States
+.in – India
+.uk – United Kingdom
+.ru – Russia
+The following shows a sample representation of the structure of the DNS tree:
+Authority, Delegation and Zone
+The Authority for the root domain and gTLD lies with Internet Corporation for Assigned Numbers and
+Names (ICANN). ccTLD’s are delegated to individual countries for administration purpose. Eac
+level in the hierarchy may delegate the authoritative control to the next lower level. There is a DNS
+server running in every level of the hierarchy and the responsibility of running the DNS server lies
+with the Authority at that level.
+For Example, when the root domain gets a DNS query for www.example.com, the root will delegate
+responsibility for resolving to its lower level “.com”, which in-turn will delegate to “example”.
+Finally the DNS server in the “example” will respond with the IP address of the hostname “www”.
+A zone is simply a portion of a domain. For example, the domain example.com may contain all the
+information for a.example.com, b.example.com and c.example.com. However, the zone example.com
+contains only information for example.com and delegates the responsibility to the authoritative name
+servers for the subdomains. In general, if there are no subdomains, then the zone and domain are
+essentially the same.
+Resource Records
+A DNS zone database is made up of a collection of resource records. Each resource record specifies
+information about a particular object. The DNS server uses these records to answer queries for hosts
+in its zone. For example, address mapping (A) record, map a host name to an IP address, and reverse-
+lookup pointer (PTR) records map an IP address to a host name. Here are some of commonly used
+Resource Records.
+
+A Record: The ‘A’ record specifies the IP address of a host. ‘A’ record will have the details of the
+domain name and its associated IP address. When a Query is given to resolve domain name, DNS
+server will refer the ‘A’ record and answer with the IP address present in the record.
+PTR Record: A PTR record maps the IP address to a specific host.
+NS Record: An NS record or name server record maps a domain name to a list of DNS servers
+authoritative for that domain. Delegations depend on NS records.
+MX Record: An MX record or mail exchange record maps a domain name to a list of mail exchange
+servers for that domain. For example, when you send a mail to alpha@example.com, the mail will be
+routed to the Mail Server as specified in MX record.
+DNS Queries
+A DNS query would be something like ‘what is the IP address of a.example.com’. A DNS server may
+receive such a query for any domain, to which it has no information about. The DNS server will
+respond is different ways for which it has no information about.
+The following are the three types of DNS queries:
+1. Recursive query
+2. Iterative query
+3. Inverse query
+In Recursive query, the following are the steps involved when a host queries its local DNS server for
+‘a.example.com’.
+Host sends query ‘what is the IP address of a.example.com’ to locally configured DNS
+server.
+DNS server looks up a.example.com in local tables – not found
+DNS sends query to a root-server for the IP of a.example.com
+The root-server replies with a referral to the TLD servers for .com
+The DNS server sends query ‘what is the IP address a.example.com’ to one of the .com TLD
+servers.
+The TLD server replies with a referral to the name servers for example.com
+The DNS server sends query ‘what is the IP address a.example.com’ to name server for
+example.com.
+Zone file defines a A record which shows ‘a’ s IP address is x.x.x.x.
+DNS returns the A record for ‘a’.
+In Iterative query, if the DNS server doesn’t know the answer, it will refer other DNS server as
+response. So the client which initiates the query will once again contact the DNS server which came
+
+in as response.
+In Inverse query, an IP address will be provided and a hostname will be asked.
+Proxy server
+A proxy server is a server (a computer system or an application) that acts as an intermediary for
+requests from clients seeking resources from other servers.
+A client connects to the proxy server, requesting some service, such as a file, connection, web page,
+or other resource available from a different server and the proxy server evaluates the request as a
+way to simplify and control its complexity.
+Proxies were invented to add structure and encapsulation to distributed systems.
+Today, most proxies are web proxies, facilitating access to content on the World Wide Web and
+providing anonymity.
+Communication between two computers (shown in grey) connected through a third computer
+(shown in red) acting as a proxy. Bob does not know whom the information is going to, which is
+why proxies can be used to protect privacy.
+Proxy Server - Types
+There are many different types of proxy server and here are some common types:
+Anonymous Proxy
+Anonymous proxy servers conceal your information. When you go to request something from the
+webpage, the webpage gets the IP address of the proxy server that you're using instead of your own.
+The server has no way of accessing your IP address and communication between you and the proxy
+server is encrypted, in cases where the greatest deal of security is desired.
+High Anonymity Proxy
+
+This type of proxy server does not identify itself as a proxy server and does not make available the
+original IP address. High anonymity proxies, only include the REMOTE_ADDR header with the I
+address of the proxy server, making it appear that the proxy server is the client.
+Transparent Proxy
+An example of a transparent proxy would be a server that simply forwards your request to the
+resource that you want without concealing any of your information. This may be used in the
+workplace, where the IP address of the request is revealed to the server being requested from but
+where the proxy provides access to the resource for a multitude of computers within the network.
+Transparent proxies are generally not what people are looking for when they go shopping for proxy
+server access online.
+Reverse Proxy
+A reverse proxy server is generally used to pass requests from the Internet, through a firewall to
+isolated, private networks. It is used to prevent Internet clients from having direct, unmonitored
+access to sensitive data residing on content servers on an isolated network, or intranet. If caching is
+enabled, a reverse proxy can also lessen network traffic by serving cached information rather than
+passing all requests to actual content servers.
+___________________________________
+CHAPTER 5
+Various Types of Hacking attacks
+___________________________________
+Active attacks
+An active attack is a network exploit in which a hacker attempts to make changes to data on the target
+or data en route to the target.
+Types of active attacks
+Masquerade Attack
+In a masquerade attack, the intruder pretends to be a particular user of a system to gain access or to
+gain greater privileges than they are authorized for.  A masquerade may be attempted through the use
+of stolen login IDs and passwords, through finding security gaps in programs or through bypassing the
+authentication mechanism.
+
+Session Replay Attack
+In a session replay attack, a hacker steals an authorized user’s log in information by stealing the
+session ID. The intruder gains access and the ability to do anything the authorized user can do on the
+website.
+Message Modification Attack
+In a message modification attack, an intruder alters packet header addresses to direct a message to a
+different destination or modify the data on a target machine.
+Denial of Service (DoS) attack
+In a denial of service (DoS) attack, users are deprived of access to a network or web resource. This
+is generally accomplished by overwhelming the target with more traffic than it can handle.
+Distributed Denial-of-Service (DDoS) exploit
+In a distributed denial-of-service (DDoS) exploit, large numbers of compromised systems
+(sometimes called a botnet or zombie army) attack a single target.
+Passive Attack
+A passive attack is a network attack in which a system is monitored and sometimes scanned for open
+ports and vulnerabilities. The purpose is solely to gain information about the target and no data is
+changed on the target.
+Passive attacks include active reconnaissance and passive reconnaissance.
+In passive reconnaissance, an intruder monitors systems for vulnerabilities without interaction,
+through methods like session capture.
+In active reconnaissance, the intruder engages with the target system through methods like port
+scans.
+Methods of passive attacks
+War driving detects vulnerable Wi-Fi networks by scanning them from nearby locations with a
+portable antenna. The attack is typically carried out from a moving vehicle, sometimes with GPS
+systems that hackers use to plot out areas with vulnerabilities on a map. War driving can be done just
+to steal an Internet connection or as a preliminary activity for a future attack.
+In dumpster diving, intruders look for information stored on discarded computers and other devices
+or even passwords in trash bins. The intruders can then use this information to facilitate covert entry
+
+to a network or system.
+An intruder might masquerade as an authorized network user and spy without interaction. With that
+access, an intruder might monitor network traffic by setting the network adapter to promiscuous mode.
+_____________________
+CHAPTER 6
+Hacking Tools
+_____________________
+HACKING TOOLS
+A hacking tool is a program designed to assist with hacking, or a piece of software which
+can be used for hacking purposes.
+Examples include Nmap, Nessus, John the Ripper, p0f, and Winzapper.
+Bribes have also been described as among the most potent hacking tools, due to their
+potential exploitation in social engineering attacks. Occasionally, common software such
+as ActiveX is exploited as a hacking tool as well.
+Hacking tools such as Cain and Abel, however, are well known as Script Kiddie Tools.
+Script kiddies are people who follow instructions from a manual, without realising how it
+happens. These Script Kiddies have been an enormous threat to computer security as
+there are many hacking tools and keyloggers up for download which are free.
+Password Cracker Software
+A password cracker software, which is often referred to as a password recovery tool, can be used to
+crack or recover the password either by removing the original password, after bypassing the data
+encryption, or by outright discovery of the password. In the process of password cracking, a very
+common methodology used to crack the user password is to repeatedly make guesses for the probable
+password and perhaps finally hitting on the correct one. It cannot be denied that whenever we are
+referring to cyber security, passwords are the most vulnerable security links. On the other hand if the
+password is too completed, the user might forget it. Password Cracker software are often used by the
+hackers to crack the password and access a system to manipulate it. Do not unethically use these
+software for hacking passwords.
+In the next section you would be getting familiar with some of the popular Password Cracker tools
+which are used by hackers for password cracking.
+Click the software names to download the software from their website
+
+•       Ophcrack
+•       Medusa
+•       RainbowCrack
+•       Wfuzz
+•       Brutus
+•       L0phtCrack
+Fgdump
+THC Hydra
+
+•       John The Ripper
+Aircrack
+
+•       Cain And Abel
+•       IKECrack
+ 
+Wireless Hacking Tools
+Wireless Hacking Tools are those hacking tools which are used to hack into a wireless network
+which is usually more susceptible to security threats. One must also ensure that the network is
+completely secured against hacking or other malwares. The list of wireless hacking tools which
+would be discussed now can be used to do a Penetration Testing for a Wireless Network. This is an
+intentional attack on a network to detect security vulnerabilities by accessing its data and
+functionality.
+Click the software names to download the software from their website
+
+•       Aircrack-ng
+•       Kismet
+•       InSSIDer
+•       KisMAC
+•       Firesheep
+•       Airjack
+•       KARMA
+•       NetStumbler
+•       WepLab
+ 
+Network Scanning & Hacking Tools
+Click the software names to download the software from their website
+
+Nmap
+Nmap or Network Mapper is a free open source utility tool for network discovery and security
+auditing solution for you. It is a flexible, powerful, portable and easy-to-use tool that is supported by
+most of the operating systems like Linux, Windows, Solaris, Mac OS and others.
+
+SuperScan
+It is an multi-functional application that is designed for scanning TPC port. This is also a pinger and
+address resolver. It also has useful features like ping, traceroute, WhoIs and HTTP request. There is
+no need of installation as it is a portable application.
+
+Angry IP Scanner
+It is a fast port and IP address scanner. It is a lightweight and cross-platform application that has the
+capacity to scan the IP addresses in any range and also in their ports. It simply pings each IP address.
+ 
+Packet Crafting to Exploit Firewall Weaknesses
+Through Packet crafting technique, an attacker capitalizes your firewall’s vulnerabilities. Here are
+some packet crafting tools.
+Click the software names to download the software from their website
+
+•       Hping
+•       Scapy
+•       Netcat
+•       Yersinia
+•       Nemesis
+•       Socat
+ 
+Traffic Monitoring for Network Related Hacking
+These tools allow users to monitor the websites one’s children or employees are viewing. Here’s a
+list of some of these tools.
+Click the software names to download the software from their website
+
+Splunk
+If you want to convert your data into powerful insights Splunk tools are the best options for you. The
+Splunk tools are the leading platforms for operational intelligence. It can collect any type of data from
+any machine in real time.
+
+Nagios
+Nagios is the name for the industry standard in monitoring IT infrastructure. The Nagios tools helps
+you monitor your entire IT infrastructure and have the capability to detect problems well ahead they
+occur. It can also detect security breaches and share data availability with stakeholders.
+
+P0f
+It is versatile passive tool that is used for OS fingerprinting. This passive tool works well in both
+Linux and Windows operating systems. It has the capability to detect the hooking up of the remote
+system whether it is Ethernet, DSL or OC3.
+
+Ngrep
+Ngrep or network grep is a pcap-aware tool that allows you to extend hexadecimal or regular
+expressions in order to match it against the data loads of the packet. It can recognize IPv4/6, UDP,
+TCP, Ethernet, SLIP, PPP, FDDI and many others.
+ 
+
+Packet Sniffers to Analyze Traffic
+These tools help capture and analyze incoming traffic on your website. Some of the popular ones are
+listed below.
+Click the software names to download the software from their website
+
+•       Wireshark
+•       Tcpdump
+•       Ettercap
+•       Dsniff
+•       EtherApe
+Paros
+
+•       Fiddler
+•       Ratproxy
+•       Sslstrip
+ 
+Rootkit Detectors to Hack File System
+This is a directory and file integrity checker. It checks the veracity of files and notifies the user if
+there’s an issue.
+Click the software names to download the software from their website
+
+•       AIDE (Advanced Intrusion Detection Environment)
+•       Netfilter
+•       PF: OpenBSD Packet Filter
+ 
+Fuzzers to Search Vulnerabilities
+Fuzzing is a term used by hackers for searching a computer system’s security vulnerabilities. Here is
+a list of a few:
+Click the software names to download the software from their website
+
+•       Skipfish
+•       Wfuzz
+•       Wapiti
+•       W3af
+ 
+Forensics
+These tools are used for computer forensics, especially to sniff out any trace of evidence existing in a
+particular computer system. Here are some of the most popular.
+Click the software names to download the software from their website
+
+Sleuth Kit
+It is an open source digital intervention or forensic tool kit. It runs on varied operating systems
+including Windows, Linux, OS X and many other Unix systems. It can be used for analyzing disk
+images along with in-depth analysis of file system like FAT, Ext3, HFS+, UFS and NTFS.
+
+Helix
+This is a Linux based incident response system. It is also used in system investigation and analysis
+along with data recovery and security auditing. The most recent version of this tool is based on
+Ubuntu that promises ease of use and stability.
+
+Maltego
+It is an open source forensic and intelligence application. It can be used for gathering information in
+all phases of security related work. It saves you time and money by performing the task on time in
+smarter way.
+
+Encase
+Encase is the fastest and most comprehensive network forensic solution available in the market. It is
+created following the global standard of forensic investigation software. It has the capability of
+quickly gathering data from wide variety of devices.
+ 
+Debuggers to Hack Running Programs
+These tools are utilized for reverse engineering binary files for writing exploits and analyzing
+malware.
+Click the software names to download the software from their website

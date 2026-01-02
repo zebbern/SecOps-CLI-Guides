@@ -1,0 +1,1699 @@
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+ 
+ 
+ 
+ 
+ 
+ 
+intelop
+intelop
+ 
+ 
+ 
+Detailed List of Common Protocols  
+ 
+& traditional  
+ 
+  IP Port Numbers 
+ 
+ 
+ 
+ 
+ 
+ 
+(Dr. A Rehman, Intelop Corporation) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+ 
+Port 
+Protocol 
+0 
+reserved. 
+1 
+TCPMUX, TCP Port Service Multiplexer. 
+2 
+Management Utility. 
+3 
+Compression Process. 
+4 
+  
+5 
+Remote Job Entry. 
+6 
+  
+7 
+Echo. 
+8 
+  
+9 
+Discard. 
+10 
+  
+11 
+SYSTAT. 
+12 
+  
+13 
+Daytime. 
+14 
+  
+15 
+[was netstat]. 
+16 
+  
+17 
+Quote, Quote of the Day. 
+18 
+RWP, Remote Write Protocol. 
+Send, Message Send Protocol. 
+19 
+Chargen, Character Generator Protocol. 
+20 
+FTP, File Transfer Protocol, data. 
+21 
+FTP, File Transfer Protocol, control. 
+22 
+SSH. 
+23 
+Telnet. 
+24 
+Any private mail system. 
+25 
+SMTP, Simple Mail Transfer Protocol. 
+26 
+  
+27 
+NSW User System FE. 
+28 
+  
+29 
+MSG ICP. 
+30 
+  
+31 
+MSG Authentication. 
+32 
+  
+33 
+Display Support Protocol. 
+34 
+  
+35 
+Any private printer server. 
+36 
+  
+37 
+Time, Time Protocol. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+38 
+RAP, Internet Route Access Protocol. 
+39 
+RLP, Resource Location Protocol. 
+40 
+  
+41 
+Graphics. 
+42 
+Internet Name Server. 
+43 
+Whois. 
+44 
+MPM FLAGS Protocol. 
+45 
+Internet Message Protocol. 
+46 
+MPM [default send]. 
+47 
+NI FTP. 
+48 
+Digital Audit Daemon. 
+49 
+TACACS. 
+TACACS+. 
+50 
+RMCP, Remote Mail Checking Protocol. 
+51 
+IMP Logical Address Maintenance. 
+52 
+XNS Time Protocol. 
+53 
+DNS, Domain Name System. 
+54 
+XNS Clearinghouse. 
+55 
+ISI Graphics Language. 
+56 
+XNS Authentication. 
+57 
+MTP, Mail Transfer Protocol. 
+58 
+XNS Mail. 
+59 
+NFILE. 
+60 
+   
+61 
+NI MAIL. 
+62 
+ACA Services. 
+63 
+Whois++. 
+64 
+Communications Integrator (CI). 
+65 
+TACACS-Database Service. 
+66 
+Oracle SQL*NET. 
+67 
+BOOTP, Bootstrap Protocol, server. 
+68 
+BOOTP, Bootstrap Protocol, client. 
+69 
+TFTP, Trivial File Transfer Protocol. 
+70 
+Gopher. 
+71 
+Remote Job Service. 
+72 
+Remote Job Service. 
+73 
+Remote Job Service. 
+74 
+Remote Job Service. 
+75 
+Any private dial out service. 
+76 
+Distributed External Object Store. 
+77 
+Any private RJE service. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+78 
+vettcp. 
+79 
+Finger. 
+80 
+HTTP, HyperText Transfer Protocol. 
+81 
+HOSTS2 Name Server. 
+82 
+XFER Utility. 
+83 
+MIT ML Device. 
+84 
+Common Trace Facility. 
+85 
+MIT ML Device. 
+86 
+Micro Focus Cobol. 
+87 
+Any private terminal link. 
+88 
+Kerberos. 
+89 
+SU/MIT Telnet Gateway. 
+90 
+Is being used unofficially by Pointcast. 
+90 
+DNSIX Securit Attribute Token Map. 
+91 
+MIT Dover Spooler. 
+92 
+Network Printing Protocol. 
+93 
+Device Control Protocol. 
+94 
+Tivoli Object Dispatcher. 
+95 
+SUPDUP. 
+96 
+DIXIE. 
+97 
+Swift Remote Virtual File Protocol. 
+98 
+TAC News. 
+99 
+Metagram Relay. 
+ 
+Port 
+Protocol 
+100 
+[unauthorized use] 
+101 
+HOSTNAME. 
+102 
+TP0 over TCP. 
+103 
+Genesis Point-to-Point Trans Net. 
+104 
+ACR-NEMA Digital Imag. & Comm. 300. 
+105 
+Ph. 
+105 
+Mailbox Name Nameserver. 
+106 
+3COM-TSMUX. 
+107 
+Remote Telnet Service. 
+108 
+SNA Gateway Access Server. 
+109 
+POP, Post Office Protocol, version 2. 
+110 
+POP, Post Office Protocol, version 3. 
+111 
+Portmapper. 
+112 
+McIDAS Data Transmission Protocol. 
+113 
+Identification Protocol. 
+114 
+  
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+115 
+SFTP, Simple File Transfer Protocol. 
+116 
+ANSA REX Notify. 
+117 
+UUCP, Unix To Unix Copy. 
+118 
+SQL Services. 
+119 
+NNTP, Network News Transfer Protocol. 
+120 
+CFDP, Coherent File Distribution Protocol. 
+121 
+Encore Expedited Remote Pro.Call. 
+122 
+SMAKYNET. 
+123 
+NTP, Network Time Protocol. 
+124 
+ANSA REX Trader. 
+125 
+Locus PC-Interface Net Map Serv. 
+126 
+Unisys Unitary Login. 
+127 
+Locus PC-Interface Conn Server. 
+128 
+GSS X License Verification. 
+129 
+PWDGEN, Password Generator Protocol. 
+130 
+cisco FNATIVE. 
+131 
+cisco TNATIVE. 
+132 
+cisco SYSMAINT. 
+133 
+STATSRV, Statistics Server. 
+134 
+INGRES-NET Service. 
+135 
+DCE endpoint resolution. 
+136 
+PROFILE Naming System. 
+137 
+NETBIOS Name Service. 
+138 
+NETBIOS Datagram Service. 
+139 
+NETBIOS Session Service. 
+140 
+EMFIS Data Service. 
+141 
+EMFIS Control Service. 
+142 
+Britton-Lee IDM. 
+143 
+IMAP, Interactive Mail Access Protocol. 
+144 
+Universal Management Architecture. 
+145 
+UAAC Protocol. 
+146 
+TP0 bridge between TCP and X.25. 
+147 
+ISO-IP. 
+148 
+Jargon. 
+149 
+AED 512 Emulation Service. 
+150 
+SQL-NET. 
+151 
+HEMS. 
+152 
+BFTP, Background File Transfer Program. 
+153 
+SGMP, Simple Gateway Monitoring Protocol. 
+154 
+155 
+NETSC. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+156 
+SQL Service. 
+157 
+KNET/VM Command/Message Protocol. 
+158 
+DMSP, Distributed Mail Service Protocol. 
+159 
+NSS-Routing. 
+160 
+SGMP-TRAPS. 
+161 
+SNMP, Simple Network Management Protocol. 
+162 
+SNMP, Simple Network Management Protocol traps. 
+163 
+CMIP/TCP Manager. 
+164 
+CMIP/TCP Agent. 
+165 
+Xerox.  
+166 
+Sirius Systems.  
+167 
+NAMP.  
+168 
+RSVD.  
+169 
+SEND. 
+170 
+Network PostScript. 
+171 
+Network Innovations Multiplex. 
+172 
+Network Innovations CL/1.  
+173 
+Xyplex. 
+174 
+MAILQ.  
+175 
+VMNET.  
+176 
+GENRAD-MUX. 
+177 
+XDMCP, X Display Manager Control Protocol.  
+178 
+NextStep Window Server.  
+179 
+BGP, Border Gateway Protocol. 
+180 
+Intergraph. 
+181 
+Unify.  
+182 
+Unisys Audit SITP.  
+183 
+OCBinder.  
+184 
+OCServer.  
+185 
+Knowbot Information Service. 
+186 
+KIS Protocol.  
+187 
+Application Communication Interface. 
+188 
+Plus Five's MUMPS.  
+189 
+Queued File Transport.  
+190 
+Gateway Access Control Protocol. 
+191 
+Prospero Directory Service.  
+192 
+OSU Network Monitoring System.  
+193 
+Spider Remote Monitoring Protocol.  
+194 
+Internet Relay Chat Protocol. 
+195 
+DNSIX Network Level Module Audit.  
+196 
+DNSIX Session Mgt Module Audit Redir. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+197 
+Directory Location Service. 
+198 
+Directory Location Service Monitor. 
+199 
+SMUX. 
+ 
+Port 
+Protocol 
+200 
+IBM System Resource Controller. 
+201 
+AppleTalk Routing Maintenance. 
+202 
+AppleTalk Name Binding. 
+203 
+AppleTalk Unused.  
+204 
+AppleTalk Echo.  
+205 
+AppleTalk Unused.  
+206 
+AppleTalk Zone Information.  
+207 
+AppleTalk Unused.  
+208 
+AppleTalk Unused.  
+209 
+The Quick Mail Transfer Protocol. 
+210 
+Z39.50. 
+211 
+Texas Instruments 914C/G Terminal. 
+212 
+ATEXSSTR. 
+213 
+IPX. 
+214 
+VM PWSCS. 
+215 
+Insignia Solutions. 
+216 
+Computer Associates Int'l License Server. 
+217 
+dBASE Unix. 
+218 
+MPP, Message Posting Protocol. 
+219 
+Unisys ARPs. 
+220 
+IMAP, Interactive Mail Access Protocol, version 3. 
+221 
+Berkeley rlogind with SPX auth. 
+222 
+Berkeley rshd with SPX auth. 
+223 
+Certificate Distribution Center.  
+242 
+Direct. 
+243 
+Survey Measurement.  
+244 
+Dayna. 
+245 
+LINK. 
+246 
+Display Systems Protocol.  
+247 
+SUBNTBCST_TFTP. 
+248 
+bhfhs. 
+249 
+- 
+255 
+  
+256 
+RAP. 
+257 
+Secure Electronic Transaction. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+258 
+Yak Winsock Personal Chat. 
+259 
+ESRO, Efficient Short Remote Operations. 
+260 
+Openport. 
+261 
+IIOP Name Service over TLS/SSL. 
+262 
+Arcisdms. 
+263 
+HDAP. 
+264 
+BGMP, Border Gateway Multicast Protocol. 
+265 
+X-Bone CTL. 
+266 
+SCSI on ST. 
+267 
+Tobit David Service Layer. 
+268 
+Tobit David Replica. 
+269 
+- 
+279 
+  
+280 
+http-mgmt. 
+281 
+Personal Link. 
+282 
+Cable Port A/X. 
+283 
+rescap. 
+284 
+corerjd. 
+285 
+  
+286 
+FXP-1. 
+287 
+K-BLOCK. 
+288 
+- 
+299 
+  
+ 
+Port 
+Protocol 
+300 
+- 
+307 
+  
+308 
+Novastor Backup. 
+309 
+EntrustTime. 
+310 
+bhmds. 
+311 
+AppleShare IP WebAdmin. 
+312 
+VSLMP. 
+313 
+Magenta Logic. 
+314 
+Opalis Robot. 
+315 
+DPSI. 
+316 
+decAuth. 
+317 
+Zannet. 
+318 
+TSP, Time Stamp Protocol. 
+319 
+PTP Event. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+320 
+PTP General. 
+321 
+PIP. 
+322 
+RTSPS. 
+323 
+- 
+332 
+  
+333 
+Texar Security Port. 
+334 
+- 
+343 
+  
+344 
+Prospero Data Access Protocol. 
+345 
+Performance Analysis Workbench. 
+346 
+Zebra server. 
+347 
+Fatmen Server. 
+348 
+Cabletron Management Protocol. 
+349 
+mftp. 
+350 
+MATIP, Mapping of Airline Traffic over Internet Protocol, Type A. 
+351 
+MATIP, Mapping of Airline Traffic over Internet Protocol, Type B.  
+bhoetty. 
+352 
+DTAG. 
+353 
+NDSAUTH. 
+354 
+bh611. 
+355 
+DATEX-ASN. 
+356 
+Cloanto Net 1. 
+357 
+bhevent. 
+358 
+Shrinkwrap. 
+359 
+Tenebris Network Trace Service. 
+360 
+scoi2odialog. 
+361 
+Semantix. 
+362 
+SRS Send. 
+363 
+RSVP Tunnel. 
+364 
+Aurora CMGR. 
+365 
+DTK. 
+366 
+SMTP, Simple Mail Transfer Protocol. ODMR, On-Demand Mail Relay. 
+367 
+MortgageWare. 
+368 
+QbikGDP. 
+369 
+rpc2portmap.  
+370 
+codaauth2. 
+371 
+Clearcase. 
+372 
+ListProcessor. 
+373 
+Legent Corporation. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+374 
+Legent Corporation. 
+375 
+Hassle. 
+376 
+Amiga Envoy Network Inquiry Proto.  
+377 
+NEC Corporation. 
+378 
+NEC Corporation. 
+379 
+TIA/EIA/IS-99 modem client. 
+380 
+TIA/EIA/IS-99 modem server. 
+381 
+HP performance data collector. 
+382 
+HP performance data managed node. 
+383 
+HP performance data alarm manager. 
+384 
+A Remote Network Server System. 
+385 
+IBM Application. 
+386 
+ASA Message Router Object Def. 
+387 
+AURP, AppleTalk Update-based Routing Protocol. 
+388 
+Unidata LDM Version 4. 
+389 
+LDAP, Lightweight Directory Access Protocol. 
+CLDAP, Connection-less Lightweight X.500 Directory Access Protocol. 
+390 
+UIS. 
+391 
+SynOptics SNMP Relay Port. 
+392 
+SynOptics Port Broker Port. 
+393 
+Data Interpretation System. 
+394 
+EMBL Nucleic Data Transfer. 
+395 
+NETscout Control Protocol. 
+396 
+Novell Netware over IP. 
+397 
+Multi Protocol Trans. Net. 
+398 
+Kryptolan. 
+399 
+TP2 encapsulation. 
+ 
+Port 
+Protocol 
+400 
+Workstation Solutions. 
+401 
+Uninterruptible Power Supply. 
+402 
+Genie Protocol. 
+403 
+decap. 
+404 
+nced. 
+405 
+ncld. 
+406 
+Interactive Mail Support Protocol. 
+407 
+Timbuktu. 
+408 
+Prospero Resource Manager System Manager. 
+409 
+Prospero Resource Manager Node Manager. 
+410 
+DEC Ladebug Remote Debug Protocol. 
+411 
+Remote MT Protocol. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+412 
+Trap Convention Port. 
+413 
+SMSP. 
+414 
+InfoSeek. 
+415 
+BNet. 
+416 
+Silverplatter. 
+417 
+Onmux. 
+418 
+Hyper-G. 
+419 
+Ariel. 
+420 
+SMPTE. 
+421 
+Ariel. 
+422 
+Ariel. 
+423 
+IBM Operations Planning and Control Start. 
+424 
+IBM Operations Planning and Control Track. 
+425 
+ICAD. 
+426 
+smartsdp 
+427 
+SLP, Service Location Protocol. 
+428 
+OCS_CMU. 
+429 
+OCS_AMU 
+430 
+UTMPSD 
+431 
+UTMPCD 
+432 
+IASD  
+433 
+NNSP 
+434 
+Mobile IP agent. 
+435 
+Mobile IP MN. 
+436 
+DNA-CML  
+437 
+comscm 
+438 
+dsfgw 
+439 
+dasp 
+440 
+sgcp 
+441 
+decvms-sysmgt 
+442 
+cvc_hostd 
+443 
+HTTPS, HTTP over SSL/TLS. 
+444 
+SNPP, Simple Network Paging Protocol. 
+445 
+Microsoft-DS. 
+446 
+DDM-RDB 
+447 
+DDM-RFM 
+448 
+DDM-SSL 
+449 
+AS Server Mapper 
+450 
+TServer 
+451 
+Cray Network Semaphore server 
+452 
+Cray SFS config server 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+453 
+CreativeServer 
+454 
+ContentServer 
+455 
+CreativePartnr 
+456 
+macon-tcp 
+457 
+scohelp 
+458 
+apple quick time 
+459 
+ampr-rcmd 
+460 
+skronk 
+461 
+DataRampSrv 
+462 
+DataRampSrvSec 
+463 
+alpes 
+464 
+Kerberos change/set password. 
+465 
+(TCP) URL Rendesvous Directory for SSM. 
+(UDP) IGMP over UDP for SSM. 
+466 
+digital-vrc 
+467 
+mylex-mapd 
+468 
+Photuris. 
+469 
+Radio Control Protocol. 
+470 
+scx-proxy 
+471 
+Mondex. 
+472 
+ljk-login. 
+473 
+hybrid-pop. 
+474 
+(TCP) tn-tl-w1. 
+(UDP) tn-tl-w2. 
+475 
+tcpnethaspsrv. 
+476 
+tn-tl-fd1. 
+477 
+ss7ns. 
+478 
+spsc. 
+479 
+iafserver. 
+480 
+iafdbase. 
+481 
+Ph service. 
+482 
+bgs-nsi. 
+483 
+ulpnet. 
+484 
+Integra Software Management Environment. 
+485 
+Air Soft Power Burst. 
+486 
+Avian. 
+487 
+SAFT, Simple Asynchronous File Transfer. 
+488 
+gss-http. 
+489 
+nest-protocol. 
+490 
+micom-pfs. 
+491 
+go-login. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+492 
+Transport Independent Convergence for FNA. 
+493 
+Transport Independent Convergence for FNA. 
+494 
+POV-Ray. 
+495 
+intecourier. 
+496 
+PIM-RP-DISC. 
+497 
+dantz. 
+498 
+siam. 
+499 
+ISO ILL Protocol. 
+ 
+Port 
+Protocol 
+500 
+ISAKMP. 
+IKE, Internet Key Exchange. 
+501 
+STMF. 
+502 
+asa-appl-proto. 
+503 
+Intrinsa. 
+504 
+citadel. 
+505 
+mailbox-lm. 
+506 
+ohimsrv. 
+507 
+crs. 
+508 
+xvttp. 
+509 
+snare. 
+510 
+FirstClass Protocol. 
+511 
+mynet-as. 
+512 
+rexec, remote process execution.  
+Used by mail system to notify users of new mail received. 
+513 
+Rlogin.  
+Maintains data bases for who's logged on a local net and the average load of the 
+machine. 
+514 
+Syslog.  
+cmd like exec but automatic authentication is performed for login server. 
+515 
+LPR. 
+516 
+videotex. 
+517 
+Like tenex link but across machine - doesn't use link protocol. A rendezvous port 
+establishes a tcp connection. 
+518 
+ntalk. 
+519 
+unixtime. 
+520 
+RIP, Routing Information Protocol. 
+Extended file name server. 
+521 
+RIPng. 
+522 
+ULP. 
+523 
+IBM-DB2. 
+524 
+NCP. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+525 
+timeserver. 
+526 
+newdate. 
+527 
+Stock IXChange. 
+528 
+Customer IXChange. 
+529 
+IRC-SERV. 
+530 
+rpc. 
+531 
+chat. 
+532 
+readnews. 
+533 
+emergency broadcasts. 
+534 
+MegaMedia Admin. 
+535 
+iiop. 
+536 
+opalis-rdv. 
+537 
+Networked Media Streaming Protocol. 
+538 
+gdomap. 
+539 
+Apertus Technologies Load Determination. 
+540 
+uucpd. 
+541 
+uucp-rlogin.  
+542 
+commerce. 
+543 
+klogin. 
+544 
+krcmd. 
+545 
+appleqtcsrvr. 
+546 
+DHCPv6 client. 
+547 
+DHCPv6 server. 
+548 
+AFP over TCP. 
+549 
+IDFP. 
+550 
+new-who. 
+551 
+cybercash. 
+552 
+deviceshare. 
+553 
+pirp. 
+554 
+RTSP, Real Time Streaming Protocol. 
+555 
+dsf. 
+556 
+rfs server. 
+557 
+openvms-sysipc. 
+558 
+SDNSKMP. 
+559 
+TEEDTAP. 
+560 
+rmonitord. 
+561 
+monitor. 
+562 
+chcmd. 
+563 
+NNTP over TLS/SSL (was snntp). 
+564 
+plan 9 file service. 
+565 
+whoami. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+566 
+streettalk. 
+567 
+banyan-rpc. 
+568 
+microsoft shuttle. 
+569 
+microsoft rome. 
+570 
+demon. 
+571 
+udemon. 
+572 
+sonar. 
+573 
+banyan-vip. 
+574 
+FTP Software Agent System. 
+575 
+VEMMI, VErsatile MultiMedia Interface. 
+576 
+ipcd. 
+577 
+vnas. 
+578 
+ipdd. 
+579 
+decbsrv. 
+580 
+SNTP HEARTBEAT. 
+581 
+Bundle Discovery Protocol. 
+582 
+SCC Security. 
+583 
+Philips Video-Conferencing. 
+584 
+Key Server. 
+585 
+IMAP4+SSL (Use of 585 is not recommended use 993 instead). 
+586 
+Password Change. 
+587 
+Submission. 
+588 
+CAL. 
+589 
+EyeLink. 
+590 
+TNS CML. 
+591 
+FileMaker Inc. - HTTP Alternate (see Port 80). 
+592 
+Eudora Set. 
+593 
+HTTP RPC Ep Map. 
+594 
+TPIP. 
+595 
+CAB Protocol. 
+596 
+SMSD. 
+597 
+PTC Name Service. 
+598 
+SCO Web Server Manager 3. 
+599 
+Aeolon Core Protocol. 
+ 
+Port 
+Protocol 
+600 
+Sun IPC server. 
+601 
+Syslog. 
+602 
+XML-RPC over BEEP. 
+603 
+IDXP. 
+604 
+TUNNEL. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+605 
+SOAP over BEEP. 
+606 
+Cray Unified Resource Manager. 
+607 
+nqs. 
+608 
+SIFT/UFT, Sender-Initiated/Unsolicited File Transfer. 
+609 
+npmp-trap. 
+610 
+npmp-local. 
+611 
+npmp-gui.  
+612 
+HMMP Indication. 
+613 
+HMMP Operation. 
+614 
+SSLshell. 
+615 
+Internet Configuration Manager. 
+616 
+SCO System Administration Server. 
+617 
+SCO Desktop Administration Server. 
+618 
+DEI-ICDA. 
+619 
+Digital EVM. 
+620 
+SCO WebServer Manager. 
+621 
+ESCP. 
+622 
+Collaborator. 
+623 
+Aux Bus Shunt. 
+624 
+Crypto Admin. 
+625 
+DEC DLM. 
+626 
+ASIA. 
+627 
+CKS & TIVIOLI. 
+628 
+QMQP. 
+629 
+3Com AMP3. 
+630 
+RDA. 
+631 
+IPP, Internet Printing Protocol. 
+632 
+bmpp. 
+633 
+Service Status update (Sterling Software). 
+634 
+ginad. 
+635 
+RLZ DBase. 
+636 
+ldap protocol over TLS/SSL (was sldap). 
+637 
+lanserver. 
+638 
+mcns-sec. 
+639 
+MSDP, Multicast Source Discovery Protocol. 
+640 
+entrust-sps. 
+641 
+repcmd. 
+642 
+EMSD over ESRO. 
+643 
+SANity. 
+644 
+dwr. 
+645 
+PSSC. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+646 
+LDP, Label Distribution Protocol. 
+647 
+DHCP Failover Protocol. 
+648 
+RRP, Registry Registrar Protocol. 
+649 
+Aminet. 
+650 
+OBEX. 
+651 
+IEEE MMS. 
+652 
+DTCP, Dynamic Tunnel Configuration Protocol. 
+653 
+RepCmd. 
+654 
+AODV, Ad hoc On-Demand Distance Vector. 
+655 
+TINC. 
+656 
+SPMP. 
+657 
+RMC. 
+658 
+TenFold. 
+659 
+URL Rendezvous. 
+660 
+MacOS Server Admin. 
+661 
+HAP. 
+662 
+PFTP. 
+663 
+PureNoise. 
+664 
+Secure Aux Bus. 
+665 
+Sun DR. 
+666 
+Doom, Id Software. 
+667 
+Campaign contribution campaign contribution disclosures - SDR Technologies. 
+668 
+MeComm. 
+669 
+MeRegister. 
+670 
+VACDSM-SWS. 
+671 
+VACDSM-APP. 
+672 
+VPPS-QUA. 
+673 
+CIMPLEX. 
+674 
+ACAP, Application Configuration Access Protocol. 
+675 
+DCTP. 
+676 
+VPPS Via. 
+677 
+Virtual Presence Protocol. 
+678 
+GNU Gereration Foundation NCP. 
+679 
+MRM. 
+680 
+entrust-aaas. 
+681 
+entrust-aaas. 
+682 
+XFR. 
+683 
+CORBA IIOP. 
+684 
+CORBA IIOP SSL. 
+685 
+MDC Port Mapper. 
+686 
+Hardware Control Protocol Wismar. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+687 
+asipregistry. 
+688 
+REALM-RUSD. 
+689 
+NMAP. 
+690 
+VATP. 
+691 
+MS Exchange Routing. 
+692 
+Hyperwave-ISP. 
+693 
+connendp. 
+694 
+ha-cluster. 
+695 
+IEEE-MMS-SSL. 
+696 
+RUSHD. 
+697 
+UUIDGEN. 
+698 
+OLSR, Optimized Link State Routing. 
+699 
+Access Network. 
+ 
+Port 
+Protocol 
+700 
+EPP, Extensible Provisioning Protocol. 
+700 
+- 
+703 
+  
+704 
+errlog copy/server daemon. 
+705 
+AgentX. 
+706 
+SILC, Secure Internet Live Conferencing. 
+707 
+Borland DSJ. 
+708 
+  
+709 
+Entrust Key Management Service Handler. 
+710 
+Entrust Administration Service Handler. 
+711 
+TDP, Tag Distribution Protocol. 
+712 
+TBRPF, Topology Broadcast based on Reverse-Path Forwarding. 
+713 
+- 
+719 
+  
+720 
+DVMP, Distance Vectored Monitoring Protocol.  
+SMQP, Simple Message Queue Protocol. 
+721 
+XSRP, eXtensible Service Registration Protocol. 
+722 
+  
+723 
+XSTP, eXtensible Service Transfer Protocol. 
+724 
+  
+725 
+XSSP, eXtensible Service Subscription Protocol. 
+726 
+  
+727 
+XSLP, eXtensible Service Location Protocol. 
+728 
+  
+729 
+IBM NetView DM/6000 Server/Client. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+730 
+IBM NetView DM/6000 send TCP. 
+731 
+IBM NetView DM/6000 receive TCP. 
+732 
+- 
+740 
+  
+741 
+netGW. 
+742 
+Network based Rev. Cont. Sys. 
+743 
+  
+744 
+Flexible License Manager. 
+745 
+746 
+  
+747 
+Fujitsu Device Control. 
+748 
+Russell Info Sci Calendar Manager. 
+749 
+kerberos administration. 
+750 
+kerberos version iv. 
+751 
+pump. 
+752 
+qrh. 
+753 
+rrh. 
+754 
+send 
+755 
+756 
+757 
+  
+758 
+nlogin. 
+759 
+con. 
+760 
+ns. 
+761 
+rxe. 
+762 
+quotad. 
+763 
+cycleserv. 
+764 
+omserv. 
+765 
+webster. 
+766 
+  
+767 
+phone. 
+768 
+  
+769 
+vid. 
+770 
+cadlock. 
+771 
+rtip. 
+772 
+cycleserv2. 
+773 
+submit. 
+774 
+rpasswd. 
+acmaint_dbd. 
+775 
+entomb. 
+acmaint_transd. 
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+776 
+wpages. 
+777 
+Multiling HTTP. 
+778 
+779 
+  
+780 
+wpgs. 
+781 
+- 
+799 
+  
+ 
+Port 
+Protocol 
+800 
+mdbs_daemon. 
+801 
+device. 
+802 
+- 
+809 
+  
+810 
+FCP. 
+811 
+- 
+827 
+  
+828 
+itm-mcell-s. 
+829 
+CMP, Certificate Management Protocols. 
+830 
+- 
+846 
+  
+847 
+dhcp-failover 2. 
+848 
+GDOI, Group Domain of Interpretation. 
+849 
+- 
+859 
+  
+860 
+iSCSI. 
+861 
+- 
+872 
+  
+873 
+rsync. 
+874 
+- 
+885 
+  
+886 
+ICL coNETion locate server. 
+887 
+ICL coNETion server info. 
+888 
+AccessBuilder. 
+CD Database Protocol. 
+889 
+- 
+899 
+  
+
+ 
+Intelop Corporation 
+ 
+Intelop Corporation 
+ 
+Port 
+Protocol 
+900 
+OMG Initial Refs. 
+901 
+SMPNAMERES. 
+902 
+IDEAFARM-CHAT. 
+903 
+IDEAFARM-CATCH. 
+904 
+- 
+910 
+  
+911 
+xact-backup. 
+912 
+APEX relay-relay service. 
+913 
+APEX endpoint-relay service. 
+914 
+- 
+988 
+  
+989 
+ftp data over TLS/SSL. 
+990 
+ftp control over TLS/SSL. 
+991 
+NAS, Netnews Administration System. 
+992 
+telnet over TLS/SSL. 
+993 
+imap4 over TLS/SSL. 
+994 
+irc over TLS/SSL. 
+995 
+pop3 over TLS/SSL (was spop3). 
+996 
+vsinet. 
+997 
+maitrd. 
+998 
+busboy. 
+puparp. 
+999 
+Applix ac. 
+ 

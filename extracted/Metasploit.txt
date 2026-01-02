@@ -1,0 +1,156 @@
+=== Metasploit.pdf ===
+Total Pages: 6
+============================================================
+
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+2 
+ 
+ 
+Introduction about  Metasploite 
+ 
+ 
+ 
+Metasploit is a popular and powerful framework used for penetration testing, 
+exploiting vulnerabilities, and security research. It contains a wide range of 
+tools and modules for various tasks in the security testing process. Below are 
+some of the main components and contents of the Metasploit Framework 
+ 
+ 
+ 
+ 
+History of Metasploite : 
+ 
+ 
+The Metasploit Framework is a popular open-source tool for developing and 
+executing exploits against a target system. It was first developed by HD 
+Moore in 2003 as a portable network tool using Perl, and has since evolved 
+into a full-featured exploit development platform written in Ruby. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+3 
+ 
+ 
+Metasploit Content 
+ 
+ 
+Modules :- 
+ 
+1. Exploit Modules: These modules are used to take advantage of vulnerabilities in 
+target systems. Each exploit module is designed for a specific vulnerability in 
+software or hardware. 
+ 
+2. Payload Modules: Payloads are the code that is executed after a successful 
+exploit. These can range from simple commands to complex shells and reverse 
+shells. 
+ 
+ 
+3. Auxiliary Modules: These modules are used for various tasks other than 
+exploitation, such as scanning, fuzzing, DoS (Denial of Service), and 
+enumeration. 
+ 
+4. Post-Exploitation Modules: These modules are used after successfully 
+exploiting a target, helping gather information, escalate privileges, and maintain 
+access. 
+ 
+ 
+5. Encoders: Used to modify payloads to bypass security mechanisms, like 
+antivirus software, by encoding them in different ways. 
+ 
+6. Nops: Used to insert "no-op" (NOP) instructions in the payload to ensure it runs 
+successfully, especially when dealing with buffer overflow exploits. 
+ 
+ 
+7. Evasion: A category used to avoid detection by firewalls, intrusion detection 
+systems (IDS), and antivirus software. 
+ 
+ 
+ 
+
+4 
+ 
+ 
+ 
+Interfaces: 
+➢ Metasploite has different interfaces to ease our tasks 
+ 
+1. MSFconsole : 
+ 
+msfconsole is the primary command-line interface (CLI) for interacting with the 
+Metasploit Framework. It is the most commonly used interface for penetration testers 
+and ethical hackers when performing penetration testing, exploiting vulnerabilities, and 
+post-exploitation activities. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+5 
+ 
+1. Exploit Module: 
+ 
+ 
+ 
+ 
+ 
+➢ An exploit executes a sequence of commands that targe a specific 
+vulnerability found in a system 
+ 
+ 
+• Use a  Particular exploits : 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+6 
+ 
+• Show Options in Exploits : 
+ 
+ 
+ 
+Usage : 
+Open 
+1.Terminal – msfconsole -q 
+2. msf6 – show exploits ( It displays various options ) 
+3. msf6 > use exploit/windows/misc/bopup_comm  
+msf6 exploit ( windows/misc/bopup_comm ) > show options [ It displays various 
+option in this exploit ] 
+4. msf6 exploit ( windows/misc/bopup_comm ) > set RHOSTS = 192.168.74.128 
+RHOSTS is a remote host , we should type the victim’s ip address  
+ 
+ 

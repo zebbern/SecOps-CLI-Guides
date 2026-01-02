@@ -1,0 +1,2920 @@
+=== BGP_Routing_Protocol.pdf ===
+Total Pages: 155
+============================================================
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BGP Routing Protocol  
+Practice Labs 
+Redouane MEDDANE 
+ 
+Table of Contents 
+ 
+Lab 1: MED and AS-Path Prepend ........................................................................................................... 2 
+Lab 2: BGP Local Preference ................................................................................................................... 9 
+Lab 3: BGP path control ........................................................................................................................ 17 
+Lab 4: BGP Confederations ................................................................................................................... 23 
+Lab 5: Bestpath as-path ignore and aggregate-address ....................................................................... 28 
+Lab 6: Community Attribute AS-Path Prepend and Default route ....................................................... 40 
+Lab 7: BGP Backdoor and AS-Path Prepend .......................................................................................... 53 
+Lab 8: AS-Path Prepend Weight and Default route .............................................................................. 62 
+Lab 9: Community Attribute and Route Reflector ................................................................................ 72 
+Lab 10: BGP Peer Group Community Attribute and Local Preference ................................................. 84 
+Lab 11: MP-BGP Local Preference Weight and Community Attribute.................................................. 95 
+Lab 12: MP-BGP OSPFv3 and Attributes Manipulation ...................................................................... 106 
+Lab 13: BGP Confederation weight and Unsuppress-map .................................................................. 119 
+Lab 14: BGP Conditional advertisement ............................................................................................. 133 
+Lab 15: Route Aggregation Attribute-map and Advertise-map .......................................................... 140 
+Lab 16: BGP ORF (Outbound Route Filtering) capability..................................................................... 149 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+2 
+ 
+Lab 1: MED and AS-Path Prepend 
+ 
+ 
+ 
+ 
+Basic configuration 
+ 
+R1: 
+interface Loopback0 
+ ip address 1.1.1.1 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 150.1.1.1 255.255.255.0 
+ no shut 
+! 
+interface Serial0/0 
+ ip address 10.0.0.1 255.255.255.252 
+ no shut 
+ 
+R2: 
+interface Loopback0 
+ ip address 2.2.2.2 255.255.255.255 
+! 
+interface Loopback192 
+ ip address 192.1.1.1 255.255.255.0 
+! 
+interface Loopback193 
+ ip address 193.1.1.1 255.255.255.0 
+! 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+3 
+ 
+interface Loopback194 
+ ip address 194.1.1.1 255.255.255.0 
+! 
+interface Loopback195 
+ ip address 195.1.1.1 255.255.255.0 
+! 
+interface Serial0/0 
+ ip address 10.0.0.2 255.255.255.252 
+ no shut 
+! 
+interface Serial0/1 
+ ip address 10.0.0.9 255.255.255.252 
+ no shut 
+ 
+R3: 
+interface Loopback0 
+ ip address 3.3.3.3 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 150.3.3.3 255.255.255.0 
+ no shut 
+! 
+interface Serial0/1 
+ ip address 10.0.0.10 255.255.255.252 
+ no shut 
+! 
+interface Serial0/2 
+ ip address 10.0.0.13 255.255.255.252 
+ no shut 
+! 
+interface Serial0/3 
+ ip address 10.0.0.17 255.255.255.252 
+ no shut 
+ 
+R4: 
+interface Loopback0 
+ ip address 4.4.4.4 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 150.1.1.4 255.255.255.0 
+ no shut 
+! 
+interface Serial0/0 
+ ip address 10.0.0.14 255.255.255.252 
+ no shut 
+! 
+interface Serial0/1 
+ ip address 10.0.0.18 255.255.255.252 
+ no shut 
+ 
+Configure BGP as illustrated in the topology. Use the Loopback 0 addresses for peering. Do 
+NOT configure any IGPs. Instead, use static routes only. R1 should peer with R2 and R4. R2 
+should peer with R1 and R3. R3 should peer with R2 and R4. R4 should peer with R1 and R3. 
+ 
+R1(config)#ip route 2.2.2.2 255.255.255.255 serial 0/0 
+R1(config)#ip route 4.4.4.4 255.255.255.255 fastethernet 0/0 150.1.1.4 
+R1(config)#router bgp 1 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+4 
+ 
+R1(config-router)#neighbor 2.2.2.2 remote-as 2 
+R1(config-router)#neighbor 2.2.2.2 update-source loopback 0 
+R1(config-router)#neighbor 2.2.2.2 ebgp-multihop 3 
+R1(config-router)#neighbor 4.4.4.4 remote-as 4 
+R1(config-router)#neighbor 4.4.4.4 update-source loopback 0 
+R1(config-router)#neighbor 4.4.4.4 ebgp-multihop 3 
+ 
+R2(config)#ip route 1.1.1.1 255.255.255.255 serial 0/0 
+R2(config)#ip route 3.3.3.3 255.255.255.255 serial 0/1 
+R2(config)#router bgp 2 
+R2(config-router)#neighbor 1.1.1.1 remote-as 1 
+R2(config-router)#neighbor 1.1.1.1 update-source loopback 0 
+R2(config-router)#neighbor 1.1.1.1 ebgp-multihop 3 
+R2(config-router)#neighbor 3.3.3.3 remote-as 3 
+R2(config-router)#neighbor 3.3.3.3 update-source loopback 0 
+R2(config-router)#neighbor 3.3.3.3 ebgp-multihop 3 
+ 
+R3(config)#ip route 2.2.2.2 255.255.255.255 serial 1/1 
+R3(config)#ip route 4.4.4.4 255.255.255.255 serial 1/2 
+R3(config)#ip route 4.4.4.4 255.255.255.255 serial 1/3 
+R3(config)#router bgp 3 
+R3(config-router)#neighbor 2.2.2.2 remote-as 2 
+R3(config-router)#neighbor 2.2.2.2 update-source loopback 0 
+R3(config-router)#neighbor 2.2.2.2 ebgp-multihop 3 
+R3(config-router)#neighbor 4.4.4.4 remote-as 4 
+R3(config-router)#neighbor 4.4.4.4 update-source loopback 0 
+R3(config-router)#neighbor 4.4.4.4 ebgp-multihop 3 
+ 
+R4(config)#ip route 1.1.1.1 255.255.255.255 fastethernet 0/0 150.1.1.1 
+R4(config)#ip route 3.3.3.3 255.255.255.255 serial 0/0 
+R4(config)#ip route 3.3.3.3 255.255.255.255 serial 0/1 
+R4(config)#router bgp 4 
+R4(config-router)#neighbor 1.1.1.1 remote-as 1 
+R4(config-router)#neighbor 1.1.1.1 update-source loopback 0 
+R4(config-router)#neighbor 1.1.1.1 ebgp-multihop 3 
+R4(config-router)#neighbor 3.3.3.3 remote-as 3 
+R4(config-router)#neighbor 3.3.3.3 update-source loopback 0 
+R4(config-router)#neighbor 3.3.3.3 ebgp-multihop 3 
+ 
+In order to ensure that the ORIGIN code is INCOMPLETE, you need to redistribute the LAN 
+subnets into BGP. However, you can also use the network statement in conjunction with a 
+route map and set the ORIGIN code within the route map. 
+ 
+R1(config)#route-map CONNECTED permit 10 
+R1(config-route-map)#match interface fastethernet 0/0 
+R1(config-route-map)#exit 
+R1(config)#route-map CONNECTED deny 20 
+R1(config-route-map)#exit 
+R1(config)#router bgp 1 
+R1(config-router)#redistribute connected route-map CONNECTED 
+R1(config-router)#exit 
+ 
+You can verify the ORIGIN code by looking at the prefix entry in the BGP Tables. The ORIGIN 
+code of INCOMPLETE is denoted by a question mark (?) in the output of the show ip bgp 
+command. You can view additional detail on a per-prefix basis also when using this command. 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+5 
+ 
+R1(config-router)#do show ip bgp 
+BGP table version is 4, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*  150.1.1.0/24     4.4.4.4                  0             0 4 ? 
+*>                  0.0.0.0                  0         32768 ? 
+*> 150.2.2.0/24     2.2.2.2                  0             0 2 ? 
+*  150.3.3.0/24     4.4.4.4                                0 4 3 ? 
+*>                  2.2.2.2                                0 2 3 ? 
+ 
+R2(config-if)#do show ip bgp 
+BGP table version is 4, local router ID is 195.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*  150.1.1.0/24     3.3.3.3                                0 3 4 ? 
+*>                  1.1.1.1                  0             0 1 ? 
+*> 150.2.2.0/24     0.0.0.0                  0         32768 ? 
+*> 150.3.3.0/24     3.3.3.3                  0             0 3 ? 
+ 
+R3(config-router)#do show ip bgp 
+BGP table version is 5, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*> 150.1.1.0/24     4.4.4.4                  0             0 4 ? 
+*                   2.2.2.2                                0 2 1 ? 
+*  150.2.2.0/24     4.4.4.4                                0 4 1 2 ? 
+*>                  2.2.2.2                  0             0 2 ? 
+*> 150.3.3.0/24     0.0.0.0                  0         32768 ? 
+ 
+R4(config-router)#do show ip bgp 
+BGP table version is 6, local router ID is 4.4.4.4 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*> 150.1.1.0/24     0.0.0.0                  0         32768 ? 
+*                   1.1.1.1                  0             0 1 ? 
+*  150.2.2.0/24     3.3.3.3                                0 3 2 ? 
+*>                  1.1.1.1                                0 1 2 ? 
+*  150.3.3.0/24     1.1.1.1                                0 1 2 3 ? 
+*>                  3.3.3.3                  0             0 3 ? 
+ 
+Configure BGP, so that R4 prefers the path via R3 to reach any subnet 
+In the output of the show ip bgp command on R4 we can see that the preferred route to reach 
+150.3.3.0 is via R3, however the preferred route to reach 150.2.2.0 is via R1 (the lowest router-
+id), also, to ensure that the subnet 150.1.1.0 will be reached via R3, configure BGP on R1 to 
+advertise all prefixes with a longer AS-PATH to influence the path selection as follow: 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+6 
+ 
+ 
+R1(config)#route-map PREP permit 10 
+R1(config-route-map)#set as-path prepend 1 1 1 1 
+R1(config-route-map)#exit 
+R1(config)#router bgp 1 
+R1(config-router)#neighbor 4.4.4.4 route-map PREP out 
+R1(config-router)#exit 
+ 
+Notice now the preferred path to reach both prefixes 150.3.3.0 and 150.2.2.0 is via R3 with the 
+next-hop 3.3.3.3 because the shortest AS-PATH length: 
+ 
+R4(config)#do show ip bgp 
+BGP table version is 7, local router ID is 4.4.4.4 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*  150.1.1.0/24     1.1.1.1                  0             0 1 1 1 1 1 ? 
+*>                  0.0.0.0                  0         32768 ? 
+*  150.2.2.0/24     1.1.1.1                                0 1 1 1 1 1 2 ? 
+*>                  3.3.3.3                                0 3 2 ? 
+*> 150.3.3.0/24     3.3.3.3                  0             0 3 ? 
+ 
+Configure R4 so that it sends all updates to R3 with a MED of 4. Configure R2 so that it sends 
+all updates to R3 with a MED of 2. Ensure that R3 prefers all routes with the better (lower) MED 
+value.  
+ 
+Before configuring the MED let's verify the BGP RIBs on R3: 
+The preferred path to reach the prefix 150.1.1.0 is via R4, we should see all routes with the 
+next-hop R2: 
+ 
+R3(config)#do show ip bgp 
+BGP table version is 5, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*  150.1.1.0/24     2.2.2.2                                0 2 1 ? 
+*>                  4.4.4.4                  0             0 4 ? 
+*> 150.2.2.0/24     2.2.2.2                  0             0 2 ? 
+*> 150.3.3.0/24     0.0.0.0                  0         32768 ? 
+ 
+Let's configure MED on R3: 
+ 
+R4(config)#route-map MED permit 10 
+R4(config-route-map)#set metric 4 
+R4(config-route-map)#exit 
+R4(config)#router bgp 4 
+R4(config-router)#neighbor 3.3.3.3 route-map MED out 
+R4(config-router)#exit 
+ 
+R2(config)#route-map MED permit 10 
+R2(config-route-map)#set metric 2 
+R2(config-route-map)#exit 
+R2(config)#router bgp 2 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+7 
+ 
+R2(config-router)#neighbor 3.3.3.3 route-map MED out 
+R2(config-router)#exit 
+ 
+Let's verify the BGP RIBs of R3: 
+We have still the best path to reach 150.1.1.0 via R4 as shown by the show ip bgp command on 
+R3 below, so the problem is not resolved even if R2 advertises the lowest MED comparing with 
+R4. 
+The reason is:  we met two issues in this case: 
+-the first issue is: by default, the MED is only compared for path received from the same AS ,in 
+this case R3 receives two values of MED from two routers (R2 and R4) configured in different 
+AS. 
+-The second issue: the MED is compared after the AS-PATH in the BGP decision process. In 
+this case R3 will select the path via R4 as the best path to the 150.1.1.0/24 prefix because of 
+the shorter AS-PATH length. 
+ 
+R3(config)#do show ip bgp 
+BGP table version is 10, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*> 150.1.1.0/24     4.4.4.4                  4             0 4 ? 
+*                   2.2.2.2                  2             0 2 1 ? 
+*> 150.2.2.0/24     2.2.2.2                  2             0 2 ? 
+*> 150.3.3.0/24     0.0.0.0                  0         32768 ? 
+R3(config)# 
+ 
+To override the two issues, configure the bgp always-compare-med command to avoid the first 
+issue so always compare the MED even if MED is received from Different AS. And bgp 
+bestpath as-path ignore command to avoid the second issue so that R3 override the BGP 
+decision process by ignoring the step of the AS-PATH in the BGP Decision Process: 
+Let's configure these two commands: 
+ 
+R3(config)#router bgp 3 
+R3(config-router)#bgp bestpath as-path ignore 
+R3(config-router)#bgp always-compare-med 
+ 
+We can see for the prefix 150.1.1.0 that the path with the longer AS-PATH length is preferred 
+because the lowest MED even if the AS-PATH takes precedence over the MED in the order of 
+the path selection in BGP: 
+ 
+R3(config)#do show ip bgp 150.1.1.0 255.255.255.0 
+BGP routing table entry for 150.1.1.0/24, version 2 
+Paths: (2 available, best #2, table Default-IP-Routing-Table) 
+Flag: 0x820 
+  Advertised to update-groups: 
+        1 
+  4 
+    4.4.4.4 from 4.4.4.4 (4.4.4.4) 
+      Origin incomplete, metric 4, localpref 100, valid, external 
+  2 1 
+    2.2.2.2 from 2.2.2.2 (195.1.1.1) 
+      Origin incomplete, metric 2, localpref 100, valid, external, best 
+ 
+Another way to verify all BGP RIBs with do show ip bgp, R3 prefers all routes from R2 because 
+the lowest MED: 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+8 
+ 
+ 
+R3(config-router)#do show ip bgp 
+BGP table version is 4, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*  150.1.1.0/24     4.4.4.4                  4             0 4 ? 
+*>                  2.2.2.2                  2             0 2 1 ? 
+*  150.2.2.0/24     4.4.4.4                  4             0 4 1 1 1 1 1 2 ? 
+*>                  2.2.2.2                  2             0 2 ? 
+*> 150.3.3.0/24     0.0.0.0                  0         32768 ? 
+R3(config-router)# 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+9 
+ 
+Lab 2: BGP Local Preference 
+ 
+ 
+ 
+Basic configuration 
+ 
+R1: 
+interface Loopback0 
+ ip address 1.0.0.1 255.0.0.0 
+! 
+interface Loopback1 
+ ip address 2.0.0.1 255.0.0.0 
+! 
+interface FastEthernet0/0 
+ ip address 12.0.0.1 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet0/1 
+ ip address 13.0.0.1 255.255.255.0 
+ no shutdown 
+ 
+R2: 
+interface FastEthernet0/0 
+ ip address 12.0.0.2 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet0/1 
+ ip address 24.0.0.2 255.255.255.0 
+ no shutdown 
+ 
+R3: 
+interface FastEthernet0/0 
+ ip address 13.0.0.3 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet0/1 
+ ip address 35.0.0.3 255.255.255.0 
+ no shutdown 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+10 
+ 
+R4: 
+interface Loopback0 
+ ip address 4.4.4.4 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 24.0.0.4 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet0/1 
+ ip address 10.100.1.4 255.255.255.248 
+ no shutdown 
+ 
+R5: 
+interface Loopback0 
+ ip address 5.5.5.5 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 35.0.0.5 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet0/1 
+ ip address 10.100.1.5 255.255.255.248 
+ no shutdown 
+ 
+R6: 
+interface Loopback0 
+ ip address 6.6.6.6 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 10.100.1.6 255.255.255.248 
+ no shutdown 
+ 
+R7: 
+interface Loopback0 
+ ip address 7.7.7.7 255.255.255.255 
+! 
+interface FastEthernet0/0 
+ ip address 10.100.1.3 255.255.255.248 
+ no shutdown 
+ 
+Configure EIGRP AS 4567 on R4, R5, R6 and R7 and advertise the subnet 10.100.1.0/29 and the 
+loopback 0 subnets: 
+ 
+R4: 
+router eigrp 4567 
+ network 4.4.4.4 0.0.0.0 
+ network 10.100.1.0 0.0.0.7 
+ 
+R5: 
+router eigrp 4567 
+ network 5.5.5.5 0.0.0.0 
+ network 10.100.1.0 0.0.0.7 
+ 
+R6: 
+router eigrp 4567 
+ network 6.6.6.6 0.0.0.0 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+11 
+ 
+ network 10.100.1.0 0.0.0.7 
+ 
+R7: 
+router eigrp 4567 
+ network 7.7.7.7 0.0.0.0 
+ network 10.100.1.0 0.0.0.7 
+ 
+Configure iBGP in AS 4567, use loopback 0 interface for peering and use peer group 
+configuration. 
+ 
+Configure eBGP between AS 4567 and AS 2 and AS 3. 
+Configure eBGP between AS 2 and AS 1. 
+Configure eBGP between AS 3 and AS 1, advertise 1.0.0.0/8 and 2.0.0.0/8 subnets in BGP: 
+ 
+R4: 
+router bgp 4567 
+ network 10.100.1.0 mask 255.255.255.248 
+ neighbor INTERNAL peer-group 
+ neighbor INTERNAL remote-as 4567 
+ neighbor INTERNAL update-source Loopback0 
+ neighbor INTERNAL next-hop-self 
+ neighbor 5.5.5.5 peer-group INTERNAL 
+ neighbor 6.6.6.6 peer-group INTERNAL 
+ neighbor 7.7.7.7 peer-group INTERNAL 
+ neighbor 24.0.0.2 remote-as 2 
+ 
+R5: 
+router bgp 4567 
+ network 10.100.1.0 mask 255.255.255.248 
+ neighbor INTERNAL peer-group 
+ neighbor INTERNAL remote-as 4567 
+ neighbor INTERNAL update-source Loopback0 
+ neighbor INTERNAL next-hop-self 
+ neighbor 4.4.4.4 peer-group INTERNAL 
+ neighbor 6.6.6.6 peer-group INTERNAL 
+ neighbor 7.7.7.7 peer-group INTERNAL 
+ neighbor 35.0.0.3 remote-as 3 
+ 
+R6: 
+router bgp 4567 
+ neighbor INTERNAL peer-group 
+ neighbor INTERNAL remote-as 4567 
+ neighbor INTERNAL update-source Loopback0 
+ neighbor 4.4.4.4 peer-group INTERNAL 
+ neighbor 5.5.5.5 peer-group INTERNAL 
+ neighbor 7.7.7.7 peer-group INTERNAL 
+ 
+R7: 
+router bgp 4567 
+ neighbor INTERNAL peer-group 
+ neighbor INTERNAL remote-as 4567 
+ neighbor INTERNAL update-source Loopback0 
+ neighbor 4.4.4.4 peer-group INTERNAL 
+ neighbor 5.5.5.5 peer-group INTERNAL 
+ neighbor 6.6.6.6 peer-group INTERNAL 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+12 
+ 
+R1: 
+router bgp 1 
+ network 1.0.0.0 
+ network 2.0.0.0 
+ neighbor 12.0.0.2 remote-as 2 
+ neighbor 13.0.0.3 remote-as 3 
+ 
+R2: 
+router bgp 2 
+ neighbor 12.0.0.1 remote-as 1 
+ neighbor 24.0.0.4 remote-as 4567 
+ 
+R3: 
+router bgp 3 
+ neighbor 13.0.0.1 remote-as 1 
+ neighbor 35.0.0.5 remote-as 4567 
+ 
+Verify the peer-group and see the current members, the members on this group are: R5 5.5.5.5, 
+R6 6.6.6.6 and R7 7.7.7.7: 
+ 
+R4#sh ip bgp peer-group INTERNAL 
+BGP peer-group is INTERNAL,  remote AS 4567 
+  BGP version 4 
+  Default minimum time between advertisement runs is 0 seconds 
+ 
+ For address family: IPv4 Unicast 
+  BGP neighbor is INTERNAL, peer-group internal, members: 
+  5.5.5.5 6.6.6.6 7.7.7.7 
+  Index 0, Offset 0, Mask 0x0 
+  NEXT_HOP is always this router 
+  Update messages formatted 0, replicated 0 
+  Number of NLRIs in the update sent: max 0, min 0 
+ 
+Peer groups is used for less processing power, let's verify the adjacencies: 
+ 
+R1(config-router)#do show ip bgp sum 
+BGP router identifier 2.0.0.1, local AS number 1 
+BGP table version is 6, main routing table version 6 
+3 network entries using 351 bytes of memory 
+4 path entries using 208 bytes of memory 
+4/2 BGP path/bestpath attribute entries using 496 bytes of memory 
+2 BGP AS-PATH entries using 48 bytes of memory 
+0 BGP route-map cache entries using 0 bytes of memory 
+0 BGP filter-list cache entries using 0 bytes of memory 
+BGP using 1103 total bytes of memory 
+BGP activity 3/0 prefixes, 4/0 paths, scan interval 60 secs 
+ 
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd 
+12.0.0.2        4     2       6       6        6    0    0 00:01:33        1 
+13.0.0.3        4     3       6       6        6    0    0 00:00:34        1 
+R1(config-router)# 
+ 
+R4(config-router)#do show ip bgp sum 
+BGP router identifier 4.4.4.4, local AS number 4567 
+BGP table version is 5, main routing table version 5 
+3 network entries using 351 bytes of memory 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+13 
+ 
+6 path entries using 312 bytes of memory 
+5/2 BGP path/bestpath attribute entries using 620 bytes of memory 
+2 BGP AS-PATH entries using 48 bytes of memory 
+0 BGP route-map cache entries using 0 bytes of memory 
+0 BGP filter-list cache entries using 0 bytes of memory 
+BGP using 1331 total bytes of memory 
+BGP activity 3/0 prefixes, 6/0 paths, scan interval 60 secs 
+ 
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd 
+5.5.5.5         4  4567      11      11        5    0    0 00:06:58        3 
+6.6.6.6         4  4567      10      12        5    0    0 00:07:05        0 
+7.7.7.7         4  4567      10      12        5    0    0 00:06:27        0 
+24.0.0.2        4     2       7       6        5    0    0 00:01:55        2 
+ 
+R7(config-router)#do show ip bgp sum 
+BGP router identifier 7.7.7.7, local AS number 4567 
+BGP table version is 5, main routing table version 5 
+3 network entries using 351 bytes of memory 
+6 path entries using 312 bytes of memory 
+4/2 BGP path/bestpath attribute entries using 496 bytes of memory 
+2 BGP AS-PATH entries using 48 bytes of memory 
+0 BGP route-map cache entries using 0 bytes of memory 
+0 BGP filter-list cache entries using 0 bytes of memory 
+BGP using 1207 total bytes of memory 
+BGP activity 3/0 prefixes, 6/0 paths, scan interval 60 secs 
+ 
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd 
+4.4.4.4         4  4567      12      10        5    0    0 00:06:47        3 
+5.5.5.5         4  4567      12      10        5    0    0 00:07:08        3 
+6.6.6.6         4  4567       9       9        5    0    0 00:06:56        0 
+ 
+Ensure AS 4567 will use the link between R3-R5 towards network 2.0.0.0/8. Use LOCAL_PREF 
+only. 
+Before configuring the Local-Pref, let’s use a traceroute on R6 and R7 toward 2.0.0.1. We can 
+see that the packet goes through R4--R2: 
+ 
+R6#traceroute 2.0.0.1 
+Type escape sequence to abort. 
+Tracing the route to 2.0.0.1 
+  1 10.100.1.4 72 msec 24 msec 24 msec 
+  2 24.0.0.2 60 msec 28 msec 80 msec 
+  3 12.0.0.1 96 msec *  96 msec 
+R6# 
+ 
+R7(config-router)#do traceroute 2.0.0.1 
+Type escape sequence to abort. 
+Tracing the route to 2.0.0.1 
+  1 10.100.1.4 56 msec 56 msec 12 msec 
+  2 24.0.0.2 52 msec 48 msec 32 msec 
+  3 12.0.0.1 84 msec *  108 msec 
+R7(config-router) 
+ 
+Verify the RIB of R6 and R7: 
+Notice that the best route to reach 2.0.0.0/24 is via R4 (4.4.4.4) denoted by " *>i " on both R6 
+and R7: 
+ 
+R6#show ip bgp 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+14 
+ 
+BGP table version is 5, local router ID is 6.6.6.6 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+* i1.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+* i2.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+r i10.100.1.0/29    5.5.5.5                  0    100      0 i 
+r>i                 4.4.4.4                  0    100      0 i 
+ 
+R7(config-router)#do show ip bgp 
+BGP table version is 5, local router ID is 7.7.7.7 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+* i1.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+* i2.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+r i10.100.1.0/29    5.5.5.5                  0    100      0 i 
+r>i                 4.4.4.4                  0    100      0 i 
+ 
+To ensure that the traffic goes through R5--R3 you will tell to R5 to advertise into BGP AS 4567 
+the prefix 2.0.0.0/24 with a better (higher) local-preference than R4 as follow, by default the 
+Local-Pref is equal to 100: 
+ 
+router bgp 4567 
+ neighbor 35.0.0.3 route-map RM_LOC_PREF in 
+! 
+ip prefix-list NET-2 seq 5 permit 2.0.0.0/8 
+! 
+route-map RM_LOC_PREF permit 10 
+ match ip address prefix-list NET-2 
+ set local-preference 200 
+! 
+route-map RM_LOC_PREF permit 20 
+ 
+Verify the RIB of R6 and R7. 
+The best route now toward 2.0.0.0/24 on both R6 and R7 is via R5 (5.5.5.5) because the better 
+(higher) Local-Preference 200: 
+ 
+R6#show ip bgp 
+BGP table version is 6, local router ID is 6.6.6.6 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+* i1.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+*>i2.0.0.0          5.5.5.5                  0    200      0 3 1 i 
+r i10.100.1.0/29    5.5.5.5                  0    100      0 i 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+15 
+ 
+r>i                 4.4.4.4                  0    100      0 i 
+ 
+R7(config)#do show ip bgp 
+BGP table version is 6, local router ID is 7.7.7.7 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+* i1.0.0.0          5.5.5.5                  0    100      0 3 1 i 
+*>i                 4.4.4.4                  0    100      0 2 1 i 
+*>i2.0.0.0          5.5.5.5                  0    200      0 3 1 i 
+r i10.100.1.0/29    5.5.5.5                  0    100      0 i 
+r>i                 4.4.4.4                  0    100      0 i 
+ 
+The traceroute shown that the packet goes through R5--R3 to reach 2.0.0.0/24: 
+ 
+R6#traceroute 2.0.0.1 
+Type escape sequence to abort. 
+Tracing the route to 2.0.0.1 
+  1 10.100.1.5 76 msec 108 msec 20 msec 
+  2 35.0.0.3 100 msec 120 msec 32 msec 
+  3 13.0.0.1 148 msec *  176 msec 
+R6# 
+ 
+R7(config)#do traceroute 2.0.0.1 
+Type escape sequence to abort. 
+Tracing the route to 2.0.0.1 
+  1 10.100.1.5 68 msec 136 msec 28 msec 
+  2 35.0.0.3 112 msec 76 msec 36 msec 
+  3 13.0.0.1 180 msec *  204 msec 
+ 
+Ensure AS 4567 will use the link between R2-R4 towards network 1.0.0.0/8. Use LOCAL_PREF 
+only. 
+You will tell to R4 to advertise into BGP AS 4567 the prefix 1.0.0.0/24 with a better(higher) 
+local-preference than R4 as follow,by default the Local-Pref is equal to 100: 
+ 
+router bgp 4567 
+neighbor 24.0.0.2 route-map RM_LOC_PREF in 
+ no auto-summary 
+! 
+ip prefix-list NET-1 seq 5 permit 1.0.0.0/8 
+! 
+route-map RM_LOC_PREF permit 10 
+ match ip address prefix-list NET-1 
+ set local-preference 200 
+! 
+route-map RM_LOC_PREF permit 20 
+ 
+Now the best path to reach 1.0.0.0/24 is via R4 on both R6 and R7 because the better(higher) 
+Local-Preference 200 : 
+ 
+R6#show ip bgp 
+BGP table version is 10, local router ID is 6.6.6.6 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+16 
+ 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*>i1.0.0.0          4.4.4.4                  0    200      0 2 1 i 
+*>i2.0.0.0          5.5.5.5                  0    200      0 3 1 i 
+r>i10.100.1.0/29    4.4.4.4                  0    100      0 i 
+r i                 5.5.5.5                  0    100      0 i 
+ 
+R7(config)#do show ip bgp 
+BGP table version is 10, local router ID is 7.7.7.7 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+ 
+   Network          Next Hop            Metric LocPrf Weight Path 
+*>i1.0.0.0          4.4.4.4                  0    200      0 2 1 i 
+*>i2.0.0.0          5.5.5.5                  0    200      0 3 1 i 
+r>i10.100.1.0/29    4.4.4.4                  0    100      0 i 
+r i                 5.5.5.5                  0    100      0 i 
+ 
+Note: you must enter the clear ip bgp * command to reset the bgp neighbors relationship when 
+configuring the Local-Preference to take effect. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+17 
+ 
+Lab 3: BGP path control 
+ 
+ 
+ 
+ 
+Basic Configuration 
+ 
+R1: 
+interface FastEthernet0/0 
+ ip address 150.1.1.1 255.255.255.0 
+ no shutd 
+! 
+interface Serial0/0 
+ ip address 10.0.0.1 255.255.255.252 
+ no shutd 
+! 
+interface Serial0/1 
+ ip address 10.0.0.5 255.255.255.252 
+ no shutd 
+ 
+R2: 
+interface FastEthernet0/0 
+ ip address 150.2.2.2 255.255.255.0 
+ no shutd 
+! 
+interface Serial0/0 
+ ip address 10.0.0.2 255.255.255.252 
+ no shutd 
+! 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+18 
+ 
+interface Serial0/1 
+ ip address 10.0.0.9 255.255.255.252 
+ no shutd 
+ 
+R3: 
+interface FastEthernet0/0 
+ ip address 150.3.3.3 255.255.255.0 
+ no shutd 
+! 
+interface Serial0/0 
+ ip address 10.0.0.13 255.255.255.252 
+ no shutd 
+! 
+interface Serial0/1 
+ ip address 10.0.0.6 255.255.255.252 
+ no shutd 
+! 
+interface Serial0/2 
+ ip address 10.0.0.10 255.255.255.252 
+ no shutd 
+ 
+R4: 
+interface FastEthernet0/0 
+ ip address 150.1.1.4 255.255.255.0 
+ no shutd 
+! 
+interface Serial0/0 
+ ip address 10.0.0.14 255.255.255.252 
+ no shutd 
+ 
+Configure BGP as illustrated in the topology. R1 will peer to R2, R3, and R4 using directly 
+connected IP addresses. From R1s perspective, all these routers reside in AS 5. R1 should 
+advertise the 150.1.1.0/24 prefix via BGP.  
+Configure BGP on R2, R3, and R4 as illustrated in the topology. All routers will reside in AS 5 
+to the outside world. Internally, R2 will reside in AS 65502, R3 will reside in AS 65503, and R4 
+will reside in AS 65504. R2 will peer to R3, which in turn will peer to R4. R2 and R4 will not peer 
+to each other. Ensure that R1, R2, and R3 routers peer with R1 is AS 254. Next, configure R2, 
+R3, and R4 to advertise their respective 150.x.x.x/24 subnets. Ensure that all of the routers can 
+ping the LAN IP address of every other router. 
+ 
+R1: 
+router bgp 254 
+ bgp router-id 1.1.1.1 
+ neighbor 150.1.1.4 remote-as 5 
+ neighbor 10.0.0.2 remote-as 5 
+ neighbor 10.0.0.6 remote-as 5 
+ network 150.1.1.0 mask 255.255.255.0 
+ 
+R2: 
+router bgp 65502 
+ bgp router-id 2.2.2.2 
+ bgp confederation identifier 5 
+ bgp confederation peers 65503  
+ network 150.2.2.0 mask 255.255.255.0 
+ neighbor 10.0.0.1 remote-as 254 
+ neighbor 10.0.0.10 remote-as 65503 
+ neighbor 10.0.0.10 next-hop-self 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+19 
+ 
+ 
+R3: 
+router bgp 65503 
+ bgp router-id 3.3.3.3 
+ bgp confederation identifier 5 
+ bgp confederation peers 65502 65504  
+ network 150.3.3.0 mask 255.255.255.0 
+ neighbor 10.0.0.5 remote-as 254 
+ neighbor 10.0.0.9 remote-as 65502 
+ neighbor 10.0.0.9 next-hop-self 
+ neighbor 10.0.0.14 remote-as 65504 
+ neighbor 10.0.0.14 next-hop-self 
+ 
+R4: 
+router bgp 65504 
+ bgp router-id 4.4.4.4 
+ bgp confederation identifier 5 
+ bgp confederation peers 65503  
+ network 150.1.1.0 mask 255.255.255.0 
+ neighbor 10.0.0.13 remote-as 65503 
+ neighbor 10.0.0.13 next-hop-self 
+ neighbor 150.1.1.1 remote-as 254 
+ 
+Configure AS 5 so that R2 and R3 prefer the path via R1 to reach the 150.1.1.0/24 prefix. 
+Ensure that this is ONLY applicable to this single prefix. 
+ 
+The best path to reach 150.1.1.0 from R2 is via R3 through the AS 5 confederation as shown by 
+the following output in the section confed-external, best: 
+ 
+R2#show ip bgp 150.1.1.0 255.255.255.0 
+BGP routing table entry for 150.1.1.0/24, version 10 
+Paths: (2 available, best #1, table Default-IP-Routing-Table) 
+Advertised to update-groups: 
+2 
+(65503 65504) 
+10.0.0.10 from 10.0.0.10 (3.3.3.3) 
+Origin IGP, metric 0, localpref 100, valid, confed-external, best 
+254 
+10.0.0.1 from 10.0.0.1 (1.1.1.1) 
+Origin IGP, metric 0, localpref 100, valid, external 
+ 
+The best path to reach 150.1.1.0 from R3 is via R4 as shown by the following output in the 
+section confed-external, best: 
+ 
+R3#show ip bgp 150.1.1.0 255.255.255.0 
+BGP routing table entry for 150.1.1.0/24, version 6 
+Paths: (2 available, best #1, table Default-IP-Routing-Table) 
+Advertised to update-groups: 
+1 2 
+(65504) 
+10.0.0.14 from 10.0.0.14 (4.4.4.4) 
+Origin IGP, metric 0, localpref 100, valid, confed-external, best 
+254 
+10.0.0.5 from 10.0.0.5 (1.1.1.1) 
+Origin IGP, metric 0, localpref 100, valid, external 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+20 
+ 
+To complete this task, you need to modify either the WEIGHT or the LOCAL_PREF attributes 
+for the 150.1.1.0/24 prefix received from R1 on routers R2 and R3. 
+ 
+R2(config) router
+#
+ bgp 65502 
+R2(config-router) neighbor
+#
+ 10.0.0.1 route-map weight-R1 in 
+R2(config-router) ip
+#
+ prefix-list NET-R1 seq 5 permit 150.1.1.0/24 
+R2(config) route
+#
+-map weight-R1 permit 10 
+R2(config-route-map)# match ip address prefix-list NET-R1 
+R2(config-route-map)# set weight 1000 
+R2(config-route-map)#route-map weight-R1 permit 20 
+ 
+R3(config)#router bgp 65503 
+R3(config-router)#neighbor 10.0.0.5 route-map weight-R1 in 
+R3(config-router)#ip prefix-list NET-R1 seq 5 permit 150.1.1.0/24 
+R3(config)#route-map weight-R1 permit 10 
+R3(config-route-map)# match ip address prefix-list NET-R1 
+R3(config-route-map)# set weight 1000 
+R3(config-route-map)# 
+R3(config-route-map)#route-map weight-R1 permit 20 
+ 
+let's verify the result after clearing the bgp neighbors: 
+ 
+R2(config-route-map) do
+#
+ clear ip bgp * 
+R3(config-route-map)#do clear ip bgp * 
+ 
+Both R2 and R3 prefer the path through R1 (10.0.0.1): 
+ 
+R2(config-route-map)#do show ip bgp 150.1.1.0 255.255.255.0 
+BGP routing table entry for 150.1.1.0/24, version 2 
+Paths: (2 available, best #2, table Default-IP-Routing-Table) 
+Flag: 0x820 
+Advertised to update-groups: 
+1 
+(65503) 254 
+10.0.0.10 from 10.0.0.10 (3.3.3.3) 
+Origin IGP, metric 0, localpref 100, valid, confed-external 
+254 
+10.0.0.1 from 10.0.0.1 (1.1.1.1) 
+Origin IGP, metric 0, localpref 100, weight 1000, valid, external, best 
+ 
+R3(config-route-map)#do show ip bgp 150.1.1.0 255.255.255.0 
+BGP routing table entry for 150.1.1.0/24, version 2 
+Paths: (3 available, best #3, table Default-IP-Routing-Table) 
+Flag: 0x820 
+Advertised to update-groups: 
+1 
+(65502) 254 
+10.0.0.9 from 10.0.0.9 (2.2.2.2) 
+Origin IGP, metric 0, localpref 100, valid, confed-external 
+(65504) 
+10.0.0.14 from 10.0.0.14 (4.4.4.4) 
+Origin IGP, metric 0, localpref 100, valid, confed-external 
+254 
+10.0.0.5 from 10.0.0.5 (1.1.1.1) 
+Origin IGP, metric 0, localpref 100, weight 1000, valid, external, best 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+21 
+ 
+let's look the path from R1 to reach 150.3.3.0/24 ,there are three valid routes but the path 
+through R3(10.0.0.6) is the best, we can influence the path selection by manipulating the 
+ORIGIN, IGP is preferred over EGP and EGP is preferred than incomplete, notice in the 
+following output the origin of the three paths is IGP: 
+ 
+R1#show ip bgp 150.3.3.0 255.255.255.0 
+BGP routing table entry for 150.3.3.0/24, version 17 
+Paths: (3 available, best #3, table Default-IP-Routing-Table) 
+Advertised to update-groups: 
+1 
+5 
+150.1.1.4 from 150.1.1.4 (4.4.4.4) 
+Origin IGP, localpref 100, valid, external 
+5 
+10.0.0.2 from 10.0.0.2 (2.2.2.2) 
+Origin IGP, localpref 100, valid, external 
+5 
+10.0.0.6 from 10.0.0.6 (3.3.3.3) 
+Origin IGP, metric 0, localpref 100, valid, external, best 
+ 
+R1 has three paths to the 150.3.3.0/24 subnet advertised by R3. Configure your network so that 
+R1 prefers the path via R2 first, the path via R4 second and then path via R3. You are not 
+allowed to make any changes on R1. Additionally, you are NOT allowed to modify the 
+AS_PATH or MED attributes or administrative distance. 
+ 
+There is another BGP attribute that can be used to influence path selection: ORIGIN. During 
+the BGP best path selection process, if all paths have the same AS_PATH length, then prefer 
+the path with the lowest ORIGIN. An ORIGIN of IGP (I) is more preferred (lower) than EGP (E) , 
+which in turn in more preferred  (lower) than Incomplete (?). In mathematical terms,  IGP < EGP 
+< Incomplete. Because all routers are advertising this prefix with an ORIGIN of IGP, because it 
+was injected into BGP on R3 using the network command, you only need to modify this 
+attribute on R2 and R3.  
+R3 will set the origin of 150.3.3.0 as incomplete and R4 advertises the prefix 150.3.3.0 as EGP, 
+while R2 advertises this routes with the origin IGP which is preferred over incomplete and EGP 
+origins: 
+ 
+R3(config)#ip prefix-list NET-R3 seq 5 permit 150.3.3.0/24 
+R3(config)#route-map ORIGIN permit 10 
+R3(config-route-map)# match ip address prefix-list NET-R3 
+R3(config-route-map)# set origin incomplete 
+R3(config-route-map)# 
+R3(config-route-map)#route-map ORIGIN permit 20 
+R3(config-route-map)#router bgp 65503 
+R3(config-router)#neighbor 10.0.0.5 route-map ORIGIN out 
+ 
+R4(config)#ip prefix-list NET-R4 seq 5 permit 150.3.3.0/24 
+R4(config)#route-map ORIGIN permit 10 
+R4(config-route-map)# match ip address prefix-list NET-R4 
+R4(config-route-map)# set origin egp 1 
+R4(config-route-map)#router bgp 65504 
+R4(config-router)#neighbor 150.1.1.1 route-map ORIGIN out 
+ 
+The preferred route is via R2 (10.0.0.2) ,notice the origin is displayed for the prefix 
+150.3.3.0/24,R2 as IGP ,R4 as EGP and R3 as incomplete: 
+ 
+R1#show ip bgp 150.3.3.0 255.255.255.0 
+BGP routing table entry for 150.3.3.0/24, version 23 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+22 
+ 
+Paths: (3 available, best #2, table Default-IP-Routing-Table) 
+Flag: 0x820 
+Advertised to update-groups: 
+1 
+5 
+150.1.1.4 from 150.1.1.4 (4.4.4.4) 
+Origin EGP, localpref 100, valid, external 
+5 
+10.0.0.2 from 10.0.0.2 (2.2.2.2) 
+Origin IGP, localpref 100, valid, external, best 
+5 
+10.0.0.6 from 10.0.0.6 (3.3.3.3) 
+Origin incomplete, metric 0, localpref 100, valid, external 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+23 
+ 
+Lab 4: BGP Confederations 
+ 
+ 
+ 
+Basic configuration 
+ 
+R1: 
+interface Loopback0 
+ ip address 1.1.1.1 255.255.255.0 
+! 
+interface FastEthernet0/0 
+ ip address 10.1.12.1 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet1/0 
+ ip address 172.16.16.1 255.255.255.0 
+ no shutdown 
+ 
+R2: 
+interface Loopback0 
+ ip address 2.2.2.2 255.255.255.0 
+! 
+interface FastEthernet0/0 
+ ip address 10.1.23.2 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet1/0 
+ ip address 10.1.12.2 255.255.255.0 
+ no shutdown 
+ 
+R3: 
+interface Loopback0 
+ ip address 3.3.3.3 255.255.255.0 
+! 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+24 
+ 
+interface FastEthernet0/0 
+ ip address 10.1.23.3 255.255.255.0 
+ no shutdown 
+! 
+interface FastEthernet1/0 
+ ip address 10.1.34.3 255.255.255.0 
+ no shutdown 
+! 
+ip route 4.4.4.0 255.255.255.0 10.1.34.4 
+ip route 4.4.4.0 255.255.255.0 10.1.134.4 
+ 
+R4: 
+interface Loopback0 
+ ip address 4.4.4.4 255.255.255.0 
+! 
+interface Loopback4 
+ ip address 40.0.0.4 255.255.255.0 
+! 
+interface FastEthernet1/0 
+ ip address 10.1.34.4 255.255.255.0 
+ sno shutdown 
+! 
+interface FastEthernet1/1 
+ ip address 10.1.134.4 255.255.255.0 
+ no shutdown 
+! 
+ip route 3.3.3.0 255.255.255.0 10.1.34.3 
+ip route 3.3.3.0 255.255.255.0 10.1.134.3 
+ 
+R5: 
+interface FastEthernet0/0 
+ ip address 172.16.16.5 255.255.255.0 
+ no shutdown 
+ 
+In this internetwork topology, R1 is in sub-AS 65001, with R2 and R3 in sub-AS 65023. In this 
+case, R1 and R3 will not be neighbors. The following list outlines the sequence of events to 
+propagate a prefix: 
+ 
+1. R3 will learn prefix 40.0.0.0/24 through eBGP from AS 45 (R4). 
+2. R3 will advertise the prefix through iBGP to R2. 
+3. R2 will advertise the prefix through confederation eBGP to R1. 
+ 
+R1 Configuration. Note the sub-AS in the router bgp command, and the true AS in the bgp 
+confederation identifier command. Also note the neighbor ebgp-multihop command for 
+confederation eBGP peer R2, as they are using loopbacks. Also, sync is not needed now that 
+the confederation has been created. 
+ 
+R1#show run | s router 
+router eigrp 100 
+ network 1.0.0.0 
+ network 10.0.0.0 
+router bgp 65001 
+ bgp log-neighbor-changes 
+ bgp confederation identifier 123 
+ bgp confederation peers 65023 
+ network 172.16.16.0 mask 255.255.255.0 
+ neighbor 2.2.2.2 remote-as 65023 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+25 
+ 
+ neighbor 2.2.2.2 ebgp-multihop 2 
+ neighbor 2.2.2.2 update-source Loopback0 
+ neighbor 172.16.16.5 remote-as 678 
+R1# 
+ 
+R2 Configuration. Note the bgp confederation peers 65001 command. Without it,R2 would 
+think that neighbor 1.1.1.1 was a true eBGP connection, and remove the confederation 
+AS_PATH entries before advertising to R1. 
+ 
+R2#show run | s router 
+router eigrp 100 
+ network 2.0.0.0 
+ network 10.0.0.0 
+router bgp 65023 
+ bgp log-neighbor-changes 
+ bgp confederation identifier 123 
+ bgp confederation peers 65001 
+ neighbor 1.1.1.1 remote-as 65001 
+ neighbor 1.1.1.1 ebgp-multihop 2 
+ neighbor 1.1.1.1 update-source Loopback0 
+ neighbor 3.3.3.3 remote-as 65023 
+ neighbor 3.3.3.3 update-source Loopback0 
+R2# 
+ 
+R3 Configuration. Note that R3 does not need a bgp confederation peers command, as it does 
+not have any confederation eBGP peers. 
+ 
+R3#show run | s router 
+router eigrp 100 
+ network 3.0.0.0 
+ network 10.0.0.0 
+router bgp 65023 
+ bgp log-neighbor-changes 
+ bgp confederation identifier 123 
+ neighbor 2.2.2.2 remote-as 65023 
+ neighbor 2.2.2.2 update-source Loopback0 
+ neighbor 2.2.2.2 next-hop-self 
+ neighbor 4.4.4.4 remote-as 45 
+ neighbor 4.4.4.4 ebgp-multihop 2 
+ neighbor 4.4.4.4 update-source Loopback0 
+R3# 
+ 
+R4#show run | s router 
+router bgp 45 
+ bgp log-neighbor-changes 
+ network 40.0.0.0 mask 255.255.255.0 
+ neighbor 3.3.3.3 remote-as 123 
+ neighbor 3.3.3.3 ebgp-multihop 2 
+ neighbor 3.3.3.3 update-source Loopback0 
+R4# 
+ 
+R5#show run | s router 
+router bgp 678 
+ bgp log-neighbor-changes 
+ neighbor 172.16.16.1 remote-as 123 
+R5# 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+26 
+ 
+R1 has received the 40.0.0.0/24 prefix, with sub-AS 65023 shown in parentheses, and true AS 
+45 shown outside the parentheses. R1 has also learned the same prefix via AS 678 and R5. The 
+route through the sub-AS is best because it is the shortest AS_PATH; the shortest AS_PATH 
+logic ignores the confederation sub-autonomous systems. 
+ 
+R1#show ip bgp 
+BGP table version is 3, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  40.0.0.0/24      3.3.3.3                  0    100      0 (65023) 45 i 
+ *>  172.16.16.0/24   0.0.0.0                  0         32768 i 
+R1# 
+ 
+R6 shows its received update from R1, showing the removed sub-AS, and the inclusion of the 
+true AS, AS 123. 
+ 
+R5#show ip bgp 
+BGP table version is 3, local router ID is 172.16.16.5 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  40.0.0.0/24      172.16.16.1                            0 123 45 i 
+ r>  172.16.16.0/24   172.16.16.1              0             0 123 i 
+R5# 
+ 
+R5#show ip bgp neighbor 172.16.16.1 received-routes 
+BGP table version is 3, local router ID is 172.16.16.5 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  40.0.0.0/24      172.16.16.1                            0 123 45 i 
+ r>  172.16.16.0/24   172.16.16.1              0             0 123 i 
+ 
+Total number of prefixes 2 
+R5# 
+ 
+R5#ping 40.0.0.4 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 40.0.0.4, timeout is 2 seconds: 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 184/195/212 ms 
+R5# 
+ 
+R2#show ip bgp 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+27 
+ 
+BGP table version is 3, local router ID is 2.2.2.2 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>i 40.0.0.0/24      3.3.3.3                  0    100      0 45 i 
+ *>  172.16.16.0/24   1.1.1.1                  0    100      0 (65001) i 
+R2# 
+ 
+R3#show ip bgp 
+BGP table version is 3, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  40.0.0.0/24      4.4.4.4                  0             0 45 i 
+ *>i 172.16.16.0/24   1.1.1.1                  0    100      0 (65001) i 
+R3# 
+ 
+R4#show ip bgp 
+BGP table version is 3, local router ID is 4.4.4.4 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  40.0.0.0/24      0.0.0.0                  0         32768 i 
+ *>  172.16.16.0/24   3.3.3.3                                0 123 i 
+R4# 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+28 
+ 
+Lab 5: Bestpath as-path ignore and aggregate-address 
+ 
+ 
+ 
+ 
+Basic configuration 
+ 
+R1: 
+interface Loopback0 
+ ip address 172.16.1.1 255.255.255.0 
+! 
+interface Serial1/0 
+ ip address 10.0.13.5 255.255.255.252 
+ no shutd 
+! 
+interface Serial1/1 
+ ip address 10.0.12.1 255.255.255.252 
+ no shutd 
+ 
+R2: 
+interface Loopback0 
+ ip address 172.16.2.2 255.255.255.0 
+! 
+interface Serial1/0 
+ ip address 10.0.23.9 255.255.255.252 
+ no shutd 
+! 
+interface Serial1/1 
+ ip address 10.0.12.2 255.255.255.252 
+ no shutd 
+ 
+R3: 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+29 
+ 
+interface Loopback0 
+ ip address 172.16.3.3 255.255.255.0 
+! 
+interface Serial1/0 
+ ip address 10.0.13.6 255.255.255.252 
+ no shutd 
+! 
+interface Serial1/1 
+ ip address 10.0.23.10 255.255.255.252 
+ no shutd 
+! 
+interface Serial1/2 
+ ip address 10.0.34.13 255.255.255.252 
+ no shutd 
+ 
+R4: 
+interface Loopback0 
+ ip address 172.16.4.4 255.255.255.0 
+! 
+interface Serial1/1 
+ ip address 10.0.34.14 255.255.255.252 
+ no shutd 
+ 
+ R1 will peer with R2 and R3. R2 will peer with R1 and R3. R3 will peer with R1, R2 and R4. R4 
+will peer only with R3. The routers should all use their physical interface addresses for BGP 
+peering.  
+ 
+R1 
+router bgp 1 
+ bgp router-id 1.1.1.1 
+ neighbor 10.0.12.2 remote-as 2 
+ neighbor 10.0.13.6 remote-as 3 
+ 
+R2 
+router bgp 2 
+ bgp router-id 2.2.2.2 
+ neighbor 10.0.12.1 remote-as 1 
+ neighbor 10.0.23.10 remote-as 3 
+ 
+R3 
+router bgp 3 
+ bgp router-id 3.3.3.3 
+ no neighbor 10.0.13.5 remote-as 5 
+ neighbor 10.0.23.9 remote-as 2 
+ neighbor 10.0.34.14 remote-as 4 
+ 
+R4 
+router bgp 4 
+ bgp router-id 4.4.4.4    
+ neighbor 10.0.34.13 remote-as 3 
+ 
+Check the status of all BGP connections with the do show ip bgp summary command: 
+ 
+R1(config-router)#do show ip bgp summary 
+BGP router identifier 1.1.1.1, local AS number 1 
+BGP table version is 1, main routing table version 1 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+30 
+ 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.12.2       4            2       5       5        1    0    0 00:02:14        
+0 
+10.0.13.6       4            3       2       2        1    0    0 00:00:21        
+0 
+ 
+R2(config-router)#do show ip bgp summary 
+BGP router identifier 2.2.2.2, local AS number 2 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.12.1       4            1       5       5        1    0    0 00:02:16        
+0 
+10.0.23.10      4            3       5       5        1    0    0 00:02:13        
+0 
+ 
+R3(config-router)#do show ip bgp summary 
+BGP router identifier 3.3.3.3, local AS number 3 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.13.5       4            1       3       3        1    0    0 00:01:18        
+0 
+10.0.23.9       4            2       6       6        1    0    0 00:03:07        
+0 
+10.0.34.14      4            4       2       2        1    0    0 00:00:10        
+0 
+R3(config-router)# 
+ 
+R4(config-if)#do show ip bgp summary 
+BGP router identifier 4.4.4.4, local AS number 4 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.34.13      4            3       2       2        1    0    0 00:00:13        
+0 
+R4(config-if)# 
+ 
+Advertise the 172.16.x.0/24 LAN subnets on all routers via BGP. These should be injected 
+using the network command on all routers. Verify that all routers' LAN subnets can ping every 
+other routers LAN subnet.  
+ 
+R1 
+router bgp 1 
+ network 172.16.1.0 mask 255.255.255.0 
+ 
+R2 
+router bgp 2 
+ network 172.16.2.0 mask 255.255.255.0 
+ 
+R3 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+31 
+ 
+router bgp 3 
+ network 172.16.3.0 mask 255.255.255.0 
+  
+R4 
+router bgp 4 
+ network 172.16.4.0 mask 255.255.255.0 
+ 
+Verify that all routers have the 172.16.x.0/24 subnets in their BGP Tables: 
+ 
+R1(config)#do show ip bgp 
+BGP table version is 5, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  172.16.1.0/24    0.0.0.0                  0         32768 i 
+ *   172.16.2.0/24    10.0.13.6                              0 3 2 i 
+ *>                   10.0.12.2                0             0 2 i 
+ *   172.16.3.0/24    10.0.12.2                              0 2 3 i 
+ *>                   10.0.13.6                0             0 3 i 
+ *   172.16.4.0/24    10.0.12.2                              0 2 3 4 i 
+ *>                   10.0.13.6                              0 3 4 i 
+ 
+R2(config)#do show ip bgp 
+BGP table version is 5, local router ID is 2.2.2.2 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   172.16.1.0/24    10.0.23.10                             0 3 1 i 
+ *>                   10.0.12.1                0             0 1 i 
+ *>  172.16.2.0/24    0.0.0.0                  0         32768 i 
+ *   172.16.3.0/24    10.0.12.1                              0 1 3 i 
+ *>                   10.0.23.10               0             0 3 i 
+ *   172.16.4.0/24    10.0.12.1                              0 1 3 4 i 
+ *>                   10.0.23.10                             0 3 4 i 
+ 
+R3(config-router)#do show ip bgp 
+BGP table version is 5, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   172.16.1.0/24    10.0.23.9                              0 2 1 i 
+ *>                   10.0.13.5                0             0 1 i 
+ *   172.16.2.0/24    10.0.13.5                              0 1 2 i 
+ *>                   10.0.23.9                0             0 2 i 
+ *>  172.16.3.0/24    0.0.0.0                  0         32768 i 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+32 
+ 
+ *>  172.16.4.0/24    10.0.34.14               0             0 4 i 
+ 
+R4(config-router)#do show ip bgp 
+BGP table version is 5, local router ID is 4.4.4.4 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  172.16.1.0/24    10.0.34.13                             0 3 1 i 
+ *>  172.16.2.0/24    10.0.34.13                             0 3 2 i 
+ *>  172.16.3.0/24    10.0.34.13               0             0 3 i 
+ *>  172.16.4.0/24    0.0.0.0                  0         32768 i 
+ 
+Finally, verify that each router can ping every other routers' LAN interface from its own: 
+ 
+R1#ping 172.16.2.2 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 8/97/236 ms 
+R1# 
+ 
+R1#ping 172.16.3.3 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.3.3, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 8/84/128 ms 
+R1# 
+ 
+R1#ping 172.16.4.4 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 68/103/140 ms 
+R1# 
+ 
+R2#ping 172.16.1.1 source loopback0 
+*Mar 26 01:37:51.095: %SYS-5-CONFIG_I: Configured from console by console 
+R2#ping 172.16.1.1 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 36/102/144 ms 
+R2# 
+ 
+R2#ping 172.16.3.3 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.3.3, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.2.2 
+!!!!! 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+33 
+ 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 104/121/152 ms 
+R2# 
+ 
+R2#ping 172.16.4.4 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 120/140/148 ms 
+R2# 
+ 
+R3#ping 172.16.1.1 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/37/48 ms 
+R3# 
+ 
+R3#ping 172.16.2.2 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/34/40 ms 
+R3# 
+ 
+R3#ping 172.16.4.4 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 96/106/120 ms 
+R3# 
+ 
+R4#ping 172.16.1.1 source loopback0 
+*Mar 26 01:39:50.211: %SYS-5-CONFIG_I: Configured from console by console 
+R4#ping 172.16.1.1 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 116/129/152 ms 
+R4# 
+ 
+R4#ping 172.16.2.2 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 88/124/140 ms 
+R4# 
+ 
+R4#ping 172.16.3.3 source loopback0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 172.16.3.3, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.4.4 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+34 
+ 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 80/104/128 ms 
+R4# 
+ 
+Configure R1 with the following Loopback interfaces: 
+ 
+Loopback 1: IP Address 192.0.0.1/32 
+Loopback 0: IP Address 192.0.1.1/32 
+ 
+R1 
+interface loopback 1 
+ip add 192.0.0.1 255.255.255.255 
+ 
+interface loopback 2 
+ip add 192.0.1.1 255.255.255.255 
+ 
+These prefixes should be advertised only to R2.  Next, configure R2 to advertise a single route 
+for these prefixes to R3. Ensure that this aggregate route ONLY appears in the BGP Table of 
+R4 but not in the BGP Table of R1. Follow the restrictions below: 
+ 
+You can NOT use an outbound route map on R1 
+You can NOT use any outbound filters or route maps on R2 or R3 
+You can NOT use any inbound filters or route maps on R1 or R3 
+You can NOT modify administrative distance values 
+  
+To do the first part of the requirement, create a prefix-list named FILTER which matches the 
+two prefixes with a deny action and a third sequence to allow other prefixes, then under router 
+bgp we tell to R1 to apply this prefix-list toward the neighbor 10.0.13.6 which is R3: 
+ 
+ip prefix-list FILTER seq 1 deny 192.0.0.1/32 
+ip prefix-list FILTER seq 2 deny 192.0.1.1/32 
+ip prefix-list FILTER seq 3 permit 0.0.0.0/0 le 32 
+! 
+router bgp 1 
+network 192.0.0.1 mask 255.255.255.255 
+network 192.0.1.1 mask 255.255.255.255 
+neighbor 10.0.13.6 prefix-list FILTER out 
+ 
+The show ip bgp neighbors 10.0.12.2 advertised-routes command displays which prefixes or 
+routes are being advertised to R2, notice the presence of the two prefixes 192.0.0.1/32 and 
+192.0.1.1/32: 
+ 
+R1(config)#do show ip bgp neighbors 10.0.12.2 advertised-routes 
+BGP table version is 7, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  172.16.1.0/24    0.0.0.0                  0         32768 i 
+ *>  172.16.3.0/24    10.0.13.6                0             0 3 i 
+ *>  172.16.4.0/24    10.0.13.6                              0 3 4 i 
+ *>  192.0.0.1/32     0.0.0.0                  0         32768 i 
+ *>  192.0.1.1/32     0.0.0.0                  0         32768 i 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+35 
+ 
+Total number of prefixes 5 
+ 
+The show ip bgp neighbors 10.0.13.6 advertised-routes command displays which prefixes or 
+routes are being advertised to R3, notice now the absence of the two prefixes 192.0.0.1/32 and 
+192.0.1.1/32 because the filtering configured on R1: 
+ 
+R1(config)#do show ip bgp neighbors 10.0.13.6 advertised-routes 
+BGP table version is 7, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  172.16.1.0/24    0.0.0.0                  0         32768 i 
+ *>  172.16.2.0/24    10.0.12.2                0             0 2 i 
+ 
+Total number of prefixes 2 
+ 
+The second part requires that you summarize these prefixes and ensure that they are NOT 
+advertised back to R1 by R3. Given the restrictions. When summarizing with BGP, if you use 
+the aggregate-address command, the router that performs the aggregation removes, by 
+default, any other AS_PATH information (AS_SET). The summarized route is therefore 
+originated from the AS of the router that generated the summary. This means that if the routes 
+that are summarized were received from another AS, as is our case, the aggregate can be re-
+advertised back to that AS, causing some issues (such as routing loop. For example, assume 
+the following command was issued on R2: 
+ 
+On R2 we will use the aggregate-address command in order to advertise a single route for the 
+prefixes 192.0.0.1/32 and 192.0.1.1/32 to R3. 
+Keep in mind that when summarizing with BGP, if we use the aggregate-address command, 
+the router (R2 in our case) that performs the aggregation, by default it removes any other 
+AS_PATH information (AS_SET). The summarized route is thus originated from the AS of the 
+router that generated the summary (R2) not the router that generates the routes of the specific 
+subnets (R1). This means that if the routes that are summarized were received from another 
+AS, like with our case the aggregate can be re-advertised back to that AS (AS 1), causing some 
+issues suche loop problems. 
+ 
+We can verify when summarizing on R2 as follow: 
+ 
+R2 
+router bgp 2 
+ aggregate-address 192.0.0.0 255.255.254.0 summary-only 
+ 
+From the BGP table of R3, R2 suppresses the specific 192.0.0.1/32 and 192.0.1.1/32 prefixes 
+and advertises only a single route to R3. This route appears on R3 as follows: 
+Notice that the AS_PATH shows that this aggregate route is originated from AS 2, in other 
+word the AS 1 is not listed in the BGP table of R3 for the summary route: 
+  
+R3#show ip bgp 192.0.0.0 255.255.254.0 
+BGP routing table entry for 192.0.0.0/23, version 50 
+Paths: (1 available, best #1, table default) 
+Flag: 0x820 
+  Not advertised to any peer 
+  Refresh Epoch 1 
+  2, (aggregated by 2 2.2.2.2) 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+36 
+ 
+    10.0.23.9 from 10.0.23.9 (2.2.2.2) 
+      Origin IGP, metric 0, localpref 100, valid, external, atomic-aggregate, best 
+      rx pathid: 0, tx pathid: 0x0 
+ 
+Notice that the AS_PATH shows that this aggregate originates in AS 2, even though it is based 
+on prefixes originated in AS 1. Given this, R1 will accept this same prefix from both R2 an R3: 
+ 
+R1(config)#do show ip bgp 192.0.0.0 255.255.254.0 
+BGP routing table entry for 192.0.0.0/23, version 14 
+Paths: (2 available, best #2, table default) 
+  Advertised to update-groups: 
+     6 
+  Refresh Epoch 2 
+  3 2, (aggregated by 2 2.2.2.2) 
+    10.0.13.6 from 10.0.13.6 (3.3.3.3) 
+      Origin IGP, localpref 100, valid, external, atomic-aggregate 
+      rx pathid: 0, tx pathid: 0 
+  Refresh Epoch 1 
+  2, (aggregated by 2 2.2.2.2) 
+    10.0.12.2 from 10.0.12.2 (2.2.2.2) 
+      Origin IGP, metric 0, localpref 100, valid, external, atomic-aggregate, best 
+      rx pathid: 0, tx pathid: 0x0 
+ 
+To avoid this issue, add the keyword as-set to the aggregate-address command. It includes all 
+AS of the specific prefixes from which the aggregate is generated. This prevents the aggregate 
+from being advertised back to this AS 1, in other word the routers receiving this UPDATE will 
+see their own AS_PATH in the update and drop it, according to the BGP loop prevention 
+mechanism rule: 
+ 
+R2 
+router bgp 2       
+aggregate-add 192.0.0.0 255.255.254.0 summary-only as-set 
+ 
+Following this change, the aggregate now reflects an origin of AS 1 when seen on R3: 
+ 
+R3#show ip bgp 192.0.0.0 255.255.254.0 
+BGP routing table entry for 192.0.0.0/23, version 55 
+Paths: (1 available, best #1, table default) 
+  Advertised to update-groups: 
+     1 
+  Refresh Epoch 1 
+  2 1, (aggregated by 2 2.2.2.2) 
+    10.0.23.9 from 10.0.23.9 (2.2.2.2) 
+      Origin IGP, metric 0, localpref 100, valid, external, best 
+      rx pathid: 0, tx pathid: 0x0 
+ 
+Because R1 sees its own AS_PATH in the list, it does NOT accept the aggregate: 
+ 
+R1(config)#do show ip bgp 192.0.0.0 255.255.254.0 
+% Network not in table 
+R1(config)# 
+ 
+R1, R2 and R3 can ping the 192.0.0.1/32 and 192.0.1.1/32 prefixes from the loopback interfaces 
+as a sources: 
+ 
+R2#ping 192.0.0.1 source lo0 
+Type escape sequence to abort. 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+37 
+ 
+Sending 5, 100-byte ICMP Echos to 192.0.0.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/40/52 ms 
+R2#ping 192.0.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.0.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/37/48 ms 
+ 
+R3#ping 192.0.0.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.0.0.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 68/113/128 ms 
+R3#ping 192.0.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.0.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 76/105/148 ms 
+ 
+R4#ping 192.0.0.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.0.0.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 96/132/152 ms 
+R4#ping 192.0.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.0.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 116/129/140 ms 
+R4# 
+ 
+Configure R2 and R4 with a Loopback 20 interface with the IP address 192.168.0.2/32. Next, 
+redistribute this prefix into BGP on R2 and R4 and configure BGP path control so that R1 
+prefers the prefix originated by R4 over the prefix originated by R1. However, follow the 
+restrictions below: 
+ 
+You can NOT modify the AS_PATH length for this prefix on ANY router 
+You can NOT modify default administrative distance values 
+You can NOT modify the WEIGHT or LOCAL_PREF attributes on R1 
+You can only issue ONE single command on R1, i.e. one line of code 
+You MUST use route maps when redistributing this interface on R2 and R4 
+ 
+R2 
+interface loopback 20 
+ip address 192.168.0.2 255.255.255.255 
+ 
+R4 
+interface loopback 20 
+ip address 192.168.0.2 255.255.255.255 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+38 
+ 
+If you have read the BGP path selection process. Because we cannot use WEIGHT or 
+LOCAL_PREF, those two attributes are ruled out. Because both prefixes are not originated on 
+the local router, we can skip this step of the path selection process. 
+The next attribute to consider then would be the AS_PATH length. However, the restriction 
+says that we cannot MODIFY the AS_PATH length. However, if the bgp bestpath as-path ignore 
+command is issued on the router, the AS_PATH attribute is not used in BGP best path 
+selection. Also, when comparing this attribute, an AS_SET is counted once, regardless of the 
+number of autonomous systems in the set. And, finally, the AS_CONFED_SEQUENCE is not 
+included in the AS_PATH length. 
+ 
+Therefore, we can configure R1 to IGNORE the AS_PATH attribute in best path selection and 
+look at the next attribute in the best path selection process, which is ORIGIN, we can influence 
+the path selection by configuring R1 to ignore the AS_PATH attribute in the path selection 
+process and advertising the prefix from R4 with a better ORIGIN code than that on R2. 
+ 
+R1 
+router bgp 1 
+ bgp bestpath as-path ignore 
+ 
+Complete your configuration on routers R2 and R4 as follows: 
+ 
+R2 
+route-map LOOPBACK permit 10 
+ match interface loopback 20 
+ 
+router bgp 2 
+redistribute connected route-map LOOPBACK 
+   
+R4 
+router bgp 2 
+redistribute connected route-map LOOPBACK 
+ 
+route-map LOOPBACK permit 10 
+ match interface loopback 20 
+ set origin igp 
+ 
+router bgp 4 
+redistribute connected route-map LOOPBACK 
+ 
+Because the AS_PATH attribute is ignored in best path selection on R1, it is omitted in the 
+path selection process and the next valid attribute, ORIGIN, is used instead. Given that an 
+ORIGIN of IGP > EGP > Incomplete, the path from R4 wins and is used instead. The same logic 
+is also applicable to R3, which prefers this same path because of the ORIGIN: 
+ 
+R1(config)#do show ip bgp 192.168.0.2 255.255.255.255 
+BGP routing table entry for 192.168.0.2/32, version 27 
+Paths: (2 available, best #1, table default) 
+  Advertised to update-groups: 
+     8 
+  Refresh Epoch 2 
+  3 4 
+    10.0.13.6 from 10.0.13.6 (3.3.3.3) 
+      Origin IGP, localpref 100, valid, external, best 
+      rx pathid: 0, tx pathid: 0x0 
+  Refresh Epoch 1 
+  2 
+    10.0.12.2 from 10.0.12.2 (2.2.2.2) 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+39 
+ 
+      Origin incomplete, metric 0, localpref 100, valid, external 
+      rx pathid: 0, tx pathid: 0 
+ 
+R3(config)#do show ip bgp 192.168.0.2 255.255.255.255 
+BGP routing table entry for 192.168.0.2/32, version 58 
+Paths: (2 available, best #1, table default) 
+  Advertised to update-groups: 
+     1 
+  Refresh Epoch 1 
+  4 
+    10.0.34.14 from 10.0.34.14 (4.4.4.4) 
+      Origin IGP, metric 0, localpref 100, valid, external, best 
+      rx pathid: 0, tx pathid: 0x0 
+  Refresh Epoch 1 
+  2 
+    10.0.23.9 from 10.0.23.9 (2.2.2.2) 
+      Origin incomplete, metric 0, localpref 100, valid, external 
+      rx pathid: 0, tx pathid: 0 
+ 
+R1(config)#do ping 192.168.0.2 source 172.16.1.1 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 192.168.0.2, timeout is 2 seconds: 
+Packet sent with a source address of 172.16.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 100/119/144 ms 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+40 
+ 
+Lab 6: Community Attribute AS-Path Prepend and Default route 
+ 
+ 
+ 
+ 
+Basic Configuration 
+ 
+R1: 
+interface Loopback0 
+ip address 10.1.1.1 255.255.255.0 
+! 
+interface Serial1/0 
+ip address 10.0.12.1 255.255.255.252 
+no shutd 
+! 
+interface Serial1/3 
+ip address 10.0.13.1 255.255.255.252 
+no shutd 
+ 
+R2: 
+interface lo0 
+ip address 10.2.2.2 255.255.255.0 
+! 
+interface Serial1/1 
+ip address 10.0.12.2 255.255.255.252 
+no shutd 
+! 
+interface Serial1/0 
+ip address 10.0.23.1 255.255.255.252 
+no shutd 
+ 
+R3: 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+41 
+ 
+interface lo0 
+ip address 10.3.3.3 255.255.255.0 
+! 
+interface Serial1/1 
+ip address 10.0.23.2 255.255.255.252 
+no shutd 
+! 
+interface Serial1/3 
+ip address 10.0.13.2 255.255.255.252 
+no shutd 
+! 
+interface Serial1/2 
+ip address 10.0.34.1 255.255.255.252 
+no shutd 
+ 
+R4: 
+interface lo0 
+ip address 10.4.4.4 255.255.255.0 
+! 
+interface Serial1/1 
+ip address 10.0.34.2 255.255.255.252 
+no shutd 
+ 
+Configure BGP, R1 will peer with R2 and R3. R2 will peer with R1 and R3. R3 will peer with R1, 
+R2 and R4. R4 will peer only with R3 by using their physical interface addresses for BGP 
+peering.  
+ 
+R1 
+router bgp 1 
+bgp router-id 1.1.1.1 
+neighbor 10.0.12.2 remote-as 2 
+neighbor 10.0.13.2 remote-as 3 
+ 
+R2 
+router bgp 2 
+bgp router-id 2.2.2.2 
+neighbor 10.0.12.1 remote-as 1 
+neighbor 10.0.23.2 remote-as 3 
+ 
+R3 
+router bgp 3 
+bgp router-id 3.3.3.3 
+neighbor 10.0.13.1 remote-as 1 
+neighbor 10.0.23.1 remote-as 2 
+neighbor 10.0.34.2 remote-as 3 
+ 
+R4 
+router bgp 3 
+bgp router-id 4.4.4.4 
+neighbor 10.0.34.1 remote-as 3 
+ 
+Verify that the neighboring is established between peers: 
+ 
+R1#show ip bgp summary 
+BGP router identifier 1.1.1.1, local AS number 1 
+BGP table version is 1, main routing table version 1 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+42 
+ 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.12.2       4            2      10       9        1    0    0 00:06:37        
+0 
+10.0.13.2       4            3       2       2        1    0    0 00:00:22        
+0 
+ 
+R2#show ip bgp summary 
+BGP router identifier 2.2.2.2, local AS number 2 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.12.1       4            1      10      11        1    0    0 00:07:28        
+0 
+10.0.23.2       4            3      10       8        1    0    0 00:05:47        
+0 
+ 
+R3#show ip bgp summary 
+BGP router identifier 3.3.3.3, local AS number 3 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.13.1       4            1       4       4        1    0    0 00:01:58        
+0 
+10.0.23.1       4            2       9      10        1    0    0 00:06:33        
+0 
+10.0.34.2       4            3      11      10        1    0    0 00:07:31        
+0 
+ 
+R4#show ip bgp summary 
+BGP router identifier 4.4.4.4, local AS number 3 
+BGP table version is 1, main routing table version 1 
+ 
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  
+State/PfxRcd 
+10.0.34.1       4            3      11      12        1    0    0 00:08:04        
+0 
+ 
+Advertise the 10.x.x.x LAN subnets on all routers via BGP. These should be injected using the 
+network command on all routers. 
+ 
+R1 
+router bgp 1 
+network 10.1.1.0 mask 255.255.255.0 
+ 
+R2 
+router bgp 2 
+network 10.2.2.0 mask 255.255.255.0 
+ 
+Because R3 will be receiving prefixes from external peers (R1 and R2) and advertising those 
+same prefixes to an internal peer (R4), you need to change the NEXT_HOP for the prefixes, 
+otherwise R4 will not be able to reach them. 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+43 
+ 
+R3 
+router bgp 3 
+network 10.3.3.0 mask 255.255.255.0 
+neighbor 10.0.34.2 next-hop-self 
+ 
+R4 
+router bgp 3 
+network 10.4.4.0 mask 255.255.255.0 
+ 
+The BGP tables of R1 R2 R3 and R4 shown that the LAN subnets are learned and installed by 
+all routers: 
+ 
+R1#show ip bgp 
+BGP table version is 5, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  10.1.1.0/24      0.0.0.0                  0         32768 i 
+ *   10.2.2.0/24      10.0.13.2                              0 3 2 i 
+ *>                   10.0.12.2                0             0 2 i 
+ *   10.3.3.0/24      10.0.12.2                              0 2 3 i 
+ *>                   10.0.13.2                0             0 3 i 
+ *   10.4.4.0/24      10.0.12.2                              0 2 3 i 
+ *>                   10.0.13.2                              0 3 i 
+ 
+R2#show ip bgp 
+BGP table version is 5, local router ID is 2.2.2.2 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   10.1.1.0/24      10.0.23.2                              0 3 1 i 
+ *>                   10.0.12.1                0             0 1 i 
+ *>  10.2.2.0/24      0.0.0.0                  0         32768 i 
+ *   10.3.3.0/24      10.0.12.1                              0 1 3 i 
+ *>                   10.0.23.2                0             0 3 i 
+ *   10.4.4.0/24      10.0.12.1                              0 1 3 i 
+ *>                   10.0.23.2                              0 3 i 
+ 
+R3#show ip bgp 
+BGP table version is 5, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   10.1.1.0/24      10.0.23.1                              0 2 1 i 
+ *>                   10.0.13.1                0             0 1 i 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+44 
+ 
+ *   10.2.2.0/24      10.0.13.1                              0 1 2 i 
+ *>                   10.0.23.1                0             0 2 i 
+ *>  10.3.3.0/24      0.0.0.0                  0         32768 i 
+ *>i 10.4.4.0/24      10.0.34.2                0    100      0 i 
+ 
+R4#show ip bgp 
+BGP table version is 5, local router ID is 4.4.4.4 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>i 10.1.1.0/24      10.0.34.1                0    100      0 1 i 
+ *>i 10.2.2.0/24      10.0.34.1                0    100      0 2 i 
+ *>i 10.3.3.0/24      10.0.34.1                0    100      0 i 
+ *>  10.4.4.0/24      0.0.0.0                  0         32768 i 
+ 
+Finally, verify that you have LAN-to-LAN connectivity on all routers using extended pings: 
+ 
+R1#ping 10.2.2.2 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 10.1.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 204/238/284 ms 
+R1# 
+R1#ping 10.3.3.3 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.3.3.3, timeout is 2 seconds: 
+Packet sent with a source address of 10.1.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 132/236/304 ms 
+R1# 
+R1#ping 10.4.4.4 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.4.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 10.1.1.1 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 240/260/296 ms 
+ 
+R2#ping 10.1.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 10.2.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 208/229/272 ms 
+R2# 
+R2# 
+R2#ping 10.3.3.3 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.3.3.3, timeout is 2 seconds: 
+Packet sent with a source address of 10.2.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 64/247/392 ms 
+R2# 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+45 
+ 
+R2#ping 10.4.4.4 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.4.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 10.2.2.2 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 196/233/276 ms 
+ 
+R3#ping 10.1.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 10.3.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 168/208/304 ms 
+R3# 
+R3#ping 10.2.2.2 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 10.3.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 188/206/244 ms 
+R3# 
+R3#ping 10.4.4.4 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.4.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 10.3.3.3 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 188/220/268 ms 
+ 
+R4#ping 10.1.1.1 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds: 
+Packet sent with a source address of 10.4.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 68/238/436 ms 
+R4# 
+R4#ping 10.2.2.2 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds: 
+Packet sent with a source address of 10.4.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 172/237/280 ms 
+R4# 
+R4#ping 10.4.4.4 source lo0 
+Type escape sequence to abort. 
+Sending 5, 100-byte ICMP Echos to 10.4.4.4, timeout is 2 seconds: 
+Packet sent with a source address of 10.4.4.4 
+!!!!! 
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/8 ms  
+ 
+Configure BGP so that R1 prefers the path via R2 to reach the 10.4.4.0/24 subnet. You are NOT 
+allowed to make any changes on R1 or R2 when completing this task. Ensure that when R2 is 
+down, R1 can still reach the 150.4.4.0/24 subnet. Verify your configuration using the 
+appropriate commands and simulating a R2 failure. 
+ 
+Prior to any changes, the BGP RIB on R1 shows the following entries. 
+ 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+46 
+ 
+The current best path for 10.4.4.0/24 is via R3 because of the shorter AS_PATH as shown by 
+the BGP RIB table on R1: 
+NOTE: The greater than sign (>) indicates the current best path in the BGP RIB with the next-
+hop 10.0.13.2 which is R3: 
+ 
+R1#show ip bgp 
+BGP table version is 5, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  10.1.1.0/24      0.0.0.0                  0         32768 i 
+ *   10.2.2.0/24      10.0.13.2                              0 3 2 i 
+ *>                   10.0.12.2                0             0 2 i 
+ *   10.3.3.0/24      10.0.12.2                              0 2 3 i 
+ *>                   10.0.13.2                0             0 3 i 
+ *   10.4.4.0/24      10.0.12.2                              0 2 3 i 
+ *>                   10.0.13.2                              0 3 i 
+ 
+To complete this requirement, prepend the AS_PATH for this prefix on R3 for the neighbor 
+relationship to R1: 
+ 
+R3 
+ip prefix-list R4-LAN seq 5 permit 10.4.4.0/24 
+! 
+route-map PATH-PREPEND permit 10 
+match ip address prefix list R4-LAN 
+set as-path prepend 3 3 
+! 
+route-map PATH-PREPEND permit 20 
+! 
+router bgp 3 
+neighbor 10.0.13.1 route-map PATH-PREPEND out 
+ 
+Following this configuration, the BGP Table on R1 shown that the best path for 10.4.4.0/24 is 
+through R2 because the shorter AS_PATH: 
+The AS_PATH length through R2: 2 3 
+The AS_PATH length through R3: 3 3 3 
+ 
+R1#show ip bgp 
+BGP table version is 13, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  10.1.1.0/24      0.0.0.0                  0         32768 i 
+ *   10.2.2.0/24      10.0.13.2                              0 3 3 3 2 i 
+ *>                   10.0.12.2                0             0 2 i 
+ *>  10.3.3.0/24      10.0.12.2                              0 2 3 i 
+ *                    10.0.13.2                0             0 3 3 3 i 
+ *>  10.4.4.0/24      10.0.12.2                              0 2 3 i 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+47 
+ 
+ *                    10.0.13.2                              0 3 3 3 i 
+ 
+R1# 
+ 
+R1#show ip bgp 10.4.4.0/24 
+BGP routing table entry for 10.4.4.0/24, version 13 
+Paths: (2 available, best #1, table default) 
+  Advertised to update-groups: 
+     1 
+  Refresh Epoch 1 
+  2 3 
+    10.0.12.2 from 10.0.12.2 (2.2.2.2) 
+      Origin IGP, localpref 100, valid, external, best 
+      rx pathid: 0, tx pathid: 0x0 
+  Refresh Epoch 1 
+  3 3 3 
+    10.0.13.2 from 10.0.13.2 (3.3.3.3) 
+      Origin IGP, localpref 100, valid, external 
+      rx pathid: 0, tx pathid: 0 
+ 
+The traceroute confirms that the packets go through R2: 
+ 
+R1#traceroute 10.4.4.4 so 10.1.1.1 
+Type escape sequence to abort. 
+Tracing the route to 10.4.4.4 
+VRF info: (vrf in name/id, vrf out name/id) 
+  1 10.0.12.2 52 msec 36 msec 32 msec 
+  2 10.0.23.2 60 msec 44 msec 40 msec 
+  3 10.0.34.2 76 msec *  80 msec 
+ 
+Configure the following Loopback interfaces on R1: 
+Loopback 192: IP Address 192.168.1.1/32 
+Loopback 193: IP Address 172.16.1.1/32 
+ 
+Advertise the 192.168.1.1/32 subnet only to R2. Ensure that this is NOT re-advertised to R3. 
+Next, advertise the 172.16.1.1/32 subnet only to R3. Ensure that this is NOT re-advertised to R2 
+or R4. 
+ 
+R1(config)#interface lo192 
+R1(config-if)#ip address 192.168.1.1 255.255.255.255 
+ 
+R1(config)#interface lo172 
+R1(config-if)#ip addres 172.16.1.1 255.255.255.255 
+ 
+To do this challenge we will use a route map in conjunction with prefix-list. 
+ 
+Create two prefix-lists named LO-192 and LO-172 to identify the 192.168.1.1/32 and 
+172.16.1.1/32 subnets respectively: 
+ 
+R1(config)#ip prefix-list LO-192 seq 5 permit 192.168.1.1/32 
+R1(config)#ip prefix-list LO-172 seq 5 permit 172.16.1.1/32 
+ 
+The route-map called OUT-TO-R2 with the sequence 10 will deny the prefix 172.16.1.1 identified 
+by the prefix-list LO-172 from being advertised to R2 and allow other prefixes with the second 
+sequence 20 of the route-map: 
+ 
+R1(config)#route-map OUT-TO-R2 deny 10 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+48 
+ 
+R1(config-route-map)#match ip address prefix-list LO-172 
+R1(config-route-map)#exit 
+R1(config)#route-map OUT-TO-R2 permit 20 
+ 
+The route-map called OUT-TO-R3 with the sequence 10 will deny the prefix 192.168.1.1 
+identified by the prefix-list LO-192 from being advertised to R3 and allow other prefixes with 
+the second sequence 20 of the route-map: 
+ 
+R1(config)#route-map OUT-TO-R3 deny 10 
+R1(config-route-map)#match ip address prefix-list LO-192 
+R1(config-route-map)#exit 
+R1(config)#route-map OUT-TO-R3 permit 20 
+ 
+Let's advertise the prefixes 192.168.1.1/32 and 172.16.1.1/32 and apply the route-maps OUT-
+TO-R2 and OUT-TO-R3 toward R2 and R3 respectively in the outbound direction: 
+ 
+R1(config)#router bgp 1 
+R1(config-router)#network 192.168.1.1 mask 255.255.255.255 
+R1(config-router)#network 172.16.1.1 mask 255.255.255.255 
+R1(config-router)#neighbor 10.0.12.2 route-map OUT-TO-R2 out 
+R1(config-router)#neighbor 10.0.13.2 route-map OUT-TO-R3 out 
+R1(config-router)#exit 
+ 
+Verify the configuration using the show ip bgp neighbors 10.0.12.2 advertised-routes and 
+show ip bgp neighbors 10.0.13.2 advertised-routes commands on R1 to see the prefixes 
+advertised to R2 and R3 respectively: 
+ 
+R1 does not advertise 172.16.1.1/32 to R2: 
+ 
+R1#show ip bgp neighbors 10.0.12.2 advertised-routes 
+BGP table version is 7, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  10.1.1.0/24      0.0.0.0                  0         32768 i 
+ *>  192.168.1.1/32   0.0.0.0                  0         32768 i 
+ 
+Total number of prefixes 2 
+R1# 
+ 
+R1 does not advertise 192.168.1.1/32 to R3: 
+ 
+R1#show ip bgp neighbors 10.0.13.2 advertised-routes 
+BGP table version is 7, local router ID is 1.1.1.1 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *>  10.1.1.0/24      0.0.0.0                  0         32768 i 
+ *>  10.2.2.0/24      10.0.12.2                0             0 2 i 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+49 
+ 
+ *>  10.3.3.0/24      10.0.12.2                              0 2 3 i 
+ *>  10.4.4.0/24      10.0.12.2                              0 2 3 i 
+ *>  172.16.1.1/32    0.0.0.0                  0         32768 i 
+ 
+Total number of prefixes 5 
+R1# 
+ 
+Now the challenge is: 
+-ensure that the prefix 192.168.1.1/32 is NOT re-advertised to R3. 
+-ensure that the prefix 172.16.1.1/32 is NOT re-advertised to R2 or R4. 
+ 
+To do this challenge we will use the COMMUNITY attribute.  
+ 
+By definition: 
+ 
+The DOC BGP says that: 
+ 
+The BGP well-known communities are communities that have predefined meanings. Cisco IOS 
+software supports four well-known communities which are: 
+1. 
+NO_EXPORT 
+2. 
+NO_ADVERTISE 
+3. 
+INTERNET 
+4. 
+LOCAL_AS 
+  
+1-The NO_EXPORT well-known community prevents BGP prefixes that are specifically 
+assigned this predefined community attribute value from being advertised to any eBGP peers. 
+The prefixes, however, will continue to be advertised to all other BGP speakers within the local 
+AS. In other words, prefixes assigned this community value will remain local to the AS. 
+ 
+2-The NO_ADVERTISE community prevents any prefixes that are assigned this predefined 
+community attribute from being advertised to any peer –internal or external- 
+ 
+3-The INTERNET community allows all prefixes assigned to this community to be advertised to 
+any and all BGP peers (assuming no filtering, etc, is in place). In Cisco IOS software, all BGP 
+prefixes belong to the INTERNET community by default. 
+ 
+4-the LOCAL_AS community is used in a somewhat similar manner to another of the 
+previously described communities: the NO_EXPORT community. If used in a Confederation, 
+the LOCAL_AS community prevents all prefixes assigned this community from being 
+advertised out of the local sub autonomous system. When Confederations are not 
+implemented, the LOCAL_AS community is applied in the same manner as the NO_EXPORT 
+community. 
+ 
+In this case use the NO_ADVERTISE community: 
+ 
+R1(config)#route-map OUT-TO-R2 permit 20 
+R1(config-route-map)#match ip address prefix-list LO-192 
+R1(config-route-map)#set community no-advertise  
+R1(config-route-map)#exit 
+R1(config)#route-map OUT-TO-R2 permit 30 
+ 
+R1(config)#route-map OUT-TO-R3 permit 20 
+R1(config-route-map)#match ip address prefix-list LO-172 
+R1(config-route-map)#set community no-advertise  
+R1(config-route-map)#exit 
+R1(config)#route-map OUT-TO-R3 permit 30 
+ 
+R1(config)#router bgp 1 
+
+BGP ROUTING PROTOCOL PRACTICE LABS 
+REDOUANE MEDDANE 
+50 
+ 
+R1(config-router)#neighbor 10.0.12.2 send-community standard 
+R1(config-router)#neighbor 10.0.13.2 send-community standard 
+R1(config-router)#end 
+R1# 
+R1#clear ip bgp * soft out 
+ 
+Next, verify that the prefixes 192.168.1.1/32 and 172.16.1.1/32 are received by R2 and R3 
+respectively and are not re-advertised: 
+ 
+R2#show ip bgp 
+BGP table version is 17, local router ID is 2.2.2.2 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   10.1.1.0/24      10.0.23.2                              0 3 1 i 
+ *>                   10.0.12.1                0             0 1 i 
+ *>  10.2.2.0/24      0.0.0.0                  0         32768 i 
+ *>  10.3.3.0/24      10.0.23.2                0             0 3 i 
+ *>  10.4.4.0/24      10.0.23.2                              0 3 i 
+ *>  192.168.1.1/32   10.0.12.1                0             0 1 i 
+R2# 
+ 
+R2#show ip bgp 192.168.1.1 255.255.255.255 
+BGP routing table entry for 192.168.1.1/32, version 16 
+Paths: (1 available, best #1, table default, not advertised to any peer) 
+  Not advertised to any peer 
+  Refresh Epoch 1 
+  1 
+    10.0.12.1 from 10.0.12.1 (1.1.1.1) 
+      Origin IGP, metric 0, localpref 100, valid, external, best 
+      Community: no-advertise 
+      rx pathid: 0, tx pathid: 0x0 
+ 
+R3#show ip bgp 
+BGP table version is 15, local router ID is 3.3.3.3 
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal, 
+              r RIB-failure, S Stale, m multipath, b backup-path, f RT-Filter, 
+              x best-external, a additional-path, c RIB-compressed, 
+Origin codes: i - IGP, e - EGP, ? - incomplete 
+RPKI validation codes: V valid, I invalid, N Not found 
+ 
+     Network          Next Hop            Metric LocPrf Weight Path 
+ *   10.1.1.0/24      10.0.23.1                              0 2 1 i 
+ *>                   10.0.13.1                0             0 1 i 
+ *   10.2.2.0/24      10.0.13.1                              0 1 2 i 
+ *>                   10.0.23.1                0             0 2 i 
+ *>  10.3.3.0/24      0.0.0.0                  0         32768 i 
+ *>i 10.4.4.0/24      10.0.34.2                0    100      0 i 
+ *>  172.16.1.1/32    10.0.13.1                0             0 1 i 
+R3# 
+ 
+R3#show ip bgp 172.16.1.1 255.255.255.255 
+BGP routing table entry for 172.16.1.1/32, version 14 
